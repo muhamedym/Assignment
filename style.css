@@ -1,0 +1,102 @@
+/* Base page styling */
+body {
+  background-color: #f7f5fc; /* Sets a light background to soften the page */
+  font-family: 'Arial', sans-serif; /* Uses a clean, easy-to-read font */
+  margin: 0; /* Removes default browser margin for full-width layout */
+  padding: 0; /* Removes default browser padding for consistent spacing */
+  display: flex; /* Centers the card horizontally */
+  justify-content: center; /* Aligns the card to the center horizontally */
+  min-height: 100vh; /* Ensures the page covers full viewport height */
+  align-items: center; /* Aligns the card to the center vertically */
+}
+
+/* Wrapper to constrain content width */
+.page {
+  width: 100%; /* Allows the container to adapt to different screen sizes */
+  padding: 20px; /* Adds breathing room around the card */
+  box-sizing: border-box; /* Includes padding within the element's width */
+}
+
+/* Card that holds the offer and form */
+.offer-card {
+  background-color: #ffffff; /* Uses white to make the content pop */
+  max-width: 480px; /* Prevents the card from stretching too wide */
+  margin: 0 auto; /* Centers the card within the page */
+  border-radius: 10px; /* Softens the card edges */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Adds a gentle shadow for depth */
+  padding: 28px; /* Creates space inside the card */
+}
+
+/* Heading styling */
+.offer-heading {
+  color: #471869; /* Sets the heading to the brand purple */
+  font-size: 24px; /* Makes the heading prominent */
+  margin: 0 0 12px; /* Adds spacing below the heading */
+  line-height: 1.3; /* Improves readability across lines */
+}
+
+/* Paragraph styling */
+.offer-copy {
+  color: #3a3550; /* Uses a dark neutral for easy reading */
+  font-size: 16px; /* Sets a friendly paragraph size */
+  margin: 0 0 20px; /* Separates the paragraph from the form */
+  line-height: 1.6; /* Increases space between lines for clarity */
+}
+
+/* Form layout */
+.signup-form {
+  display: flex; /* Places input and button on the same line on wide screens */
+  flex-direction: column; /* Stacks items vertically by default */
+  gap: 12px; /* Adds uniform spacing between elements */
+}
+
+/* Hidden label for accessibility */
+.sr-only {
+  position: absolute; /* Removes the label from normal flow */
+  left: -9999px; /* Moves the label far off-screen */
+}
+
+/* Email input styling */
+.signup-form input[type="email"] {
+  padding: 12px 14px; /* Adds space inside the input for comfortable typing */
+  border: 1px solid #d4cfe8; /* Sets a subtle border to outline the input */
+  border-radius: 6px; /* Rounds the corners for a friendly look */
+  font-size: 15px; /* Keeps the input text clear and readable */
+  box-sizing: border-box; /* Ensures padding stays within the input width */
+  transition: border-color 0.2s ease; /* Smoothly highlights border on focus */
+}
+
+/* Focus state for the input */
+.signup-form input[type="email"]:focus {
+  border-color: #471869; /* Highlights the border with brand color when active */
+  outline: none; /* Removes default outline for a cleaner look */
+}
+
+/* Button styling */
+.signup-form button {
+  background-color: #471869; /* Uses brand purple for the button background */
+  color: #ffffff; /* Makes the button text stand out */
+  border: none; /* Removes default button border */
+  padding: 12px 16px; /* Adds comfortable clickable area */
+  border-radius: 6px; /* Rounds the button corners */
+  font-size: 16px; /* Sets the text size for readability */
+  cursor: pointer; /* Shows a pointer to indicate clickability */
+  transition: transform 0.15s ease, box-shadow 0.15s ease; /* Animates hover effects smoothly */
+}
+
+/* Button hover effect */
+.signup-form button:hover {
+  transform: translateY(-1px); /* Slightly lifts the button on hover */
+  box-shadow: 0 6px 14px rgba(71, 24, 105, 0.25); /* Adds a gentle shadow to emphasize hover */
+}
+
+/* Responsive tweak for wider screens */
+@media (min-width: 520px) {
+  .signup-form {
+    flex-direction: row; /* Places input and button side by side on larger screens */
+  }
+
+  .signup-form input[type="email"] {
+    flex: 1; /* Lets the input grow to fill remaining space */
+  }
+}
