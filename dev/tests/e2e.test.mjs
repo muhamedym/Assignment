@@ -49,20 +49,29 @@ async function setMode(page, mode, length) {
 const browser = await chromium.launch({ headless: true });
 console.log("IELTS Spelling Dictation — end-to-end tests\n");
 
-await test("vocabulary: 80 correct spellings from the 4 tables, no earlier misspellings, no duplicates", async () => {
+await test("vocabulary: 80 document words + 369 high-frequency listening words from the 4 tables, no earlier misspellings, no duplicates", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
-  assert.equal(v.length, 80);
+  assert.equal(v.length, 449);
   const counts = {}; for (const x of v) counts[x.cat] = (counts[x.cat] || 0) + 1;
-  assert.deepEqual(counts, { personal: 15, listening: 25, task1: 20, task2: 20 });
+  assert.deepEqual(counts, { personal: 15, listening: 25, task1: 20, task2: 20, hf: 369 });
   const words = v.map((x) => x.word.toLowerCase());
   assert.equal(new Set(words).size, words.length, "duplicates found");
+  const hf = v.filter((x) => x.cat === "hf");
+  for (const w of ["librarian", "catalog", "alumni", "alumnus", "waiter", "waitress", "anesthetist", "plow through", "call on someone",
+    "join someone for dinner", "have no match for", "dropout", "stationery", "landlady", "fridge", "air conditioner", "SARS", "go Dutch"])
+    assert.ok(hf.some((x) => x.word === w), "high-frequency word missing: " + w);
+  for (const bad of ["catalogue", "anaesthetist", "plough through", "call on sb.", "alumni/alumnus", "have no match for…"])
+    assert.ok(!words.includes(bad), "uncleaned entry kept: " + bad);
+  assert.ok(!hf.some((x) => ["receipt", "professor", "opportunity", "apartment", "maintenance"].includes(x.word)), "duplicate of an existing word");
+  assert.equal(hf.find((x) => x.word === "librarian").group, "School › Library");
+  assert.match(hf.find((x) => x.word === "stationery").context, /paper and pens/);
   for (const bad of EARLIER) assert.ok(!words.includes(bad), "earlier misspelling included: " + bad);
   for (const w of ["expenditure", "necessarily", "colorful", "accommodation", "questionnaire", "remain stable", "respectively", "although", "Wednesday"])
     assert.ok(v.some((x) => x.word === w), "missing " + w);
   for (const bad of ["Correct spelling", "Word or phrase", "Word", "Remember", "Example"]) assert.ok(!v.some((x) => x.word === bad), "header leaked: " + bad);
-  assert.ok(!v.some((x) => /[.]/.test(x.word) || x.word.split(" ").length > 2), "an example sentence leaked into answers");
+  assert.ok(!v.some((x) => /[.…/；]/.test(x.word) || x.word.split(" ").length > 5), "a sentence or unsplit entry leaked into answers");
   assert.ok(!words.some((w) => /colour|behaviour|centre/.test(w)), "UK spelling present");
   const exp = v.find((x) => x.word === "expenditure");
   assert.equal(exp.hint, "expend + iture");
@@ -77,9 +86,11 @@ await test("answer checking ignores case and extra spaces but not letters or end
   const r = await page.evaluate(() => {
     const c = window.__ielts.isCorrect;
     return [c("  Remain   STABLE ", "remain stable"), c("wednesday", "Wednesday"), c("remain stables", "remain stable"),
-      c("steadly", "steadily"), c("increased", "increase"), c("remainstable", "remain stable"), c("colour", "colorful")];
+      c("steadly", "steadily"), c("increased", "increase"), c("remainstable", "remain stable"), c("colour", "colorful"),
+      c("full time job", "full-time job"), c("fulltime job", "full-time job"), c("hard-working", "hardworking"), c("ful-time job", "full-time job"),
+      c("hitch hike", "hitchhike"), c("roundtrip", "round-trip"), c("round trip", "round-trip")];
   });
-  assert.deepEqual(r, [true, true, false, false, false, false, false]);
+  assert.deepEqual(r, [true, true, false, false, false, false, false, true, true, true, false, false, true, true]);
   await ctx.close();
 });
 
@@ -322,7 +333,7 @@ await test("default session is 10 mixed words, prioritising missed + personal wo
   assert.ok(r.every((x) => x.n === 10 && x.uniq === 10), "wrong length or repeated word");
   assert.ok(r.every((x) => x.missed), "missed words not prioritised");
   assert.ok(r.every((x) => x.prio === 6), "priority share is not 6/10");
-  assert.ok(r.every((x) => x.cats === 4), "other categories not included");
+  assert.ok(r.every((x) => x.cats === 5), "other categories not included");
   assert.ok(new Set(r.map((x) => x.first)).size > 20, "order not randomised");
   await page.click("#btnStart");
   await waitSpoken(page, 1);
@@ -393,7 +404,7 @@ await test("vocabulary: add, edit, CSV/TXT import with duplicates skipped, list 
   await page.keyboard.press("Enter");
   assert.match(await page.textContent("#vocabMsg"), /Added “meteorology”/);
   const csv = path.join(tmp, "words.csv");
-  fs.writeFileSync(csv, 'word,category,group,hint,example\nperseverance,Personal,,"ere, not ear",\naccommodation,listening,,,\n"remain stable",task1,,,\nb@d,listening,,,\nhypothesis,Writing Task 2,Science,,"test the hypothesis"\n');
+  fs.writeFileSync(csv, 'word,category,group,hint,example\nmeticulous,Personal,,"ends in ous",\naccommodation,listening,,,\n"remain stable",task1,,,\nb@d,listening,,,\nhypothesis,Writing Task 2,Science,,"test the hypothesis"\n');
   await page.setInputFiles("#vocabFile", csv);
   await page.waitForFunction(() => /Added 2 words/.test(document.querySelector("#vocabMsg").textContent));
   assert.match(await page.textContent("#vocabMsg"), /Skipped 2 duplicates/);
@@ -403,9 +414,9 @@ await test("vocabulary: add, edit, CSV/TXT import with duplicates skipped, list 
   await page.setInputFiles("#vocabFile", txt);
   await page.waitForFunction(() => /Added 2 words/.test(document.querySelector("#vocabMsg").textContent));
   const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
-  assert.equal(v.length, 85);
-  assert.equal(v.find((x) => x.word === "perseverance").cat, "personal");
-  assert.equal(v.find((x) => x.word === "perseverance").hint, "ere, not ear");
+  assert.equal(v.length, 454);
+  assert.equal(v.find((x) => x.word === "meticulous").cat, "personal");
+  assert.equal(v.find((x) => x.word === "meticulous").hint, "ends in ous");
   assert.equal(v.find((x) => x.word === "hypothesis").cat, "task2");
   assert.equal(v.find((x) => x.word === "photosynthesis").cat, "custom");
   await page.click("#btnShowVocab");
@@ -459,6 +470,55 @@ await test("missed word clears after two later first-try successes", async () =>
     await page.click("#tab-practice");
   }
   assert.equal(await page.evaluate(() => Object.keys(window.__ielts.data.missed).length), 0);
+  await ctx.close();
+});
+
+
+await test("Submit button works with the mouse alone: answer, correction and next word", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  await setMode(page, "hf", 5);
+  await page.uncheck("#autoAdvance");
+  await page.click("#btnStart");
+  await waitSpoken(page, 2);
+  assert.match(await page.textContent("#qcat"), /378 High Frequency Words in IELTS Listening/);
+  assert.equal(await page.textContent("#btnSubmit"), "Submit ⏎");
+  const w = (await current(page)).word;
+  await page.click("#btnSubmit"); // empty: nothing happens
+  assert.match(await page.textContent("#qnum"), /Question 1 of 5/);
+  await page.fill("#answer", misspell(w));
+  await page.click("#btnSubmit");
+  assert.match(await page.textContent("#feedback"), /Not quite/);
+  assert.equal(await page.textContent("#btnSubmit"), "Submit correction ⏎");
+  assert.equal(await page.evaluate(() => document.activeElement.id), "answer", "Submit took focus away from the answer box");
+  await page.fill("#answer", w);
+  await page.click("#btnSubmit");
+  assert.match(await page.textContent("#feedback"), /corrected/);
+  assert.equal(await page.textContent("#btnSubmit"), "Next word ⏎");
+  await page.click("#btnSubmit");
+  assert.match(await page.textContent("#qnum"), /Question 2 of 5/);
+  assert.equal(await page.textContent("#btnSubmit"), "Submit ⏎");
+  assert.equal((await sess(page)).rounds[0].results[0].correct, false);
+  await ctx.close();
+});
+
+await test("someone who had already edited their word list still gets the new high-frequency words", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  // Simulate data saved by the earlier version: edited 80-word list with one word deleted, no seenBuiltin.
+  await page.evaluate(() => {
+    const old = window.__ielts.poolFor("mixed").filter((x) => x.cat !== "hf" && x.word !== "autumn");
+    old.push({ id: "c-1", word: "meteorology", cat: "custom" });
+    localStorage.setItem("ieltsDictation.data.v1", JSON.stringify({ vocab: old, history: [], missed: {}, settings: {} }));
+  });
+  await page.reload();
+  const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
+  assert.equal(v.filter((x) => x.cat === "hf").length, 369);
+  assert.ok(v.some((x) => x.word === "meteorology"), "custom word lost");
+  assert.ok(!v.some((x) => x.word === "autumn"), "deleted word came back");
+  await page.reload();
+  assert.equal(await page.evaluate(() => window.__ielts.poolFor("mixed").length), v.length, "words added twice");
   await ctx.close();
 });
 

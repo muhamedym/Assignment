@@ -1,0 +1,396 @@
+# "378 High Frequency Words in IELTS Listening", as supplied by the user.
+# "== " = topic, "-- " = sub-topic, other lines = entries. Cleaned by build_listening_hf.py.
+== School
+-- Library
+Shelf
+Librarian
+The stacks
+Return
+Fine
+Magazine
+Copier
+Overdue
+Reading room
+Reference room
+Periodical room
+Study lounge
+Catalogue
+Index
+Keyword
+Volume
+Library card
+Book reservation
+Periodical
+Quarterly
+Back issue
+Current issue
+Latest number
+Writing permission
+Check out
+Put on reserve
+-- Student
+Freshman
+Sophomore
+Junior student
+Senior student
+Bachelor
+Master
+Doctoral candidate
+Alumni/alumnus
+Post doctorate
+-- Teacher
+Lecturer
+Associate professor
+Supervisor
+Professor
+Dean
+Teaching assistant
+-- Courses
+Take the course
+Credit
+Register
+Drop the course
+Introductory course
+Advanced course
+Rank
+Syllabus
+Curriculum
+Seminar
+Elective/optional course
+Compulsory course
+Drop-out
+Makeup exam
+Psychology course
+Physics
+Computer course
+Computer science
+-- Reading & Books
+Book review
+Novel
+Press
+Publisher
+Publication
+Biography
+Editorial
+Extra copy
+Paperback edition
+Out of print
+Read selectively
+Get through a novel
+Be addicted to the book
+Plough through
+Read extensively
+-- After Class
+Devote to
+Run for
+Candidate
+Vote
+Conflict
+Election campaign
+Campaign manager
+Participant
+The student’s union
+Chairman
+Speech contest
+Enroll in
+Sign up for
+== Daily Life
+-- Shopping
+Convenience store
+Department store
+Mall
+Chain store
+Shopping list
+Supermarket
+Family size
+Receipt
+Outlet
+On sale
+Sell out
+Grocery store
+Out of stock
+In stock
+Customer
+Complaint
+Deliver
+Counter
+Closing time
+Balance
+Luxurious items
+Electronic product
+Stationery
+Digital video camera
+Past the prime
+-- Living in a house
+Housework
+Electric cooker
+Laundry
+Iron
+Vacuum cleaner
+Housemaid
+Housekeeper
+Housewife
+Keep an eye on
+Household expenses
+Keep down the cost
+Fix the dinner
+Budget
+In a mess
+Economical
+-- Daily Interaction
+Leisure time
+Telephone booth
+Date
+Pay phone
+Call on sb.
+Long-distance call
+Take a message
+Hang up
+Keep contact
+Hold on
+Hospitable
+== Business
+-- Looking for a job
+Job hunting
+Inexperienced
+Opportunity
+Want ads
+Unemployment
+Position
+Wage
+Opening/vacancy
+Full-time job
+Part-time job
+Inquiry
+Do odd jobs
+Consult
+Resume
+Application letter
+Fire
+Hire
+Recruit
+Interview
+Job-hopping
+Interviewee
+Take over
+Interviewer
+Appointment
+Impression
+Confident
+Turn down
+Have no match for…
+-- Working in a business
+On business
+Be involved in
+Appointment
+In charge of
+Client
+Compromise
+Get along with
+Proposal
+Assistance
+Branch
+Cooperation
+Transaction
+Bid
+Transfer
+-- Business Attitude
+Attitude
+Personality
+Overwork
+Determined
+Forgetful
+Diligent
+Wear out
+Perseverance
+Hang on
+Workaholic
+Workload
+Struggle
+Continuous exploration
+Hard-working
+-- Work Performance
+Recognition
+Tribute
+Achievement
+Pioneer
+Contribution
+Blaze a trail
+Symbol
+Legend
+== Entertainment
+-- Art & Culture
+Napkin
+Beverage
+Gardening
+Excursion
+Performance
+TV channels
+Horror movie
+Broadcast
+Live broadcast
+Documentary
+Violence movie
+Commercial advertisement
+Entertainment industry
+TV theater
+-- Eating Out
+Waiter/waitress
+Pork
+Beef steak
+Menu
+Raw
+Medium
+Done
+Dessert
+Snack
+Join sb. for dinner
+Appetizer
+Make a reservation
+Cutlery
+Loaf
+Buffet
+Staple
+Go dutch
+Regular dinner
+Mutton
+Change
+== Personal Well-being
+-- Illness
+Epidemic
+Sore throat
+Bird flu
+Runny nose
+SARS
+Stomachache
+Infectious illness
+Toothache
+Symptom
+Allergy
+Sneeze
+Fracture
+Diabetes
+Have a temperature
+Dental decay
+-- Hospital & Doctors
+Attending/chief doctor；physician；consultant
+Infirmary
+Physician
+Surgeon
+Clinic
+Anaesthetist
+-- Exercise
+Put on weight
+Watch your diet
+Overweight
+On diet
+Lose weight
+Physical exercise
+-- Personal Health
+In good shape
+In a fit state
+Out of shape
+Fit as a fiddle
+In poor shape
+Feel under the weather
+== Traveling
+Travel agency
+Flight number
+Check in
+Motel
+Book the ticket
+Platform
+Hiking
+Hitch-hike
+Conductor
+Skiing
+Mineral bath
+Streetcar
+Resort
+Visa
+Express train
+High-speed train
+Shuttle
+Ferry
+Tube/underground
+Expressway/freeway
+Roundtrip
+== Trending Topics
+Prosperous
+Decline
+Depression
+Recession
+Collapse
+Bankrupt
+Monetary
+Circulation
+Financier
+Surplus
+Inflation
+Deflation
+Economic crisis
+Potential
+Cyberspace
+Multimedia
+Hacker
+Server
+== Weather
+Recycled water
+Renewable energy
+Sewage treatment
+Recyclable
+Deforestation rate
+Water and soil erosion
+Temperature
+Muggy
+Humidity
+Breeze
+Climate trend
+Climate variation
+Climate warming
+Climate watch
+Climate-sensitive activity
+Climatic anomaly
+Conservation area
+Forecast
+Downpour
+Gust
+== Housing & Moving
+-- Housing
+Landlord/landlady
+Ventilation
+Tenant
+Accommodate
+Apartment/flat
+Dwell
+Residence
+Downtown
+Hallway
+Suburb
+Spare room
+Neighborhood
+Burglar
+Transportation
+House-warming party
+Subway entrance
+-- Decoration & Repair
+Furnished
+Crack
+Unfurnished
+Install
+Baby crib
+Maintenance
+Decoration
+Plumber
+Multiple glazing
+Washing machine
+Cupboard
+Refrigerator/fridge
+Sideboard
+Light bulb
+Sink
+Heater
+Pipe
+Furnace
+Leak
+Air conditioner

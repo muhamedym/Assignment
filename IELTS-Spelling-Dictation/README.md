@@ -6,7 +6,7 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 
 | File | What it is |
 |---|---|
-| `IELTS-Spelling-Dictation.html` | The whole app (the 80 built-in words are inside it) |
+| `IELTS-Spelling-Dictation.html` | The whole app (all 449 built-in words are inside it) |
 | `Start IELTS Dictation.bat` | Optional launcher for Edge/Chrome (blocked when Smart App Control is on; open the .html instead) |
 | `sample-vocabulary.csv` | Example file showing the format for importing your own words |
 | `README.md` | This file |
@@ -31,9 +31,9 @@ Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Wind
 
 ## How a session works
 
-1. Choose a mode (Mixed, Personal spelling priorities, Listening, Writing Task 1, Writing Task 2, Previously missed words) and the number of words. The default is 10.
+1. Choose a mode (Mixed, Personal spelling priorities, Listening, 378 High Frequency Words in IELTS Listening, Writing Task 1, Writing Task 2, Previously missed words) and the number of words. The default is 10.
 2. Each word is read twice with a short pause. It is never shown or spelled before you answer.
-3. Type it and press **Enter**. Capital letters and extra spaces are ignored. Wrong letters and endings are not.
+3. Type it and press **Enter**, or click the **Submit** button. Capital letters and extra spaces are ignored, and hyphens are optional because you can't hear them (*full-time*, *full time* and *fulltime* are all accepted). Wrong letters and endings are not.
 4. **Correct:** you see a ✓ and the next word starts automatically (you can switch this off; then press Enter).
 5. **Incorrect:** you see your answer and the correct spelling. Differences are marked with colour plus symbols (≠ wrong letter, ^ missing letter, + extra letter) and listed in words. Type the correct spelling and press Enter to continue. The word **still counts as incorrect**.
 6. At the end you get your score (first answers only). Press **Enter** to retest just the words you missed. The retest has its own separate score.
@@ -42,13 +42,13 @@ The **Mixed** session fills about 60% of the words from your previously missed w
 
 A missed word leaves the "Previously missed words" list after you spell it right on the first try in **two** later sessions.
 
-Two sound-alike words get a short spoken meaning after the two readings: *principle* ("as in, a basic rule or belief", so you don't write *principal*) and *peak*. You can switch this off in Audio settings.
+Sound-alike words get a short spoken meaning after the two readings, for example *principle* ("as in, a basic rule or belief", so you don't write *principal*), *stationery* ("as in, paper and pens") and *dessert*. You can switch this off in Audio settings.
 
 ## Keyboard shortcuts
 
 | Key | Action |
 |---|---|
-| **Enter** | Submit answer / submit correction / next word / start retest / resume |
+| **Enter** or the **Submit** button | Submit answer / submit correction / next word / start retest / resume |
 | **Alt + R** | Repeat the word (any speech already playing stops first, so presses never overlap or queue) |
 | **Alt + S** | Repeat the word slowly |
 | **Esc** or **Alt + P** | Pause / resume (your place and anything you typed are kept) |
@@ -58,12 +58,20 @@ Switching to another tab during a session pauses it. If you close the browser mi
 
 ## Your vocabulary
 
-The 80 words from *IELTS Essential Spelling and Vocabulary* are built in:
+449 words are built in. The first 80 come from *IELTS Essential Spelling and Vocabulary*:
 
 - **Personal spelling priorities:** 15 words, from the "Correct spelling" column
 - **Listening:** 25 words, from the "Correct spelling" column
 - **Writing Task 1:** 20 words or phrases, from the "Word or phrase" column
 - **Writing Task 2:** 20 words, from the "Word" column
+
+Plus **378 High Frequency Words in IELTS Listening:** 369 words and phrases, grouped by topic (School › Library, Daily Life › Shopping, and so on). The list has 364 lines. To make each answer one clear US spelling:
+- "A/B" entries became separate words (*waiter*, *waitress*; *refrigerator*, *fridge*).
+- UK spellings changed to US (*catalog*, *anesthetist*, *plow through*).
+- "sb." became "someone" (*call on someone*).
+- 7 words already in the app were skipped as duplicates.
+
+After you answer, the feedback shows how the entry was originally written.
 
 "Your earlier spelling", headings and examples are never used as answers. The memory hints, topics and examples are shown *after* you answer.
 
@@ -71,7 +79,7 @@ In the **Vocabulary** tab you can add, edit and delete words, import a file, exp
 
 **Import format**
 
-- **CSV:** `word,category,group,hint,example`. The header row is optional. Category can be `personal`, `listening`, `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
+- **CSV:** `word,category,group,hint,example`. The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
 - **TXT:** one word or phrase per line.
 - Duplicates are skipped. Use US spelling.
 

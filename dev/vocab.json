@@ -550,5 +550,2271 @@
   "cat": "task2",
   "group": "Contrast",
   "example": "Although it is expensive, it is useful."
+ },
+ {
+  "id": "h-shelf",
+  "word": "shelf",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-librarian",
+  "word": "librarian",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-the-stacks",
+  "word": "the stacks",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-return",
+  "word": "return",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-fine",
+  "word": "fine",
+  "cat": "hf",
+  "group": "School › Library",
+  "context": "fine, as in, money you pay as a penalty"
+ },
+ {
+  "id": "h-magazine",
+  "word": "magazine",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-copier",
+  "word": "copier",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-overdue",
+  "word": "overdue",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-reading-room",
+  "word": "reading room",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-reference-room",
+  "word": "reference room",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-periodical-room",
+  "word": "periodical room",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-study-lounge",
+  "word": "study lounge",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-catalog",
+  "word": "catalog",
+  "cat": "hf",
+  "group": "School › Library",
+  "hint": "Listed as “Catalogue”"
+ },
+ {
+  "id": "h-index",
+  "word": "index",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-keyword",
+  "word": "keyword",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-volume",
+  "word": "volume",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-library-card",
+  "word": "library card",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-book-reservation",
+  "word": "book reservation",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-periodical",
+  "word": "periodical",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-quarterly",
+  "word": "quarterly",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-back-issue",
+  "word": "back issue",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-current-issue",
+  "word": "current issue",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-latest-number",
+  "word": "latest number",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-writing-permission",
+  "word": "writing permission",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-check-out",
+  "word": "check out",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-put-on-reserve",
+  "word": "put on reserve",
+  "cat": "hf",
+  "group": "School › Library"
+ },
+ {
+  "id": "h-freshman",
+  "word": "freshman",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-sophomore",
+  "word": "sophomore",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-junior-student",
+  "word": "junior student",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-senior-student",
+  "word": "senior student",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-bachelor",
+  "word": "bachelor",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-master",
+  "word": "master",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-doctoral-candidate",
+  "word": "doctoral candidate",
+  "cat": "hf",
+  "group": "School › Student"
+ },
+ {
+  "id": "h-alumni",
+  "word": "alumni",
+  "cat": "hf",
+  "group": "School › Student",
+  "hint": "Listed as “Alumni/alumnus”"
+ },
+ {
+  "id": "h-alumnus",
+  "word": "alumnus",
+  "cat": "hf",
+  "group": "School › Student",
+  "hint": "Listed as “Alumni/alumnus”"
+ },
+ {
+  "id": "h-post-doctorate",
+  "word": "post-doctorate",
+  "cat": "hf",
+  "group": "School › Student",
+  "hint": "Listed as “Post doctorate”"
+ },
+ {
+  "id": "h-lecturer",
+  "word": "lecturer",
+  "cat": "hf",
+  "group": "School › Teacher"
+ },
+ {
+  "id": "h-associate-professor",
+  "word": "associate professor",
+  "cat": "hf",
+  "group": "School › Teacher"
+ },
+ {
+  "id": "h-supervisor",
+  "word": "supervisor",
+  "cat": "hf",
+  "group": "School › Teacher"
+ },
+ {
+  "id": "h-dean",
+  "word": "dean",
+  "cat": "hf",
+  "group": "School › Teacher"
+ },
+ {
+  "id": "h-teaching-assistant",
+  "word": "teaching assistant",
+  "cat": "hf",
+  "group": "School › Teacher"
+ },
+ {
+  "id": "h-take-the-course",
+  "word": "take the course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-credit",
+  "word": "credit",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-register",
+  "word": "register",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-drop-the-course",
+  "word": "drop the course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-introductory-course",
+  "word": "introductory course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-advanced-course",
+  "word": "advanced course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-rank",
+  "word": "rank",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-syllabus",
+  "word": "syllabus",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-curriculum",
+  "word": "curriculum",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-seminar",
+  "word": "seminar",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-elective-course",
+  "word": "elective course",
+  "cat": "hf",
+  "group": "School › Courses",
+  "hint": "Listed as “Elective/optional course”"
+ },
+ {
+  "id": "h-optional-course",
+  "word": "optional course",
+  "cat": "hf",
+  "group": "School › Courses",
+  "hint": "Listed as “Elective/optional course”"
+ },
+ {
+  "id": "h-compulsory-course",
+  "word": "compulsory course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-dropout",
+  "word": "dropout",
+  "cat": "hf",
+  "group": "School › Courses",
+  "hint": "Listed as “Drop-out”"
+ },
+ {
+  "id": "h-makeup-exam",
+  "word": "makeup exam",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-psychology-course",
+  "word": "psychology course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-physics",
+  "word": "physics",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-computer-course",
+  "word": "computer course",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-computer-science",
+  "word": "computer science",
+  "cat": "hf",
+  "group": "School › Courses"
+ },
+ {
+  "id": "h-book-review",
+  "word": "book review",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-novel",
+  "word": "novel",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-press",
+  "word": "press",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-publisher",
+  "word": "publisher",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-publication",
+  "word": "publication",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-biography",
+  "word": "biography",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-editorial",
+  "word": "editorial",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-extra-copy",
+  "word": "extra copy",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-paperback-edition",
+  "word": "paperback edition",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-out-of-print",
+  "word": "out of print",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-read-selectively",
+  "word": "read selectively",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-get-through-a-novel",
+  "word": "get through a novel",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-be-addicted-to-the-book",
+  "word": "be addicted to the book",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-plow-through",
+  "word": "plow through",
+  "cat": "hf",
+  "group": "School › Reading & Books",
+  "hint": "Listed as “Plough through”"
+ },
+ {
+  "id": "h-read-extensively",
+  "word": "read extensively",
+  "cat": "hf",
+  "group": "School › Reading & Books"
+ },
+ {
+  "id": "h-devote-to",
+  "word": "devote to",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-run-for",
+  "word": "run for",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-candidate",
+  "word": "candidate",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-vote",
+  "word": "vote",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-conflict",
+  "word": "conflict",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-election-campaign",
+  "word": "election campaign",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-campaign-manager",
+  "word": "campaign manager",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-participant",
+  "word": "participant",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-student-union",
+  "word": "student union",
+  "cat": "hf",
+  "group": "School › After Class",
+  "hint": "Listed as “The student's union”"
+ },
+ {
+  "id": "h-chairman",
+  "word": "chairman",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-speech-contest",
+  "word": "speech contest",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-enroll-in",
+  "word": "enroll in",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-sign-up-for",
+  "word": "sign up for",
+  "cat": "hf",
+  "group": "School › After Class"
+ },
+ {
+  "id": "h-convenience-store",
+  "word": "convenience store",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-department-store",
+  "word": "department store",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-mall",
+  "word": "mall",
+  "cat": "hf",
+  "group": "Daily Life › Shopping",
+  "context": "mall, as in, a shopping center"
+ },
+ {
+  "id": "h-chain-store",
+  "word": "chain store",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-shopping-list",
+  "word": "shopping list",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-supermarket",
+  "word": "supermarket",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-family-size",
+  "word": "family size",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-outlet",
+  "word": "outlet",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-on-sale",
+  "word": "on sale",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-sell-out",
+  "word": "sell out",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-grocery-store",
+  "word": "grocery store",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-out-of-stock",
+  "word": "out of stock",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-in-stock",
+  "word": "in stock",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-customer",
+  "word": "customer",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-complaint",
+  "word": "complaint",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-deliver",
+  "word": "deliver",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-counter",
+  "word": "counter",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-closing-time",
+  "word": "closing time",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-balance",
+  "word": "balance",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-luxurious-items",
+  "word": "luxurious items",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-electronic-product",
+  "word": "electronic product",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-stationery",
+  "word": "stationery",
+  "cat": "hf",
+  "group": "Daily Life › Shopping",
+  "context": "stationery, as in, paper and pens"
+ },
+ {
+  "id": "h-digital-video-camera",
+  "word": "digital video camera",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-past-the-prime",
+  "word": "past the prime",
+  "cat": "hf",
+  "group": "Daily Life › Shopping"
+ },
+ {
+  "id": "h-housework",
+  "word": "housework",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-electric-cooker",
+  "word": "electric cooker",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-laundry",
+  "word": "laundry",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-iron",
+  "word": "iron",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-vacuum-cleaner",
+  "word": "vacuum cleaner",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-housemaid",
+  "word": "housemaid",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-housekeeper",
+  "word": "housekeeper",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-housewife",
+  "word": "housewife",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-keep-an-eye-on",
+  "word": "keep an eye on",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-household-expenses",
+  "word": "household expenses",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-keep-down-the-cost",
+  "word": "keep down the cost",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-fix-the-dinner",
+  "word": "fix the dinner",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-budget",
+  "word": "budget",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-in-a-mess",
+  "word": "in a mess",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-economical",
+  "word": "economical",
+  "cat": "hf",
+  "group": "Daily Life › Living in a house"
+ },
+ {
+  "id": "h-leisure-time",
+  "word": "leisure time",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-telephone-booth",
+  "word": "telephone booth",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-date",
+  "word": "date",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction",
+  "context": "date, as in, a day on the calendar"
+ },
+ {
+  "id": "h-pay-phone",
+  "word": "pay phone",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-call-on-someone",
+  "word": "call on someone",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction",
+  "hint": "Listed as “Call on sb.”"
+ },
+ {
+  "id": "h-long-distance-call",
+  "word": "long-distance call",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-take-a-message",
+  "word": "take a message",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-hang-up",
+  "word": "hang up",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-keep-contact",
+  "word": "keep contact",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-hold-on",
+  "word": "hold on",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-hospitable",
+  "word": "hospitable",
+  "cat": "hf",
+  "group": "Daily Life › Daily Interaction"
+ },
+ {
+  "id": "h-job-hunting",
+  "word": "job hunting",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-inexperienced",
+  "word": "inexperienced",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-want-ads",
+  "word": "want ads",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-unemployment",
+  "word": "unemployment",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-position",
+  "word": "position",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-wage",
+  "word": "wage",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-opening",
+  "word": "opening",
+  "cat": "hf",
+  "group": "Business › Looking for a job",
+  "hint": "Listed as “Opening/vacancy”"
+ },
+ {
+  "id": "h-vacancy",
+  "word": "vacancy",
+  "cat": "hf",
+  "group": "Business › Looking for a job",
+  "hint": "Listed as “Opening/vacancy”"
+ },
+ {
+  "id": "h-full-time-job",
+  "word": "full-time job",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-part-time-job",
+  "word": "part-time job",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-inquiry",
+  "word": "inquiry",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-do-odd-jobs",
+  "word": "do odd jobs",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-consult",
+  "word": "consult",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-resume",
+  "word": "resume",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-application-letter",
+  "word": "application letter",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-fire",
+  "word": "fire",
+  "cat": "hf",
+  "group": "Business › Looking for a job",
+  "context": "fire, as in, to dismiss from a job"
+ },
+ {
+  "id": "h-hire",
+  "word": "hire",
+  "cat": "hf",
+  "group": "Business › Looking for a job",
+  "context": "hire, as in, to employ someone"
+ },
+ {
+  "id": "h-recruit",
+  "word": "recruit",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-interview",
+  "word": "interview",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-job-hopping",
+  "word": "job-hopping",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-interviewee",
+  "word": "interviewee",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-take-over",
+  "word": "take over",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-interviewer",
+  "word": "interviewer",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-appointment",
+  "word": "appointment",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-impression",
+  "word": "impression",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-confident",
+  "word": "confident",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-turn-down",
+  "word": "turn down",
+  "cat": "hf",
+  "group": "Business › Looking for a job"
+ },
+ {
+  "id": "h-have-no-match-for",
+  "word": "have no match for",
+  "cat": "hf",
+  "group": "Business › Looking for a job",
+  "hint": "Listed as “Have no match for…”"
+ },
+ {
+  "id": "h-on-business",
+  "word": "on business",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-be-involved-in",
+  "word": "be involved in",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-in-charge-of",
+  "word": "in charge of",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-client",
+  "word": "client",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-compromise",
+  "word": "compromise",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-get-along-with",
+  "word": "get along with",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-proposal",
+  "word": "proposal",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-assistance",
+  "word": "assistance",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-branch",
+  "word": "branch",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-cooperation",
+  "word": "cooperation",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-transaction",
+  "word": "transaction",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-bid",
+  "word": "bid",
+  "cat": "hf",
+  "group": "Business › Working in a business",
+  "context": "bid, as in, an offer of money"
+ },
+ {
+  "id": "h-transfer",
+  "word": "transfer",
+  "cat": "hf",
+  "group": "Business › Working in a business"
+ },
+ {
+  "id": "h-attitude",
+  "word": "attitude",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-personality",
+  "word": "personality",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-overwork",
+  "word": "overwork",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-determined",
+  "word": "determined",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-forgetful",
+  "word": "forgetful",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-diligent",
+  "word": "diligent",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-wear-out",
+  "word": "wear out",
+  "cat": "hf",
+  "group": "Business › Business Attitude",
+  "context": "wear out, as in, to make very tired"
+ },
+ {
+  "id": "h-perseverance",
+  "word": "perseverance",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-hang-on",
+  "word": "hang on",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-workaholic",
+  "word": "workaholic",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-workload",
+  "word": "workload",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-struggle",
+  "word": "struggle",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-continuous-exploration",
+  "word": "continuous exploration",
+  "cat": "hf",
+  "group": "Business › Business Attitude"
+ },
+ {
+  "id": "h-hardworking",
+  "word": "hardworking",
+  "cat": "hf",
+  "group": "Business › Business Attitude",
+  "hint": "Listed as “Hard-working”"
+ },
+ {
+  "id": "h-recognition",
+  "word": "recognition",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-tribute",
+  "word": "tribute",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-achievement",
+  "word": "achievement",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-pioneer",
+  "word": "pioneer",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-contribution",
+  "word": "contribution",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-blaze-a-trail",
+  "word": "blaze a trail",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-symbol",
+  "word": "symbol",
+  "cat": "hf",
+  "group": "Business › Work Performance",
+  "context": "symbol, as in, a sign that stands for something"
+ },
+ {
+  "id": "h-legend",
+  "word": "legend",
+  "cat": "hf",
+  "group": "Business › Work Performance"
+ },
+ {
+  "id": "h-napkin",
+  "word": "napkin",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-beverage",
+  "word": "beverage",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-gardening",
+  "word": "gardening",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-excursion",
+  "word": "excursion",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-performance",
+  "word": "performance",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-tv-channels",
+  "word": "TV channels",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-horror-movie",
+  "word": "horror movie",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-broadcast",
+  "word": "broadcast",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-live-broadcast",
+  "word": "live broadcast",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-documentary",
+  "word": "documentary",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-violence-movie",
+  "word": "violence movie",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-commercial-advertisement",
+  "word": "commercial advertisement",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-entertainment-industry",
+  "word": "entertainment industry",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-tv-theater",
+  "word": "TV theater",
+  "cat": "hf",
+  "group": "Entertainment › Art & Culture"
+ },
+ {
+  "id": "h-waiter",
+  "word": "waiter",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "hint": "Listed as “Waiter/waitress”"
+ },
+ {
+  "id": "h-waitress",
+  "word": "waitress",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "hint": "Listed as “Waiter/waitress”"
+ },
+ {
+  "id": "h-pork",
+  "word": "pork",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-beef-steak",
+  "word": "beef steak",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-menu",
+  "word": "menu",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-raw",
+  "word": "raw",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "raw, as in, not cooked"
+ },
+ {
+  "id": "h-medium",
+  "word": "medium",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "medium, as in, a steak cooked medium"
+ },
+ {
+  "id": "h-done",
+  "word": "done",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "done, as in, cooked enough"
+ },
+ {
+  "id": "h-dessert",
+  "word": "dessert",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "dessert, as in, sweet food after a meal"
+ },
+ {
+  "id": "h-snack",
+  "word": "snack",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-join-someone-for-dinner",
+  "word": "join someone for dinner",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "hint": "Listed as “Join sb. for dinner”"
+ },
+ {
+  "id": "h-appetizer",
+  "word": "appetizer",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-make-a-reservation",
+  "word": "make a reservation",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-cutlery",
+  "word": "cutlery",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-loaf",
+  "word": "loaf",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-buffet",
+  "word": "buffet",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-staple",
+  "word": "staple",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "staple, as in, basic food"
+ },
+ {
+  "id": "h-go-dutch",
+  "word": "go Dutch",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-regular-dinner",
+  "word": "regular dinner",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-mutton",
+  "word": "mutton",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out"
+ },
+ {
+  "id": "h-change",
+  "word": "change",
+  "cat": "hf",
+  "group": "Entertainment › Eating Out",
+  "context": "change, as in, the coins you get back"
+ },
+ {
+  "id": "h-epidemic",
+  "word": "epidemic",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-sore-throat",
+  "word": "sore throat",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-bird-flu",
+  "word": "bird flu",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-runny-nose",
+  "word": "runny nose",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-sars",
+  "word": "SARS",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-stomachache",
+  "word": "stomachache",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-infectious-illness",
+  "word": "infectious illness",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-toothache",
+  "word": "toothache",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-symptom",
+  "word": "symptom",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-allergy",
+  "word": "allergy",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-sneeze",
+  "word": "sneeze",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-fracture",
+  "word": "fracture",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-diabetes",
+  "word": "diabetes",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-have-a-temperature",
+  "word": "have a temperature",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-dental-decay",
+  "word": "dental decay",
+  "cat": "hf",
+  "group": "Personal Well-being › Illness"
+ },
+ {
+  "id": "h-attending-doctor",
+  "word": "attending doctor",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors",
+  "hint": "Listed as “Attending/chief doctor；physician；consultant”"
+ },
+ {
+  "id": "h-chief-doctor",
+  "word": "chief doctor",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors",
+  "hint": "Listed as “Attending/chief doctor；physician；consultant”"
+ },
+ {
+  "id": "h-physician",
+  "word": "physician",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors",
+  "hint": "Listed as “Attending/chief doctor；physician；consultant”"
+ },
+ {
+  "id": "h-consultant",
+  "word": "consultant",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors",
+  "hint": "Listed as “Attending/chief doctor；physician；consultant”"
+ },
+ {
+  "id": "h-infirmary",
+  "word": "infirmary",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors"
+ },
+ {
+  "id": "h-surgeon",
+  "word": "surgeon",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors"
+ },
+ {
+  "id": "h-clinic",
+  "word": "clinic",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors"
+ },
+ {
+  "id": "h-anesthetist",
+  "word": "anesthetist",
+  "cat": "hf",
+  "group": "Personal Well-being › Hospital & Doctors",
+  "hint": "Listed as “Anaesthetist”"
+ },
+ {
+  "id": "h-put-on-weight",
+  "word": "put on weight",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-watch-your-diet",
+  "word": "watch your diet",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-overweight",
+  "word": "overweight",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-on-diet",
+  "word": "on diet",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-lose-weight",
+  "word": "lose weight",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-physical-exercise",
+  "word": "physical exercise",
+  "cat": "hf",
+  "group": "Personal Well-being › Exercise"
+ },
+ {
+  "id": "h-in-good-shape",
+  "word": "in good shape",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-in-a-fit-state",
+  "word": "in a fit state",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-out-of-shape",
+  "word": "out of shape",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-fit-as-a-fiddle",
+  "word": "fit as a fiddle",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-in-poor-shape",
+  "word": "in poor shape",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-feel-under-the-weather",
+  "word": "feel under the weather",
+  "cat": "hf",
+  "group": "Personal Well-being › Personal Health"
+ },
+ {
+  "id": "h-travel-agency",
+  "word": "travel agency",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-flight-number",
+  "word": "flight number",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-check-in",
+  "word": "check in",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-motel",
+  "word": "motel",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-book-the-ticket",
+  "word": "book the ticket",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-platform",
+  "word": "platform",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-hiking",
+  "word": "hiking",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-hitchhike",
+  "word": "hitchhike",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Hitch-hike”"
+ },
+ {
+  "id": "h-conductor",
+  "word": "conductor",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-skiing",
+  "word": "skiing",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-mineral-bath",
+  "word": "mineral bath",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-streetcar",
+  "word": "streetcar",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-resort",
+  "word": "resort",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-visa",
+  "word": "visa",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-express-train",
+  "word": "express train",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-high-speed-train",
+  "word": "high-speed train",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-shuttle",
+  "word": "shuttle",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-ferry",
+  "word": "ferry",
+  "cat": "hf",
+  "group": "Traveling"
+ },
+ {
+  "id": "h-tube",
+  "word": "tube",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Tube/underground”",
+  "context": "tube, as in, the London underground"
+ },
+ {
+  "id": "h-underground",
+  "word": "underground",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Tube/underground”"
+ },
+ {
+  "id": "h-expressway",
+  "word": "expressway",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Expressway/freeway”"
+ },
+ {
+  "id": "h-freeway",
+  "word": "freeway",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Expressway/freeway”"
+ },
+ {
+  "id": "h-round-trip",
+  "word": "round-trip",
+  "cat": "hf",
+  "group": "Traveling",
+  "hint": "Listed as “Roundtrip”"
+ },
+ {
+  "id": "h-prosperous",
+  "word": "prosperous",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-decline",
+  "word": "decline",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-depression",
+  "word": "depression",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-recession",
+  "word": "recession",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-collapse",
+  "word": "collapse",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-bankrupt",
+  "word": "bankrupt",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-monetary",
+  "word": "monetary",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-circulation",
+  "word": "circulation",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-financier",
+  "word": "financier",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-surplus",
+  "word": "surplus",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-inflation",
+  "word": "inflation",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-deflation",
+  "word": "deflation",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-economic-crisis",
+  "word": "economic crisis",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-potential",
+  "word": "potential",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-cyberspace",
+  "word": "cyberspace",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-multimedia",
+  "word": "multimedia",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-hacker",
+  "word": "hacker",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-server",
+  "word": "server",
+  "cat": "hf",
+  "group": "Trending Topics"
+ },
+ {
+  "id": "h-recycled-water",
+  "word": "recycled water",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-renewable-energy",
+  "word": "renewable energy",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-sewage-treatment",
+  "word": "sewage treatment",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-recyclable",
+  "word": "recyclable",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-deforestation-rate",
+  "word": "deforestation rate",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-water-and-soil-erosion",
+  "word": "water and soil erosion",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-temperature",
+  "word": "temperature",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-muggy",
+  "word": "muggy",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-humidity",
+  "word": "humidity",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-breeze",
+  "word": "breeze",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climate-trend",
+  "word": "climate trend",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climate-variation",
+  "word": "climate variation",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climate-warming",
+  "word": "climate warming",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climate-watch",
+  "word": "climate watch",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climate-sensitive-activity",
+  "word": "climate-sensitive activity",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-climatic-anomaly",
+  "word": "climatic anomaly",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-conservation-area",
+  "word": "conservation area",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-forecast",
+  "word": "forecast",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-downpour",
+  "word": "downpour",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-gust",
+  "word": "gust",
+  "cat": "hf",
+  "group": "Weather"
+ },
+ {
+  "id": "h-landlord",
+  "word": "landlord",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing",
+  "hint": "Listed as “Landlord/landlady”"
+ },
+ {
+  "id": "h-landlady",
+  "word": "landlady",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing",
+  "hint": "Listed as “Landlord/landlady”"
+ },
+ {
+  "id": "h-ventilation",
+  "word": "ventilation",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-tenant",
+  "word": "tenant",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-accommodate",
+  "word": "accommodate",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-flat",
+  "word": "flat",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing",
+  "hint": "Listed as “Apartment/flat”",
+  "context": "flat, as in, an apartment"
+ },
+ {
+  "id": "h-dwell",
+  "word": "dwell",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-residence",
+  "word": "residence",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-downtown",
+  "word": "downtown",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-hallway",
+  "word": "hallway",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-suburb",
+  "word": "suburb",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-spare-room",
+  "word": "spare room",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-neighborhood",
+  "word": "neighborhood",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-burglar",
+  "word": "burglar",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-transportation",
+  "word": "transportation",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-housewarming-party",
+  "word": "housewarming party",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing",
+  "hint": "Listed as “House-warming party”"
+ },
+ {
+  "id": "h-subway-entrance",
+  "word": "subway entrance",
+  "cat": "hf",
+  "group": "Housing & Moving › Housing"
+ },
+ {
+  "id": "h-furnished",
+  "word": "furnished",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-crack",
+  "word": "crack",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-unfurnished",
+  "word": "unfurnished",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-install",
+  "word": "install",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-baby-crib",
+  "word": "baby crib",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-decoration",
+  "word": "decoration",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-plumber",
+  "word": "plumber",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-multiple-glazing",
+  "word": "multiple glazing",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-washing-machine",
+  "word": "washing machine",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-cupboard",
+  "word": "cupboard",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-refrigerator",
+  "word": "refrigerator",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair",
+  "hint": "Listed as “Refrigerator/fridge”"
+ },
+ {
+  "id": "h-fridge",
+  "word": "fridge",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair",
+  "hint": "Listed as “Refrigerator/fridge”"
+ },
+ {
+  "id": "h-sideboard",
+  "word": "sideboard",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-light-bulb",
+  "word": "light bulb",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-sink",
+  "word": "sink",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-heater",
+  "word": "heater",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-pipe",
+  "word": "pipe",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-furnace",
+  "word": "furnace",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
+ },
+ {
+  "id": "h-leak",
+  "word": "leak",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair",
+  "context": "leak, as in, water escaping from a pipe"
+ },
+ {
+  "id": "h-air-conditioner",
+  "word": "air conditioner",
+  "cat": "hf",
+  "group": "Housing & Moving › Decoration & Repair"
  }
 ]
