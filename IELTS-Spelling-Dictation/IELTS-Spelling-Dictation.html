@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Spelling Dictation</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --text: #1d2330; --muted: #5a6475; --line: #d8dde6;
+  --accent: #1f5fbf; --accent-text: #ffffff; --accent-soft: #e6eefb;
+  --ok: #17703a; --ok-soft: #e3f4e8; --bad: #b3261e; --bad-soft: #fde8e6;
+  --warn: #8a5300; --warn-soft: #fff3dc; --mark-bad: #ffd2cc; --mark-ok: #c8efd4;
+  --radius: 12px; --focus: 0 0 0 3px #f5b400;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1d2129; --text: #e9edf3; --muted: #a3acbb; --line: #343a46;
+    --accent: #6ea0ff; --accent-text: #0c1424; --accent-soft: #233150;
+    --ok: #6fd896; --ok-soft: #173424; --bad: #ff8a80; --bad-soft: #3d1d1b;
+    --warn: #ffc56b; --warn-soft: #3a2c12; --mark-bad: #6b2621; --mark-ok: #1f5634;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 18px/1.5 "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
+header { background: var(--panel); border-bottom: 1px solid var(--line); padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between; }
+header h1 { margin: 0; font-size: 22px; }
+nav[role=tablist] { display: flex; flex-wrap: wrap; gap: 6px; }
+nav button { font-size: 17px; }
+main { max-width: 980px; margin: 0 auto; padding: 16px; }
+section.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+h2 { margin: 0 0 12px; font-size: 24px; }
+h3 { margin: 18px 0 8px; font-size: 20px; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 8px 14px; min-height: 44px; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
+button.big { font-size: 22px; padding: 12px 28px; }
+button[aria-selected="true"] { background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+:focus-visible { outline: none; box-shadow: var(--focus); }
+select, input[type=text], input[type=number], textarea { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; min-height: 40px; }
+label { cursor: pointer; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+.hidden { display: none !important; }
+fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0; }
+legend { font-weight: 600; padding: 0 6px; }
+.modes label { display: block; padding: 4px 0; }
+.status { border-radius: 10px; padding: 10px 14px; margin: 10px 0; border: 1px solid var(--line); }
+.status.ok { background: var(--ok-soft); border-color: var(--ok); }
+.status.warn { background: var(--warn-soft); border-color: var(--warn); }
+.status.bad { background: var(--bad-soft); border-color: var(--bad); }
+.qhead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+.qnum { font-size: 26px; font-weight: 700; }
+.qcat { font-size: 18px; background: var(--accent-soft); border-radius: 999px; padding: 2px 12px; }
+.speaking { min-height: 28px; color: var(--muted); }
+#answer { width: 100%; font-size: 34px; padding: 12px 16px; margin: 12px 0 6px; border: 2px solid var(--accent); border-radius: 12px; font-family: Consolas, "Cascadia Mono", "Segoe UI", monospace; }
+#answer:disabled { opacity: .6; }
+.prompt { font-size: 19px; font-weight: 600; min-height: 30px; }
+.feedback { margin-top: 14px; border-radius: 12px; padding: 14px 16px; border: 2px solid transparent; }
+.feedback.ok { background: var(--ok-soft); border-color: var(--ok); }
+.feedback.bad { background: var(--bad-soft); border-color: var(--bad); }
+.feedback .verdict { font-size: 24px; font-weight: 700; }
+.feedback .verdict.ok { color: var(--ok); }
+.feedback .verdict.bad { color: var(--bad); }
+.extra { margin-top: 8px; font-size: 17px; }
+.diff { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 10px 0; align-items: center; }
+.diff .lbl { font-size: 16px; color: var(--muted); }
+.cells { display: flex; flex-wrap: wrap; font-family: Consolas, "Cascadia Mono", monospace; font-size: 28px; }
+.cells span { display: inline-block; min-width: 1.1em; text-align: center; border-radius: 4px; }
+.cells .wrong { background: var(--mark-bad); text-decoration: underline wavy; font-weight: 700; }
+.cells .fix { background: var(--mark-ok); text-decoration: underline; text-decoration-thickness: 3px; font-weight: 700; }
+.cells .gap { color: var(--muted); }
+.cells .sp { color: var(--muted); }
+.cells.marks { font-size: 18px; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+kbd { font-family: inherit; font-size: 14px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 0 5px; background: var(--bg); }
+.overlay { text-align: center; padding: 30px 10px; }
+.score { font-size: 40px; font-weight: 800; }
+table { border-collapse: collapse; width: 100%; font-size: 17px; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: var(--bg); }
+.tablewrap { overflow-x: auto; }
+.res-ok { color: var(--ok); font-weight: 600; }
+.res-bad { color: var(--bad); font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.card b { display: block; font-size: 28px; }
+details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.banner { background: var(--warn-soft); border: 1px solid var(--warn); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; }
+.editform input, .editform select { width: 100%; }
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  main { padding: 10px; }
+  #answer { font-size: 28px; }
+  .cells { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>IELTS Spelling Dictation</h1>
+  <nav role="tablist" aria-label="Screens">
+    <button role="tab" id="tab-practice" aria-controls="screen-practice" aria-selected="true">Practice</button>
+    <button role="tab" id="tab-results" aria-controls="screen-results" aria-selected="false">Results</button>
+    <button role="tab" id="tab-progress" aria-controls="screen-progress" aria-selected="false">Progress</button>
+    <button role="tab" id="tab-vocab" aria-controls="screen-vocab" aria-selected="false">Vocabulary</button>
+    <button role="tab" id="tab-help" aria-controls="screen-help" aria-selected="false">Help</button>
+  </nav>
+</header>
+<main>
+<div id="storageWarning" class="banner hidden" role="alert"></div>
+
+<!-- ============ PRACTICE ============ -->
+<div id="screen-practice" role="tabpanel" aria-labelledby="tab-practice">
+
+  <div id="setup">
+    <div id="resumeBanner" class="banner hidden">
+      <span id="resumeText"></span>
+      <div class="row" style="margin-top:8px">
+        <button class="primary" id="btnResumeSaved">Resume session</button>
+        <button id="btnDiscardSaved">Discard it</button>
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2>New session</h2>
+      <div class="grid2">
+        <fieldset class="modes">
+          <legend>What to practice</legend>
+          <label><input type="radio" name="mode" value="mixed" checked> Mixed vocabulary <span class="muted small">(personal + missed words first)</span></label>
+          <label><input type="radio" name="mode" value="personal"> Personal spelling priorities</label>
+          <label><input type="radio" name="mode" value="listening"> Listening vocabulary</label>
+          <label><input type="radio" name="mode" value="task1"> Academic Writing Task 1</label>
+          <label><input type="radio" name="mode" value="task2"> Academic Writing Task 2</label>
+          <label><input type="radio" name="mode" value="missed"> Previously missed words <span class="muted small" id="missedCount"></span></label>
+          <label class="hidden" id="customModeLabel"><input type="radio" name="mode" value="custom"> My added words</label>
+        </fieldset>
+        <div>
+          <fieldset>
+            <legend>Session</legend>
+            <div class="row">
+              <label for="length">Words per session</label>
+              <select id="length">
+                <option value="5">5</option><option value="10" selected>10</option><option value="15">15</option>
+                <option value="20">20</option><option value="30">30</option><option value="all">All words in this mode</option>
+                <option value="custom">Other number…</option>
+              </select>
+              <input type="number" id="lengthCustom" min="1" max="500" value="12" class="hidden" aria-label="Number of words" style="width:6em">
+            </div>
+            <p style="margin:10px 0 0"><label><input type="checkbox" id="autoAdvance" checked> Move to the next word automatically after a correct answer</label></p>
+            <p class="muted small" id="poolInfo" style="margin:6px 0 0"></p>
+          </fieldset>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="audioHeading">
+      <h2 id="audioHeading">Audio</h2>
+      <div id="voiceStatus" class="status" role="status">Checking for voices…</div>
+      <div class="grid2">
+        <div>
+          <label for="voice">Voice</label><br>
+          <select id="voice" style="width:100%"></select>
+          <div class="row" style="margin-top:8px">
+            <button id="btnTestVoice">🔊 Test voice</button>
+            <button id="btnRetryVoices">Look for voices again</button>
+          </div>
+        </div>
+        <div>
+          <label for="rate">Speech rate: <b id="rateVal"></b></label><br>
+          <input type="range" id="rate" min="0.5" max="1.5" step="0.05" style="width:100%">
+          <label for="volume">Volume: <b id="volumeVal"></b></label><br>
+          <input type="range" id="volume" min="0" max="1" step="0.05" style="width:100%">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label><input type="checkbox" id="slow"> Slower pronunciation</label>
+        <label for="gap">Pause between the two readings</label>
+        <select id="gap"><option value="600">0.6 s</option><option value="1000" selected>1 s</option><option value="1500">1.5 s</option><option value="2500">2.5 s</option></select>
+        <label><input type="checkbox" id="speakContext" checked> Add a short meaning for sound-alike words (e.g. principle / principal)</label>
+      </div>
+    </section>
+
+    <div class="row">
+      <button class="primary big" id="btnStart" disabled>▶ Start</button>
+      <span class="muted small">After Start, keep your hands on the keyboard: type, press <kbd>Enter</kbd>. <kbd>Alt</kbd>+<kbd>R</kbd> repeats the word.</span>
+    </div>
+  </div>
+
+  <section class="panel hidden" id="dictation" aria-labelledby="qnum">
+    <div class="qhead">
+      <div><span class="qnum" id="qnum">Question 1 of 10</span> <span class="muted" id="roundLabel"></span></div>
+      <span class="qcat" id="qcat"></span>
+    </div>
+    <div class="speaking" id="speaking" aria-live="off"></div>
+    <div id="audioError" class="status bad hidden" role="alert"></div>
+
+    <div id="askArea">
+      <label for="answer" class="prompt" id="prompt">Listen, type the word, then press Enter.</label>
+      <input type="text" id="answer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             name="ielts-dictation-answer-field" aria-describedby="prompt" data-gramm="false" data-lt-active="false">
+      <div class="controls">
+        <button id="btnRepeat" title="Alt+R">🔁 Repeat word <kbd>Alt</kbd>+<kbd>R</kbd></button>
+        <button id="btnSlow" title="Alt+S">🐢 Repeat slowly <kbd>Alt</kbd>+<kbd>S</kbd></button>
+        <button id="btnPause" title="Alt+P or Esc">⏸ Pause <kbd>Esc</kbd></button>
+        <button id="btnEnd">⏹ End session</button>
+      </div>
+      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+    </div>
+
+    <div id="pausedArea" class="overlay hidden">
+      <p class="score">⏸ Paused</p>
+      <p>Your place is kept. Press <kbd>Enter</kbd> or <kbd>Esc</kbd> to continue.</p>
+      <div class="row" style="justify-content:center">
+        <button class="primary big" id="btnResume">▶ Resume</button>
+        <button id="btnEnd2">⏹ End session</button>
+      </div>
+    </div>
+
+    <div id="roundEndArea" class="overlay hidden" aria-live="polite"></div>
+  </section>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div id="screen-results" role="tabpanel" aria-labelledby="tab-results" class="hidden">
+  <section class="panel"><div id="resultsBody"><p class="muted">Finish a session to see results here.</p></div></section>
+</div>
+
+<!-- ============ PROGRESS ============ -->
+<div id="screen-progress" role="tabpanel" aria-labelledby="tab-progress" class="hidden">
+  <section class="panel">
+    <h2>Progress</h2>
+    <div class="cards" id="statCards"></div>
+    <h3>Session history</h3>
+    <div class="tablewrap" id="historyTable"></div>
+    <details id="missedDetails">
+      <summary>Show previously missed words (reveals spellings)</summary>
+      <p class="muted small">A word leaves this list after you spell it correctly on the first try in two later sessions.</p>
+      <div class="tablewrap" id="missedTable"></div>
+    </details>
+  </section>
+  <section class="panel">
+    <h2>Back up or move your progress</h2>
+    <p>Your history, missed words, settings and any vocabulary changes are saved in this browser on this computer (see Help). Export them to a file to back up or move to another browser or PC.</p>
+    <div class="row">
+      <button id="btnExport">⬇ Export progress (.json)</button>
+      <button id="btnImportMerge">⬆ Import and merge</button>
+      <button id="btnImportReplace">⬆ Import and replace</button>
+      <button id="btnReset">Reset all progress…</button>
+      <input type="file" id="importFile" accept=".json,application/json" class="hidden">
+    </div>
+    <div id="progressMsg" class="status hidden" role="status"></div>
+  </section>
+</div>
+
+<!-- ============ VOCABULARY ============ -->
+<div id="screen-vocab" role="tabpanel" aria-labelledby="tab-vocab" class="hidden">
+  <section class="panel">
+    <h2>Vocabulary</h2>
+    <p id="vocabSummary"></p>
+    <h3>Add a word</h3>
+    <div class="grid2 editform" id="addForm">
+      <label>Word or phrase (US spelling)<input type="text" id="addWord" spellcheck="false" autocomplete="off"></label>
+      <label>Category<select id="addCat"></select></label>
+      <label>Group / topic (optional)<input type="text" id="addGroup"></label>
+      <label>Memory hint (shown after answering)<input type="text" id="addHint"></label>
+      <label>Example (shown after answering)<input type="text" id="addExample"></label>
+      <label>Spoken meaning for sound-alikes (optional)<input type="text" id="addContext" placeholder="e.g. principle, as in, a basic rule"></label>
+    </div>
+    <div class="row" style="margin-top:10px"><button class="primary" id="btnAdd">Add word</button></div>
+
+    <h3>Import from a CSV or text file</h3>
+    <p class="small">CSV columns: <code>word,category,group,hint,example</code> (header row optional). A .txt file can have one word or phrase per line. Duplicates are skipped.</p>
+    <div class="row">
+      <label for="importCat">Category for rows without one</label>
+      <select id="importCat"></select>
+      <button id="btnImportVocab">Choose file…</button>
+      <input type="file" id="vocabFile" accept=".csv,.txt,text/csv,text/plain" class="hidden">
+      <button id="btnExportVocab">⬇ Export vocabulary (.csv)</button>
+      <button id="btnRestoreVocab">Restore built-in list…</button>
+    </div>
+    <div id="vocabMsg" class="status hidden" role="status"></div>
+
+    <h3>Word list</h3>
+    <p class="muted small">Hidden by default so you don't see answers before practicing.</p>
+    <button id="btnShowVocab" aria-expanded="false">Show word list</button>
+    <div id="vocabListWrap" class="hidden">
+      <div class="row" style="margin:10px 0">
+        <label for="vocabFilter">Category</label><select id="vocabFilter"></select>
+        <label for="vocabSearch">Search</label><input type="text" id="vocabSearch" spellcheck="false">
+      </div>
+      <div class="tablewrap" id="vocabTable"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HELP ============ -->
+<div id="screen-help" role="tabpanel" aria-labelledby="tab-help" class="hidden">
+  <section class="panel">
+    <h2>How it works</h2>
+    <ol>
+      <li>Choose a mode and click <b>Start</b>. Each word is read twice. It is never shown or spelled out before you answer.</li>
+      <li>Type the word and press <kbd>Enter</kbd>. Capital letters and extra spaces don't matter. Letters and endings do.</li>
+      <li>If you're right, the next word starts automatically (you can turn this off).</li>
+      <li>If you're wrong, you'll see your answer and the correct spelling with the differences marked. Type the correct spelling and press <kbd>Enter</kbd> to continue. It still counts as incorrect.</li>
+      <li>At the end you see your score and can retest the words you missed. Retests are scored separately.</li>
+    </ol>
+    <h3>Keyboard shortcuts</h3>
+    <table>
+      <tr><th>Key</th><th>Action</th></tr>
+      <tr><td><kbd>Enter</kbd></td><td>Submit answer · submit correction · go to next word · start retest</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>R</kbd></td><td>Repeat the word (stops any speech already playing first)</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>S</kbd></td><td>Repeat the word slowly</td></tr>
+      <tr><td><kbd>Esc</kbd> or <kbd>Alt</kbd>+<kbd>P</kbd></td><td>Pause / resume</td></tr>
+      <tr><td><kbd>Tab</kbd></td><td>Move between buttons and settings</td></tr>
+    </table>
+    <h3>Where your data is saved</h3>
+    <p>Everything is stored in this browser's local storage on this PC, inside your Windows user profile. Nothing is sent to any server and no account is needed.</p>
+    <ul>
+      <li><b>Moving the app folder:</b> in Edge and Chrome, saved progress normally stays available, because the browser stores data for all local files together. Export a backup before moving anyway, just to be safe.</li>
+      <li><b>Changing browser, Windows user or PC:</b> the new browser starts empty. Use <b>Progress → Export</b>, then <b>Import</b> in the new browser.</li>
+      <li><b>Clearing browsing data</b> ("Cookies and other site data") or using InPrivate/Incognito windows deletes or doesn't keep progress.</li>
+    </ul>
+    <h3>About the voices</h3>
+    <p id="voiceHelp">Voices marked <b>local</b> are installed in Windows and work offline. Voices marked <b>online</b> (for example the "Natural" voices in Edge) send the word being spoken to Microsoft's or Google's speech service and need internet. No other data is sent. Your vocabulary lists and results are never sent.</p>
+    <p>No US English voice? Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser.</p>
+  </section>
+</div>
+</main>
+
+<script>
+/* Built-in vocabulary, extracted from "IELTS Essential Spelling and Vocabulary" by dev/extract_vocab.py */
+const BUILTIN_VOCAB = /*@@VOCAB@@*/[{"id":"b-expenditure","word":"expenditure","cat":"personal","hint":"expend + iture"},{"id":"b-demonstrate","word":"demonstrate","cat":"personal","hint":"No i after demon"},{"id":"b-comparison","word":"comparison","cat":"personal","hint":"Ends in ison"},{"id":"b-steadily","word":"steadily","cat":"personal","hint":"steady becomes steadily"},{"id":"b-similarly","word":"similarly","cat":"personal","hint":"One l"},{"id":"b-children","word":"children","cat":"personal","hint":"child + ren"},{"id":"b-sometimes","word":"sometimes","cat":"personal","hint":"some + times"},{"id":"b-necessarily","word":"necessarily","cat":"personal","hint":"One c, two s; ends in ily"},{"id":"b-absorbed","word":"absorbed","cat":"personal","hint":"Starts with ab"},{"id":"b-emitted","word":"emitted","cat":"personal","hint":"One m, two t"},{"id":"b-repetitive","word":"repetitive","cat":"personal","hint":"repet + itive"},{"id":"b-colorful","word":"colorful","cat":"personal","hint":"color + ful"},{"id":"b-principle","word":"principle","cat":"personal","hint":"Ends in ple","context":"principle, as in, a basic rule or belief"},{"id":"b-highly","word":"highly","cat":"personal","hint":"high + ly; no extra e"},{"id":"b-writing","word":"writing","cat":"personal","hint":"One t"},{"id":"b-accommodation","word":"accommodation","cat":"listening","group":"Bookings","hint":"Two c and two m"},{"id":"b-address","word":"address","cat":"listening","group":"Bookings","hint":"Two d and two s"},{"id":"b-apartment","word":"apartment","cat":"listening","group":"Bookings","hint":"One p"},{"id":"b-available","word":"available","cat":"listening","group":"Bookings","hint":"avail + able"},{"id":"b-restaurant","word":"restaurant","cat":"listening","group":"Travel","hint":"Remember aurant"},{"id":"b-receipt","word":"receipt","cat":"listening","group":"Payments","hint":"ei; silent p"},{"id":"b-luggage","word":"luggage","cat":"listening","group":"Travel","hint":"Two g"},{"id":"b-passenger","word":"passenger","cat":"listening","group":"Travel","hint":"Two s"},{"id":"b-bicycle","word":"bicycle","cat":"listening","group":"Travel","hint":"Starts with bi"},{"id":"b-wednesday","word":"Wednesday","cat":"listening","group":"Dates","hint":"Wed + nes + day"},{"id":"b-thursday","word":"Thursday","cat":"listening","group":"Dates","hint":"Thurs, not Thrus"},{"id":"b-tuesday","word":"Tuesday","cat":"listening","group":"Dates","hint":"ue, not eu"},{"id":"b-february","word":"February","cat":"listening","group":"Dates","hint":"Keep the first r"},{"id":"b-january","word":"January","cat":"listening","group":"Dates","hint":"No extra r"},{"id":"b-autumn","word":"autumn","cat":"listening","group":"Seasons","hint":"Silent final n"},{"id":"b-forty","word":"forty","cat":"listening","group":"Numbers","hint":"No u"},{"id":"b-eighteen","word":"eighteen","cat":"listening","group":"Numbers","hint":"One t"},{"id":"b-ninety","word":"ninety","cat":"listening","group":"Numbers","hint":"Keep the e in nine"},{"id":"b-library","word":"library","cat":"listening","group":"Education","hint":"Keep both r letters"},{"id":"b-college","word":"college","cat":"listening","group":"Education","hint":"Two l; ends in ege"},{"id":"b-professor","word":"professor","cat":"listening","group":"Education","hint":"One f, two s"},{"id":"b-questionnaire","word":"questionnaire","cat":"listening","group":"Education","hint":"Two n; ends in aire"},{"id":"b-colleague","word":"colleague","cat":"listening","group":"Work","hint":"Ends in league"},{"id":"b-equipment","word":"equipment","cat":"listening","group":"Work","hint":"No t before m"},{"id":"b-maintenance","word":"maintenance","cat":"listening","group":"Work","hint":"mainten, not maintain"},{"id":"b-illustrates","word":"illustrates","cat":"task1","group":"Introduction","example":"The diagram illustrates the process."},{"id":"b-percentage","word":"percentage","cat":"task1","group":"Data","example":"The percentage rose to 40%."},{"id":"b-proportion","word":"proportion","cat":"task1","group":"Data","example":"The proportion of older residents was higher."},{"id":"b-increase","word":"increase","cat":"task1","group":"Change","example":"There was an increase in spending."},{"id":"b-decrease","word":"decrease","cat":"task1","group":"Change","example":"Water use decreased over the period."},{"id":"b-fluctuate","word":"fluctuate","cat":"task1","group":"Change","example":"Sales fluctuated between 100 and 150 units."},{"id":"b-remain-stable","word":"remain stable","cat":"task1","group":"Change","example":"The figure remained stable at 20%."},{"id":"b-peak","word":"peak","cat":"task1","group":"Change","example":"Sales peaked at 200 units in June.","context":"peak, as in, the highest point"},{"id":"b-slightly","word":"slightly","cat":"task1","group":"Size of change","example":"Costs fell slightly."},{"id":"b-significantly","word":"significantly","cat":"task1","group":"Size of change","example":"The population increased significantly."},{"id":"b-respectively","word":"respectively","cat":"task1","group":"Matching figures","example":"A and B recorded 20% and 30%, respectively."},{"id":"b-whereas","word":"whereas","cat":"task1","group":"Comparison","example":"Sales rose, whereas costs fell."},{"id":"b-overall","word":"overall","cat":"task1","group":"Overview","example":"Overall, salaries were the largest expense."},{"id":"b-production","word":"production","cat":"task1","group":"Process","example":"The diagram shows cement production."},{"id":"b-transport","word":"transport","cat":"task1","group":"Process","example":"The materials are transported to a factory."},{"id":"b-convert","word":"convert","cat":"task1","group":"Process","example":"Solar energy is converted into electricity."},{"id":"b-initially","word":"initially","cat":"task1","group":"Sequence","example":"Initially, the raw materials are collected."},{"id":"b-finally","word":"finally","cat":"task1","group":"Sequence","example":"Finally, the products are packaged."},{"id":"b-replace","word":"replace","cat":"task1","group":"Maps","example":"The car park was replaced by a library."},{"id":"b-expand","word":"expand","cat":"task1","group":"Maps","example":"The school was expanded."},{"id":"b-education","word":"education","cat":"task2","group":"Education","example":"improve access to education"},{"id":"b-knowledge","word":"knowledge","cat":"task2","group":"Education","example":"gain knowledge"},{"id":"b-qualifications","word":"qualifications","cat":"task2","group":"Education","example":"gain professional qualifications"},{"id":"b-employment","word":"employment","cat":"task2","group":"Work","example":"create employment opportunities"},{"id":"b-salary","word":"salary","cat":"task2","group":"Work","example":"earn a higher salary"},{"id":"b-opportunity","word":"opportunity","cat":"task2","group":"Work","example":"have an opportunity to learn","hint":"has two p"},{"id":"b-technology","word":"technology","cat":"task2","group":"Technology","example":"use technology effectively"},{"id":"b-communication","word":"communication","cat":"task2","group":"Technology","example":"develop communication skills"},{"id":"b-environment","word":"environment","cat":"task2","group":"Environment","example":"protect the environment","hint":"includes n before m"},{"id":"b-pollution","word":"pollution","cat":"task2","group":"Environment","example":"reduce air pollution"},{"id":"b-government","word":"government","cat":"task2","group":"Society","example":"government investment in public services","hint":"keeps the n in govern"},{"id":"b-society","word":"society","cat":"task2","group":"Society","example":"benefit society"},{"id":"b-responsibility","word":"responsibility","cat":"task2","group":"Society","example":"take responsibility for your actions"},{"id":"b-necessary","word":"necessary","cat":"task2","group":"Arguments","example":"It is necessary to improve services.","hint":"has one c and two s"},{"id":"b-beneficial","word":"beneficial","cat":"task2","group":"Arguments","example":"Exercise is beneficial to health.","hint":"ends in cial"},{"id":"b-advantage","word":"advantage","cat":"task2","group":"Arguments","example":"One advantage is the lower cost."},{"id":"b-disadvantage","word":"disadvantage","cat":"task2","group":"Arguments","example":"One disadvantage is the lack of privacy."},{"id":"b-however","word":"however","cat":"task2","group":"Contrast","example":"The service is useful. However, it is expensive."},{"id":"b-therefore","word":"therefore","cat":"task2","group":"Result","example":"Costs are high; therefore, many students work."},{"id":"b-although","word":"although","cat":"task2","group":"Contrast","example":"Although it is expensive, it is useful."}]/*@@END@@*/;
+</script>
+<script>
+"use strict";
+(function () {
+const $ = (id) => document.getElementById(id);
+const CATS = {
+  personal: "Personal spelling priorities",
+  listening: "Listening vocabulary",
+  task1: "Academic Writing Task 1",
+  task2: "Academic Writing Task 2",
+  custom: "My added words",
+};
+const MODE_LABELS = Object.assign({}, CATS, { mixed: "Mixed vocabulary", missed: "Previously missed words" });
+const STORE_KEY = "ieltsDictation.data.v1";
+const MASTER_STREAK = 2;           // correct first tries needed to clear a missed word
+const ADVANCE_DELAY = 1300;        // ms before moving on after a correct answer
+const DEFAULT_SETTINGS = { voiceURI: "", rate: 0.9, volume: 1, slow: false, gapMs: 1000, speakContext: true,
+  autoAdvance: true, length: "10", lengthCustom: 12, mode: "mixed" };
+
+/* ---------------- helpers ---------------- */
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function clean(s) { return String(s || "").replace(/[‘’ʼ]/g, "'").replace(/\s+/g, " ").trim(); }
+function norm(s) { return clean(s).toLowerCase(); }
+function isCorrect(typed, word) { return norm(typed) === norm(word); }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function uid(p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function fmtDate(t) { const d = new Date(t); return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) + " " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }); }
+function pct(c, n) { return n ? Math.round((c / n) * 100) : 0; }
+
+/* Letter-by-letter alignment (edit distance) between the typed answer and the correct word. */
+function diff(typed, word) {
+  const a = Array.from(clean(typed)), b = Array.from(clean(word));
+  const eq = (x, y) => x.toLowerCase() === y.toLowerCase();
+  const n = a.length, m = b.length, D = [];
+  for (let i = 0; i <= n; i++) { D.push(new Array(m + 1).fill(0)); D[i][0] = i; }
+  for (let j = 0; j <= m; j++) D[0][j] = j;
+  for (let i = 1; i <= n; i++) for (let j = 1; j <= m; j++)
+    D[i][j] = Math.min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + (eq(a[i - 1], b[j - 1]) ? 0 : 1));
+  const ops = []; let i = n, j = m;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && D[i][j] === D[i - 1][j - 1] + (eq(a[i - 1], b[j - 1]) ? 0 : 1)) {
+      ops.push({ t: eq(a[i - 1], b[j - 1]) ? "same" : "sub", a: a[i - 1], b: b[j - 1] }); i--; j--;
+    } else if (j > 0 && D[i][j] === D[i][j - 1] + 1) { ops.push({ t: "ins", b: b[j - 1] }); j--; }
+    else { ops.push({ t: "del", a: a[i - 1] }); i--; }
+  }
+  return ops.reverse();
+}
+function diffHTML(typed, word) {
+  const ops = diff(typed, word);
+  const show = (c) => (c === " " ? '<span class="sp" aria-hidden="true">␣</span>' : esc(c));
+  let you = "", cor = "", marks = "";
+  const counts = { sub: [], del: [], ins: [] };
+  for (const o of ops) {
+    if (o.t === "same") { you += `<span>${show(o.a)}</span>`; cor += `<span>${show(o.b)}</span>`; marks += "<span> </span>"; }
+    else if (o.t === "sub") { you += `<span class="wrong">${show(o.a)}</span>`; cor += `<span class="fix">${show(o.b)}</span>`; marks += "<span>≠</span>"; counts.sub.push(`${o.a} → ${o.b}`); }
+    else if (o.t === "del") { you += `<span class="wrong">${show(o.a)}</span>`; cor += '<span class="gap">·</span>'; marks += "<span>+</span>"; counts.del.push(o.a); }
+    else { you += '<span class="gap">·</span>'; cor += `<span class="fix">${show(o.b)}</span>`; marks += "<span>^</span>"; counts.ins.push(o.b); }
+  }
+  const q = (c) => (c === " " ? "space" : `“${c}”`);
+  const parts = [];
+  if (counts.sub.length) parts.push(`wrong letter${counts.sub.length > 1 ? "s" : ""}: ${counts.sub.map((s) => s.split(" → ").map(q).join(" should be ")).join(", ")}`);
+  if (counts.ins.length) parts.push(`missing: ${counts.ins.map(q).join(", ")}`);
+  if (counts.del.length) parts.push(`extra: ${counts.del.map(q).join(", ")}`);
+  return `<div class="diff" aria-hidden="true">
+      <span class="lbl">You typed</span><span class="cells">${you}</span>
+      <span class="lbl">Correct</span><span class="cells">${cor}</span>
+      <span class="lbl"></span><span class="cells marks">${marks}</span>
+    </div>
+    <div class="small">Differences: ${esc(parts.join("; ") || "none")}. <span class="muted">(≠ wrong letter · ^ missing letter · + extra letter)</span></div>`;
+}
+
+/* ---------------- storage ---------------- */
+let storageOK = true;
+function loadData() {
+  let d = null;
+  try { const raw = localStorage.getItem(STORE_KEY); d = raw ? JSON.parse(raw) : null; }
+  catch (e) { storageOK = false; }
+  d = d && typeof d === "object" ? d : {};
+  return {
+    version: 1, vocab: Array.isArray(d.vocab) ? d.vocab : null, history: Array.isArray(d.history) ? d.history : [],
+    missed: d.missed && typeof d.missed === "object" ? d.missed : {},
+    settings: Object.assign({}, DEFAULT_SETTINGS, d.settings || {}), active: d.active || null,
+  };
+}
+let data = loadData();
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); storageOK = true; }
+  catch (e) { storageOK = false; }
+  $("storageWarning").classList.toggle("hidden", storageOK);
+  if (!storageOK) $("storageWarning").textContent = "⚠ This browser window can't save progress (private mode or storage blocked). Use Progress → Export to keep your results.";
+}
+function vocab() { return data.vocab || BUILTIN_VOCAB; }
+function setVocab(list) { data.vocab = list; save(); }
+
+/* ---------------- speech ---------------- */
+const Speaker = {
+  supported: typeof window.speechSynthesis !== "undefined" && typeof window.SpeechSynthesisUtterance !== "undefined",
+  voices: [], token: 0, busy: false, keep: [], lastStart: 0,
+  onState: () => {}, onError: () => {},
+  async loadVoices(maxWait = 3000) {
+    if (!this.supported) return [];
+    const read = () => speechSynthesis.getVoices() || [];
+    let v = read();
+    if (!v.length) {
+      await new Promise((resolve) => {
+        const t0 = Date.now();
+        const done = () => { speechSynthesis.removeEventListener("voiceschanged", check); clearInterval(iv); resolve(); };
+        const check = () => { if (read().length || Date.now() - t0 > maxWait) done(); };
+        speechSynthesis.addEventListener("voiceschanged", check);
+        const iv = setInterval(check, 200);
+      });
+      v = read();
+    }
+    this.voices = v;
+    return v;
+  },
+  isUS(v) { return /^en[-_]us$/i.test(v.lang || ""); },
+  isEnglish(v) { return /^en([-_]|$)/i.test(v.lang || ""); },
+  find(uri) { return this.voices.find((v) => v.voiceURI === uri) || null; },
+  stop() {
+    this.token++;
+    if (this.supported) { try { speechSynthesis.cancel(); } catch (e) {} }
+    this.busy = false; this.onState(false);
+  },
+  /* Speak a sequence of steps: {text, rate} or {gap: ms}. A new call always cancels the old one,
+     so repeated presses never overlap or pile up in a queue. */
+  async play(steps, voice, volume) {
+    this.stop();
+    const my = this.token;
+    if (!this.supported) { this.onError("unsupported"); return false; }
+    if (!voice) { this.onError("novoice"); return false; }
+    this.busy = true; this.onState(true);
+    await sleep(80); // Chrome sometimes drops speak() called in the same tick as cancel()
+    for (const s of steps) {
+      if (my !== this.token) return false;
+      if (s.gap) { await sleep(s.gap); continue; }
+      const r = await this.say(s.text, s.rate, voice, volume, my);
+      if (r !== "ok") {
+        if (my === this.token) { this.busy = false; this.onState(false); if (r !== "cancelled") this.onError(r); }
+        return false;
+      }
+    }
+    if (my === this.token) { this.busy = false; this.onState(false); }
+    return true;
+  },
+  say(text, rate, voice, volume, my) {
+    return new Promise((resolve) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.voice = voice; u.lang = voice.lang; u.rate = rate; u.volume = volume; u.pitch = 1;
+      this.keep.push(u); if (this.keep.length > 10) this.keep.shift(); // avoid GC losing onend (Chrome)
+      let started = false, finished = false;
+      const finish = (r) => { if (!finished) { finished = true; clearTimeout(wd); clearTimeout(maxT); resolve(my !== this.token ? "cancelled" : r); } };
+      u.onstart = () => { started = true; this.lastStart = Date.now(); };
+      u.onend = () => finish(started ? "ok" : (my !== this.token ? "cancelled" : "ok"));
+      u.onerror = (e) => finish(e && (e.error === "interrupted" || e.error === "canceled") ? "cancelled" : "error:" + (e && e.error || "unknown"));
+      const wd = setTimeout(() => { if (!started && my === this.token) { finish("nostart"); try { speechSynthesis.cancel(); } catch (e) {} } }, voice.localService ? 5000 : 8000);
+      const maxT = setTimeout(() => finish("ok"), 20000);
+      try { speechSynthesis.resume(); speechSynthesis.speak(u); } catch (e) { finish("error:" + e.message); }
+    });
+  },
+};
+
+/* ---------------- voice UI ---------------- */
+let currentVoice = null;
+function voiceLabel(v) { return `${v.name} (${v.lang}) — ${v.localService ? "local, works offline" : "online, needs internet"}`; }
+function setStatus(el, kind, html) { el.className = "status " + kind; el.innerHTML = html; el.classList.remove("hidden"); }
+const SETUP_HELP = `<b>How to fix:</b> Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser and click “Look for voices again”. Use Microsoft Edge or Google Chrome. Firefox and others may have fewer voices.`;
+async function initVoices(maxWait) {
+  const sel = $("voice"), st = $("voiceStatus");
+  if (!Speaker.supported) {
+    sel.innerHTML = ""; currentVoice = null;
+    setStatus(st, "bad", `✗ <b>This browser has no text-to-speech support</b>, so dictation can't start. Open this file in Microsoft Edge or Google Chrome.`);
+    updateStartEnabled(); return;
+  }
+  setStatus(st, "", "Looking for voices…");
+  const all = await Speaker.loadVoices(maxWait);
+  const us = all.filter((v) => Speaker.isUS(v)), en = all.filter((v) => Speaker.isEnglish(v) && !Speaker.isUS(v));
+  const byLocal = (a, b) => (b.localService - a.localService) || a.name.localeCompare(b.name);
+  us.sort(byLocal); en.sort(byLocal);
+  sel.innerHTML = "";
+  const add = (label, list) => { if (!list.length) return; const g = document.createElement("optgroup"); g.label = label;
+    for (const v of list) { const o = document.createElement("option"); o.value = v.voiceURI; o.textContent = voiceLabel(v); g.appendChild(o); } sel.appendChild(g); };
+  add("US English", us); add("Other English (not US)", en);
+  if (!us.length && !en.length) {
+    currentVoice = null;
+    setStatus(st, "bad", `✗ <b>No English voice was found</b>, so dictation can't start. The app will not show the words instead of speaking them.<br>${SETUP_HELP}`);
+    updateStartEnabled(); return;
+  }
+  const saved = Speaker.find(data.settings.voiceURI);
+  currentVoice = (saved && Speaker.isEnglish(saved)) ? saved : (us[0] || en[0]);
+  sel.value = currentVoice.voiceURI;
+  describeVoice();
+}
+function describeVoice() {
+  const st = $("voiceStatus"), v = currentVoice;
+  if (!v) return;
+  const usCount = Speaker.voices.filter((x) => Speaker.isUS(x)).length;
+  if (!Speaker.isUS(v)) {
+    setStatus(st, "warn", `⚠ <b>${esc(v.name)}</b> is not a US English voice${usCount ? ". Choose a US voice from the list for American pronunciation." : ", and no US English voice is installed."}<br>${usCount ? "" : SETUP_HELP}`);
+  } else if (!v.localService) {
+    setStatus(st, "warn", `ⓘ <b>${esc(v.name)}</b> is an <b>online</b> voice. It needs internet, and the word being spoken is sent to the browser maker's speech service. Pick a voice marked “local” to work fully offline.`);
+  } else {
+    setStatus(st, "ok", `✓ Voice ready: <b>${esc(v.name)}</b>. This is a local voice that works offline. Click “Test voice” to check the sound.`);
+  }
+  updateStartEnabled();
+}
+function updateStartEnabled() { $("btnStart").disabled = !currentVoice; }
+function rateFor(kind) {
+  const s = data.settings; let r = Number(s.rate) || 0.9;
+  if (kind === "slowRepeat") r = Math.max(0.4, r * 0.6);
+  else if (s.slow) r = Math.max(0.4, r * 0.7);
+  return r;
+}
+function audioErrorText(code) {
+  if (code === "unsupported") return "This browser can't speak. Open the app in Edge or Chrome.";
+  if (code === "novoice") return "No voice is selected. End the session and choose a voice in the Audio settings.";
+  if (code === "nostart") return "The voice didn't start speaking. Check that your sound is on and the right output device is selected, then press Alt+R to try again. If you chose an online voice, check your internet connection or choose a local voice.";
+  return `Speech error (${esc(code.replace("error:", ""))}). Press Alt+R to try again, or choose another voice.`;
+}
+Speaker.onState = (on) => { $("speaking").textContent = on ? "🔊 Speaking…" : ""; };
+Speaker.onError = (code) => {
+  if (session && !$("dictation").classList.contains("hidden")) {
+    setStatus($("audioError"), "bad", "✗ " + audioErrorText(code));
+  } else {
+    setStatus($("voiceStatus"), "bad", "✗ " + audioErrorText(code) + (code === "nostart" ? "" : "<br>" + SETUP_HELP));
+  }
+};
+
+/* ---------------- settings UI ---------------- */
+function bindSettings() {
+  const s = data.settings;
+  document.querySelectorAll('input[name=mode]').forEach((r) => { r.checked = r.value === s.mode; r.addEventListener("change", () => { s.mode = r.value; save(); updatePoolInfo(); }); });
+  if (!document.querySelector('input[name=mode]:checked')) document.querySelector('input[name=mode][value=mixed]').checked = true;
+  $("length").value = s.length; $("lengthCustom").value = s.lengthCustom;
+  $("lengthCustom").classList.toggle("hidden", s.length !== "custom");
+  $("length").addEventListener("change", () => { s.length = $("length").value; $("lengthCustom").classList.toggle("hidden", s.length !== "custom"); save(); updatePoolInfo(); });
+  $("lengthCustom").addEventListener("change", () => { s.lengthCustom = Math.max(1, parseInt($("lengthCustom").value, 10) || 10); save(); updatePoolInfo(); });
+  $("autoAdvance").checked = s.autoAdvance; $("autoAdvance").addEventListener("change", () => { s.autoAdvance = $("autoAdvance").checked; save(); });
+  $("rate").value = s.rate; $("volume").value = s.volume;
+  const showRV = () => { $("rateVal").textContent = Number(s.rate).toFixed(2) + "×"; $("volumeVal").textContent = Math.round(s.volume * 100) + "%"; };
+  showRV();
+  $("rate").addEventListener("input", () => { s.rate = Number($("rate").value); showRV(); save(); });
+  $("volume").addEventListener("input", () => { s.volume = Number($("volume").value); showRV(); save(); });
+  $("slow").checked = s.slow; $("slow").addEventListener("change", () => { s.slow = $("slow").checked; save(); });
+  $("gap").value = String(s.gapMs); if (!$("gap").value) $("gap").value = "1000";
+  $("gap").addEventListener("change", () => { s.gapMs = Number($("gap").value); save(); });
+  $("speakContext").checked = s.speakContext; $("speakContext").addEventListener("change", () => { s.speakContext = $("speakContext").checked; save(); });
+  $("voice").addEventListener("change", () => { currentVoice = Speaker.find($("voice").value); s.voiceURI = currentVoice ? currentVoice.voiceURI : ""; save(); describeVoice(); });
+  $("btnTestVoice").addEventListener("click", async () => {
+    if (!currentVoice) { await initVoices(1500); if (!currentVoice) return; }
+    const t0 = Date.now();
+    const ok = await Speaker.play([{ text: "Hello. This is how your dictation words will sound.", rate: rateFor() }], currentVoice, s.volume);
+    if (ok && Speaker.lastStart >= t0) describeVoice(), $("voiceStatus").insertAdjacentHTML("beforeend", "<br>Speech played. If you heard nothing, check your volume and output device.");
+  });
+  $("btnRetryVoices").addEventListener("click", () => initVoices(4000));
+}
+
+/* ---------------- missed words ---------------- */
+function missedList() { return Object.values(data.missed); }
+function recordMissed(item, correct) {
+  const m = data.missed[item.id];
+  if (!correct) {
+    data.missed[item.id] = { id: item.id, word: item.word, cat: item.cat, group: item.group || "", hint: item.hint || "", example: item.example || "", context: item.context || "",
+      misses: (m ? m.misses : 0) + 1, streak: 0, lastMissed: Date.now() };
+  } else if (m) {
+    m.streak = (m.streak || 0) + 1;
+    if (m.streak >= MASTER_STREAK) delete data.missed[item.id];
+  }
+}
+
+/* ---------------- building a session ---------------- */
+function poolFor(mode) {
+  const v = vocab();
+  if (mode === "missed") {
+    return missedList().map((m) => v.find((x) => x.id === m.id) || m);
+  }
+  if (mode === "mixed") return v.slice();
+  return v.filter((x) => x.cat === mode);
+}
+function wantedLength() {
+  const s = data.settings;
+  if (s.length === "all") return Infinity;
+  if (s.length === "custom") return Math.max(1, parseInt(s.lengthCustom, 10) || 10);
+  return parseInt(s.length, 10) || 10;
+}
+/* Mixed: about 60% from missed words + personal priorities (missed first), the rest spread over the other categories. */
+function buildItems(mode, n) {
+  const pool = poolFor(mode);
+  if (mode !== "mixed") return shuffle(pool).slice(0, Math.min(n, pool.length));
+  if (n === Infinity) n = pool.length;
+  const chosen = [], ids = new Set();
+  const take = (x) => { if (x && !ids.has(x.id) && chosen.length < n) { ids.add(x.id); chosen.push(x); return true; } return false; };
+  const missedIds = new Set(Object.keys(data.missed));
+  const missed = shuffle(pool.filter((x) => missedIds.has(x.id)));
+  const personal = shuffle(pool.filter((x) => x.cat === "personal" && !missedIds.has(x.id)));
+  const quota = Math.min(n, Math.ceil(n * 0.6));
+  for (const x of missed.concat(personal)) { if (chosen.length >= quota) break; take(x); }
+  const others = {}; for (const x of shuffle(pool)) if (!ids.has(x.id) && x.cat !== "personal") (others[x.cat] = others[x.cat] || []).push(x);
+  const keys = shuffle(Object.keys(others));
+  let progress = true;
+  while (chosen.length < n && progress) { progress = false; for (const k of keys) { const x = others[k].shift(); if (x && take(x)) progress = true; } }
+  for (const x of shuffle(pool)) take(x); // top up if other categories ran out
+  return shuffle(chosen);
+}
+function updatePoolInfo() {
+  const mode = data.settings.mode, pool = poolFor(mode), n = wantedLength();
+  const mc = missedList().length;
+  $("missedCount").textContent = mc ? `(${mc} word${mc > 1 ? "s" : ""})` : "(none yet)";
+  const hasCustom = vocab().some((x) => x.cat === "custom");
+  $("customModeLabel").classList.toggle("hidden", !hasCustom);
+  let msg = `${pool.length} word${pool.length === 1 ? "" : "s"} available in this mode.`;
+  if (!pool.length) msg = mode === "missed" ? "No missed words yet. Practice another mode first." : "No words in this mode.";
+  else if (n !== Infinity && n > pool.length) msg += ` The session will use all ${pool.length}.`;
+  $("poolInfo").textContent = msg;
+}
+
+/* ---------------- session engine ---------------- */
+let session = null;     // persisted in data.active
+let advanceTimer = null;
+const snapshot = (x) => ({ id: x.id, word: x.word, cat: x.cat, group: x.group || "", hint: x.hint || "", example: x.example || "", context: x.context || "" });
+
+async function startSession() {
+  if (!currentVoice) { await initVoices(3000); if (!currentVoice) return; }
+  const mode = data.settings.mode;
+  const items = buildItems(mode, wantedLength());
+  if (!items.length) { updatePoolInfo(); $("poolInfo").focus(); setStatus($("voiceStatus"), "warn", "There are no words to practice in this mode. Choose another mode."); return; }
+  session = { id: uid("s-"), startedAt: Date.now(), mode, items: items.map(snapshot),
+    rounds: [{ kind: "initial", queue: items.map((_, i) => i), results: [] }],
+    pos: 0, phase: "answer", paused: false, attempt: "", draft: "" };
+  persist();
+  showDictation();
+  present(true);
+}
+function round() { return session.rounds[session.rounds.length - 1]; }
+function curItem() { return session.items[round().queue[session.pos]]; }
+function persist() { data.active = session && session.phase !== "done" ? session : null; save(); }
+
+function showDictation() {
+  $("setup").classList.add("hidden");
+  $("dictation").classList.remove("hidden");
+}
+function showSetup() {
+  $("dictation").classList.add("hidden");
+  $("setup").classList.remove("hidden");
+  updatePoolInfo(); updateResumeBanner();
+}
+function renderHeader() {
+  const r = round(), it = curItem();
+  const retestNo = session.rounds.filter((x) => x.kind === "retest").length;
+  $("qnum").textContent = `${r.kind === "initial" ? "Question" : "Retest word"} ${session.pos + 1} of ${r.queue.length}`;
+  $("roundLabel").textContent = r.kind === "initial" ? "" : `· Retest ${retestNo > 1 ? retestNo + " " : ""}(not counted in your main score)`;
+  $("qcat").textContent = CATS[it.cat] || it.cat;
+}
+function present(speak) {
+  clearTimeout(advanceTimer);
+  $("roundEndArea").classList.add("hidden");
+  $("pausedArea").classList.add("hidden");
+  $("askArea").classList.remove("hidden");
+  $("audioError").classList.add("hidden");
+  renderHeader();
+  const inp = $("answer");
+  inp.disabled = false; inp.readOnly = false;
+  if (session.phase === "answer") {
+    $("feedback").className = "feedback hidden"; $("feedback").innerHTML = "";
+    $("prompt").textContent = "Listen, type the word, then press Enter.";
+    inp.value = session.draft || "";
+  } else {
+    renderFeedback();
+    inp.value = session.phase === "wrong" ? (session.draft || "") : "";
+  }
+  inp.focus();
+  if (speak && session.phase === "answer") speakWord("normal");
+}
+function speakWord(kind) {
+  if (!session || session.paused) return;
+  const it = curItem(), s = data.settings;
+  $("audioError").classList.add("hidden");
+  let steps;
+  if (kind === "slowRepeat") steps = [{ text: it.word, rate: rateFor("slowRepeat") }];
+  else if (kind === "repeat") steps = [{ text: it.word, rate: rateFor() }];
+  else steps = [{ text: it.word, rate: rateFor() }, { gap: s.gapMs }, { text: it.word, rate: rateFor() }];
+  if (s.speakContext && it.context) steps.push({ gap: 500 }, { text: it.context, rate: rateFor() });
+  Speaker.play(steps, currentVoice, s.volume);
+}
+let lastRepeat = 0;
+function repeat(kind) {
+  if (!session || session.paused || $("dictation").classList.contains("hidden") || !$("roundEndArea").classList.contains("hidden")) return;
+  const now = Date.now(); if (now - lastRepeat < 250) return; // ignore key auto-repeat bursts
+  lastRepeat = now;
+  speakWord(kind);
+  $("answer").focus();
+}
+
+function renderFeedback() {
+  const fb = $("feedback"), it = curItem(), r = round(), res = r.results[session.pos];
+  const extras = [];
+  if (it.group) extras.push(`<b>Topic:</b> ${esc(it.group)}`);
+  if (it.hint) extras.push(`<b>Remember:</b> ${esc(it.hint)}`);
+  if (it.example) extras.push(`<b>Example:</b> ${esc(it.example)}`);
+  const extraHTML = extras.length ? `<div class="extra">${extras.join("<br>")}</div>` : "";
+  const next = data.settings.autoAdvance ? "Next word coming… (press Enter to go now)" : "Press Enter for the next word.";
+  if (session.phase === "correct") {
+    fb.className = "feedback ok";
+    fb.innerHTML = `<div class="verdict ok">✓ Correct: ${esc(it.word)}</div>${extraHTML}<div class="small" style="margin-top:6px">${next}</div>`;
+    $("prompt").textContent = "Correct!";
+  } else if (session.phase === "wrong") {
+    fb.className = "feedback bad";
+    const retry = session.attempt ? `<div class="res-bad" style="margin-top:8px">✗ “${esc(clean(session.attempt))}” is still not right. Compare it with the correct spelling:</div>${diffHTML(session.attempt, it.word)}` : "";
+    fb.innerHTML = `<div class="verdict bad">✗ Not quite</div>
+      <div>Your answer: <b>${esc(clean(res.answer))}</b> · Correct spelling: <b>${esc(it.word)}</b></div>
+      ${diffHTML(res.answer, it.word)}${retry}${extraHTML}`;
+    $("prompt").textContent = "Type the correct spelling and press Enter to continue.";
+  } else if (session.phase === "corrected") {
+    fb.className = "feedback ok";
+    fb.innerHTML = `<div class="verdict ok">✓ Well done, corrected: ${esc(it.word)}</div>
+      <div class="small">Your first answer still counts as incorrect.</div>${extraHTML}<div class="small" style="margin-top:6px">${next}</div>`;
+    $("prompt").textContent = "Corrected.";
+  }
+}
+
+function submit() {
+  if (!session || session.paused) return;
+  const inp = $("answer"), val = inp.value;
+  const r = round(), it = curItem();
+  if (session.phase === "correct" || session.phase === "corrected") { next(); return; }
+  if (!clean(val)) {
+    $("prompt").textContent = session.phase === "wrong" ? "Type the correct spelling shown above, then press Enter."
+      : "Type what you hear, then press Enter. Press Alt+R to hear the word again.";
+    return;
+  }
+  if (session.phase === "answer") {
+    Speaker.stop();
+    const ok = isCorrect(val, it.word);
+    r.results[session.pos] = { item: r.queue[session.pos], answer: clean(val), correct: ok, corrections: 0 };
+    if (r.kind === "initial") recordMissed(it, ok);
+    session.draft = ""; session.attempt = "";
+    session.phase = ok ? "correct" : "wrong";
+    inp.value = "";
+    if (ok) inp.readOnly = true;
+    renderFeedback();
+    persist();
+    if (ok) scheduleAdvance();
+  } else if (session.phase === "wrong") {
+    r.results[session.pos].corrections++;
+    if (isCorrect(val, it.word)) {
+      session.phase = "corrected"; session.attempt = ""; session.draft = "";
+      inp.value = ""; inp.readOnly = true;
+      renderFeedback(); persist(); scheduleAdvance();
+    } else {
+      session.attempt = clean(val); inp.value = ""; session.draft = "";
+      renderFeedback(); persist();
+    }
+  }
+  inp.focus();
+}
+function scheduleAdvance() {
+  clearTimeout(advanceTimer);
+  if (data.settings.autoAdvance && session && !session.paused) advanceTimer = setTimeout(next, ADVANCE_DELAY);
+}
+function next() {
+  clearTimeout(advanceTimer);
+  if (!session || session.paused) return;
+  if (session.phase !== "correct" && session.phase !== "corrected") return;
+  session.pos++;
+  session.phase = "answer"; session.draft = ""; session.attempt = "";
+  if (session.pos >= round().queue.length) { endRound(); return; }
+  persist();
+  present(true);
+}
+function scoreOf(r) { const c = r.results.filter((x) => x && x.correct).length; return { correct: c, total: r.results.filter(Boolean).length }; }
+function missedInRound(r) { return r.results.filter((x) => x && !x.correct).map((x) => x.item); }
+
+function endRound() {
+  Speaker.stop(); clearTimeout(advanceTimer);
+  session.phase = "roundEnd";
+  const r = round(), sc = scoreOf(r), missed = missedInRound(r);
+  saveHistory(false);
+  persist();
+  $("askArea").classList.add("hidden"); $("pausedArea").classList.add("hidden");
+  const area = $("roundEndArea"); area.classList.remove("hidden");
+  const title = r.kind === "initial" ? "Session score" : "Retest result";
+  const note = r.kind === "initial" ? "First answers only. Corrections don't change this score." : "Retest results are kept separate from your session score.";
+  let btns = "";
+  if (missed.length) btns += `<button class="primary big" id="btnRetest">🔁 Retest ${missed.length} missed word${missed.length > 1 ? "s" : ""}</button> `;
+  btns += `<button class="${missed.length ? "" : "primary big"}" id="btnFinish">${missed.length ? "Finish and see results" : "✓ See results"}</button>`;
+  area.innerHTML = `<p class="muted">${title}</p><p class="score">${sc.correct} / ${sc.total} · ${pct(sc.correct, sc.total)}%</p>
+    <p>${note}</p>${missed.length ? `<p>${missed.length} word${missed.length > 1 ? "s" : ""} to retest. Press <kbd>Enter</kbd> to start the retest.</p>` : "<p>No missed words. 🎉</p>"}
+    <div class="row" style="justify-content:center">${btns}</div>`;
+  const rt = $("btnRetest"); if (rt) rt.addEventListener("click", startRetest);
+  $("btnFinish").addEventListener("click", finishSession);
+  (rt || $("btnFinish")).focus();
+}
+function startRetest() {
+  const missed = missedInRound(round());
+  if (!missed.length) return;
+  session.rounds.push({ kind: "retest", queue: shuffle(missed), results: [] });
+  session.pos = 0; session.phase = "answer";
+  persist();
+  present(true);
+}
+function finishSession(early) {
+  Speaker.stop(); clearTimeout(advanceTimer);
+  const rec = saveHistory(early === true);
+  session.phase = "done";
+  session = null; persist();
+  showSetup();
+  if (rec) { viewResults(rec.id); showTab("results"); }
+}
+function endSessionAsk() {
+  if (!session) return;
+  const r = session.rounds[0];
+  const answered = r.results.filter(Boolean).length;
+  Speaker.stop(); clearTimeout(advanceTimer);
+  if (session.phase === "roundEnd") { finishSession(); return; }
+  const msg = answered ? `End this session now? Your ${answered} answered word${answered > 1 ? "s" : ""} will be saved and scored.` : "End this session? Nothing has been answered yet, so it won't be saved.";
+  if (!confirm(msg)) { if (!session.paused) { $("answer").focus(); if (session.phase === "correct" || session.phase === "corrected") scheduleAdvance(); } return; }
+  if (!answered) { session = null; persist(); showSetup(); return; }
+  finishSession(true);
+}
+function saveHistory(early) {
+  if (!session) return null;
+  const rounds = session.rounds.map((r) => ({ kind: r.kind, total: scoreOf(r).total, correct: scoreOf(r).correct,
+    items: r.results.filter(Boolean).map((x) => ({ word: session.items[x.item].word, cat: session.items[x.item].cat, answer: x.answer, correct: x.correct, corrections: x.corrections })) }))
+    .filter((r) => r.total > 0);
+  if (!rounds.length || rounds[0].kind !== "initial") return null;
+  const rec = { id: session.id, startedAt: session.startedAt, finishedAt: Date.now(), mode: session.mode, planned: session.items.length,
+    endedEarly: !!early || rounds[0].total < session.items.length, initial: rounds[0], retests: rounds.slice(1) };
+  const i = data.history.findIndex((h) => h.id === rec.id);
+  if (i >= 0) data.history[i] = rec; else data.history.push(rec);
+  save();
+  return rec;
+}
+
+function pause() {
+  if (!session || session.paused || session.phase === "roundEnd") return;
+  session.paused = true;
+  session.draft = $("answer").value;
+  Speaker.stop(); clearTimeout(advanceTimer);
+  $("answer").disabled = true;
+  $("askArea").classList.add("hidden");
+  $("pausedArea").classList.remove("hidden");
+  persist();
+  $("btnResume").focus();
+}
+function resume() {
+  if (!session || !session.paused) return;
+  session.paused = false; persist();
+  showDictation();
+  present(session.phase === "answer");
+  if (session.phase === "correct" || session.phase === "corrected") scheduleAdvance();
+}
+
+/* ---------------- unfinished session from last time ---------------- */
+function updateResumeBanner() {
+  const a = data.active;
+  const show = !session && a && a.phase !== "done" && a.rounds && a.items;
+  $("resumeBanner").classList.toggle("hidden", !show);
+  if (show) {
+    const r = a.rounds[a.rounds.length - 1];
+    $("resumeText").innerHTML = `<b>You have an unfinished session</b> (${esc(MODE_LABELS[a.mode] || a.mode)}, started ${esc(fmtDate(a.startedAt))}). ` +
+      (a.phase === "roundEnd" ? "Round complete." : `${r.kind === "initial" ? "Question" : "Retest word"} ${a.pos + 1} of ${r.queue.length}.`);
+  }
+}
+function resumeSaved() {
+  if (!data.active) return;
+  if (!currentVoice) { describeVoice(); setStatus($("voiceStatus"), "bad", "✗ A voice is needed before you can resume. " + SETUP_HELP); return; }
+  session = data.active;
+  if (session.phase === "roundEnd") { showDictation(); endRound(); return; }
+  session.paused = true;
+  resume();
+}
+
+/* ---------------- results / progress ---------------- */
+let viewedId = null;
+function resultTable(r) {
+  return `<div class="tablewrap"><table><thead><tr><th>#</th><th>Word</th><th>Category</th><th>Your ${r.kind === "initial" ? "first " : ""}answer</th><th>Result</th></tr></thead><tbody>${
+    r.items.map((x, i) => `<tr><td>${i + 1}</td><td>${esc(x.word)}</td><td>${esc(CATS[x.cat] || x.cat)}</td><td>${esc(x.answer)}</td><td>${
+      x.correct ? '<span class="res-ok">✓ Correct</span>' : '<span class="res-bad">✗ Incorrect</span>' + (x.corrections ? ' <span class="muted small">(then corrected)</span>' : "")}</td></tr>`).join("")
+  }</tbody></table></div>`;
+}
+function viewResults(id) {
+  const h = data.history.find((x) => x.id === id) || data.history[data.history.length - 1];
+  const body = $("resultsBody");
+  if (!h) { body.innerHTML = '<p class="muted">Finish a session to see results here.</p>'; return; }
+  viewedId = h.id;
+  const i = h.initial;
+  let html = `<h2>Results · ${esc(MODE_LABELS[h.mode] || h.mode)}</h2><p class="muted">${esc(fmtDate(h.startedAt))}${h.endedEarly ? ` · ended early (${i.total} of ${h.planned} words answered)` : ""}</p>
+    <p class="score">${i.correct} / ${i.total} correct · ${pct(i.correct, i.total)}%</p>
+    <p class="small muted">Score uses first answers only.</p>${resultTable(i)}`;
+  h.retests.forEach((r, k) => {
+    html += `<h3>Missed-word retest${h.retests.length > 1 ? " " + (k + 1) : ""}: ${r.correct} / ${r.total} (${pct(r.correct, r.total)}%)</h3><p class="small muted">Not included in the score above.</p>${resultTable(r)}`;
+  });
+  if (!h.retests.length && i.correct < i.total) html += `<p class="muted">No retest was done for this session. Missed words are saved for the “Previously missed words” mode.</p>`;
+  html += `<div class="row" style="margin-top:14px"><button class="primary" id="btnNewSession">▶ New session</button></div>`;
+  body.innerHTML = html;
+  $("btnNewSession").addEventListener("click", () => { showTab("practice"); $("btnStart").focus(); });
+}
+function renderProgress() {
+  const H = data.history, tested = H.reduce((a, h) => a + h.initial.total, 0), correct = H.reduce((a, h) => a + h.initial.correct, 0);
+  const missed = missedList();
+  $("statCards").innerHTML = `<div class="card">Sessions<b>${H.length}</b></div><div class="card">Words tested<b>${tested}</b></div>
+    <div class="card">First-try accuracy<b>${pct(correct, tested)}%</b></div><div class="card">Words to review<b>${missed.length}</b></div>`;
+  $("historyTable").innerHTML = H.length ? `<table><thead><tr><th>Date</th><th>Mode</th><th>Score</th><th>Retest</th><th></th></tr></thead><tbody>${
+    H.slice().reverse().map((h) => `<tr><td>${esc(fmtDate(h.startedAt))}</td><td>${esc(MODE_LABELS[h.mode] || h.mode)}${h.endedEarly ? ' <span class="muted small">(ended early)</span>' : ""}</td>
+      <td>${h.initial.correct}/${h.initial.total} (${pct(h.initial.correct, h.initial.total)}%)</td>
+      <td>${h.retests.length ? h.retests.map((r) => `${r.correct}/${r.total}`).join(", ") : "—"}</td>
+      <td><button data-view="${esc(h.id)}">View</button></td></tr>`).join("")}</tbody></table>` : '<p class="muted">No sessions yet.</p>';
+  $("historyTable").querySelectorAll("button[data-view]").forEach((b) => b.addEventListener("click", () => { viewResults(b.dataset.view); showTab("results"); }));
+  $("missedTable").innerHTML = missed.length ? `<table><thead><tr><th>Word</th><th>Category</th><th>Times missed</th><th>Progress to clear</th></tr></thead><tbody>${
+    missed.sort((a, b) => b.misses - a.misses).map((m) => `<tr><td>${esc(m.word)}</td><td>${esc(CATS[m.cat] || m.cat)}</td><td>${m.misses}</td><td>${m.streak || 0} / ${MASTER_STREAK}</td></tr>`).join("")}</tbody></table>` : '<p class="muted">No missed words.</p>';
+}
+function download(name, text, type) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function exportProgress() {
+  const out = Object.assign({ app: "IELTS Spelling Dictation", exportedAt: new Date().toISOString() }, data, { active: null });
+  download(`ielts-dictation-progress-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(out, null, 1), "application/json");
+  setStatus($("progressMsg"), "ok", "✓ Progress exported. Keep the .json file somewhere safe (for example OneDrive or a USB drive).");
+}
+let importMode = "merge";
+function importProgress(text) {
+  let d;
+  try { d = JSON.parse(text); } catch (e) { setStatus($("progressMsg"), "bad", "✗ That file isn't valid progress data (.json)."); return; }
+  if (!d || !Array.isArray(d.history) || typeof d.missed !== "object") { setStatus($("progressMsg"), "bad", "✗ That file doesn't look like an IELTS Dictation progress export."); return; }
+  if (importMode === "replace") {
+    data = { version: 1, vocab: Array.isArray(d.vocab) ? d.vocab : null, history: d.history, missed: d.missed || {},
+      settings: Object.assign({}, DEFAULT_SETTINGS, d.settings || {}), active: null };
+  } else {
+    const ids = new Set(data.history.map((h) => h.id));
+    for (const h of d.history) if (h && h.id && !ids.has(h.id)) data.history.push(h);
+    data.history.sort((a, b) => a.startedAt - b.startedAt);
+    for (const [k, m] of Object.entries(d.missed || {})) {
+      const cur = data.missed[k];
+      if (!cur || (m.lastMissed || 0) > (cur.lastMissed || 0)) data.missed[k] = m;
+    }
+    if (Array.isArray(d.vocab)) {
+      const list = vocab().slice(), have = new Set(list.map((x) => norm(x.word)));
+      for (const x of d.vocab) if (x && x.word && !have.has(norm(x.word))) { list.push(x); have.add(norm(x.word)); }
+      data.vocab = list;
+    }
+  }
+  save(); renderProgress(); updatePoolInfo(); renderVocab();
+  setStatus($("progressMsg"), "ok", `✓ Imported (${importMode === "replace" ? "replaced" : "merged"}). ${data.history.length} sessions and ${missedList().length} missed words now saved.`);
+}
+
+/* ---------------- vocabulary management ---------------- */
+let vocabShown = false, editingId = null;
+function catOptions(sel, withAll) {
+  sel.innerHTML = (withAll ? '<option value="">All categories</option>' : "") + Object.entries(CATS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("");
+}
+function parseCat(s, fallback) {
+  const t = norm(s);
+  if (!t) return { cat: fallback };
+  if (CATS[t]) return { cat: t };
+  if (t.includes("personal")) return { cat: "personal" };
+  if (t.includes("listen")) return { cat: "listening" };
+  if (/task\s*1/.test(t)) return { cat: "task1" };
+  if (/task\s*2/.test(t)) return { cat: "task2" };
+  if (t.includes("custom") || t.includes("my ")) return { cat: "custom" };
+  return { cat: fallback, group: clean(s) };
+}
+function validWord(w) { return /^[A-Za-z][A-Za-z' -]*[A-Za-z]$|^[A-Za-z]$/.test(w) && w.length <= 60; }
+function parseCSVLine(line) {
+  const out = []; let cur = "", q = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (q) { if (c === '"' && line[i + 1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+    else if (c === '"') q = true; else if (c === "," || c === "\t" || c === ";") { out.push(cur); cur = ""; } else cur += c;
+  }
+  out.push(cur); return out.map((x) => x.trim());
+}
+function importVocabText(text, fallbackCat) {
+  const lines = text.replace(/^﻿/, "").split(/\r?\n/).filter((l) => l.trim() && !l.trim().startsWith("#"));
+  let cols = ["word", "category", "group", "hint", "example", "context"];
+  if (lines.length) {
+    const h = parseCSVLine(lines[0]).map((x) => norm(x));
+    if (h.includes("word") || h.includes("correct spelling") || h.includes("word or phrase")) {
+      cols = h.map((x) => (x === "correct spelling" || x === "word or phrase" ? "word" : x === "remember" ? "hint" : x)); lines.shift();
+    }
+  }
+  const list = vocab().slice(), have = new Set(list.map((x) => norm(x.word)));
+  let added = 0, dup = 0; const bad = [];
+  for (const line of lines) {
+    const cells = parseCSVLine(line), rec = {};
+    cols.forEach((c, i) => { if (cells[i] != null) rec[c] = clean(cells[i]); });
+    const w = clean(rec.word);
+    if (!w) continue;
+    if (!validWord(w)) { bad.push(w); continue; }
+    if (have.has(norm(w))) { dup++; continue; }
+    const pc = parseCat(rec.category, fallbackCat);
+    const item = { id: uid("c-"), word: w, cat: pc.cat };
+    const group = rec.group || pc.group; if (group) item.group = group;
+    if (rec.hint) item.hint = rec.hint; if (rec.example) item.example = rec.example; if (rec.context) item.context = rec.context;
+    list.push(item); have.add(norm(w)); added++;
+  }
+  setVocab(list); renderVocab(); updatePoolInfo();
+  setStatus($("vocabMsg"), added ? "ok" : "warn", `${added ? "✓" : "⚠"} Added ${added} word${added === 1 ? "" : "s"}. Skipped ${dup} duplicate${dup === 1 ? "" : "s"}.` +
+    (bad.length ? ` Skipped ${bad.length} invalid entr${bad.length === 1 ? "y" : "ies"} (letters, spaces, hyphens and apostrophes only): ${esc(bad.slice(0, 5).join(", "))}${bad.length > 5 ? "…" : ""}` : ""));
+  return { added, dup, bad: bad.length };
+}
+function csvCell(s) { s = String(s || ""); return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }
+function exportVocab() {
+  const rows = [["word", "category", "group", "hint", "example", "context"]].concat(vocab().map((x) => [x.word, x.cat, x.group, x.hint, x.example, x.context]));
+  download("ielts-vocabulary.csv", "﻿" + rows.map((r) => r.map(csvCell).join(",")).join("\r\n"), "text/csv");
+}
+function renderVocab() {
+  const v = vocab(), counts = {};
+  for (const x of v) counts[x.cat] = (counts[x.cat] || 0) + 1;
+  $("vocabSummary").innerHTML = `${v.length} words: ` + Object.keys(CATS).filter((k) => counts[k]).map((k) => `${esc(CATS[k])} ${counts[k]}`).join(" · ") +
+    (data.vocab ? ' <span class="muted small">(edited list)</span>' : ' <span class="muted small">(built-in list)</span>');
+  if (!vocabShown) return;
+  const f = $("vocabFilter").value, q = norm($("vocabSearch").value);
+  const rows = v.filter((x) => (!f || x.cat === f) && (!q || norm(x.word).includes(q)));
+  $("vocabTable").innerHTML = `<table><thead><tr><th>Word</th><th>Category</th><th>Group</th><th>Hint / example</th><th>Actions</th></tr></thead><tbody>${
+    rows.map((x) => editingId === x.id ? `<tr class="editform"><td><input type="text" id="edWord" value="${esc(x.word)}" spellcheck="false" aria-label="Word"></td>
+        <td><select id="edCat" aria-label="Category">${Object.entries(CATS).map(([k, l]) => `<option value="${k}"${k === x.cat ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
+        <td><input type="text" id="edGroup" value="${esc(x.group)}" aria-label="Group"></td>
+        <td><input type="text" id="edHint" value="${esc(x.hint)}" aria-label="Hint" placeholder="Hint"><input type="text" id="edExample" value="${esc(x.example)}" aria-label="Example" placeholder="Example"><input type="text" id="edContext" value="${esc(x.context)}" aria-label="Spoken meaning" placeholder="Spoken meaning (sound-alikes)"></td>
+        <td><button class="primary" data-save="${esc(x.id)}">Save</button> <button data-cancel="1">Cancel</button></td></tr>`
+      : `<tr><td><b>${esc(x.word)}</b></td><td>${esc(CATS[x.cat] || x.cat)}</td><td>${esc(x.group)}</td><td class="small">${esc(x.hint)}${x.hint && x.example ? "<br>" : ""}${esc(x.example)}</td>
+        <td><button data-edit="${esc(x.id)}" aria-label="Edit ${esc(x.word)}">Edit</button> <button data-del="${esc(x.id)}" aria-label="Delete ${esc(x.word)}">Delete</button></td></tr>`).join("")
+  }</tbody></table>${rows.length ? "" : '<p class="muted">No matching words.</p>'}`;
+  const T = $("vocabTable");
+  T.querySelectorAll("[data-edit]").forEach((b) => b.addEventListener("click", () => { editingId = b.dataset.edit; renderVocab(); $("edWord").focus(); }));
+  T.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", () => { editingId = null; renderVocab(); }));
+  T.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", () => {
+    const x = v.find((y) => y.id === b.dataset.del);
+    if (x && confirm(`Delete “${x.word}” from your vocabulary?`)) { setVocab(v.filter((y) => y.id !== x.id)); renderVocab(); updatePoolInfo(); }
+  }));
+  T.querySelectorAll("[data-save]").forEach((b) => b.addEventListener("click", () => {
+    const w = clean($("edWord").value);
+    if (!validWord(w)) { alert("Please enter a word or phrase using letters, spaces, hyphens or apostrophes."); return; }
+    if (v.some((y) => y.id !== b.dataset.save && norm(y.word) === norm(w))) { alert(`“${w}” is already in the list.`); return; }
+    const list = v.map((y) => y.id === b.dataset.save ? Object.assign({}, y, { word: w, cat: $("edCat").value, group: clean($("edGroup").value),
+      hint: clean($("edHint").value), example: clean($("edExample").value), context: clean($("edContext").value) }) : y);
+    if (data.missed[b.dataset.save]) data.missed[b.dataset.save].word = w;
+    editingId = null; setVocab(list); renderVocab(); updatePoolInfo();
+  }));
+}
+function addWord() {
+  const w = clean($("addWord").value);
+  if (!validWord(w)) { setStatus($("vocabMsg"), "bad", "✗ Enter a word or phrase using letters, spaces, hyphens or apostrophes."); $("addWord").focus(); return; }
+  const v = vocab();
+  if (v.some((x) => norm(x.word) === norm(w))) { setStatus($("vocabMsg"), "warn", `⚠ “${esc(w)}” is already in your vocabulary.`); return; }
+  const item = { id: uid("c-"), word: w, cat: $("addCat").value };
+  for (const [f, id] of [["group", "addGroup"], ["hint", "addHint"], ["example", "addExample"], ["context", "addContext"]]) { const t = clean($(id).value); if (t) item[f] = t; }
+  setVocab(v.concat([item]));
+  ["addWord", "addGroup", "addHint", "addExample", "addContext"].forEach((id) => ($(id).value = ""));
+  setStatus($("vocabMsg"), "ok", `✓ Added “${esc(w)}” to ${esc(CATS[item.cat])}.`);
+  renderVocab(); updatePoolInfo(); $("addWord").focus();
+}
+
+/* ---------------- tabs & keyboard ---------------- */
+const TABS = ["practice", "results", "progress", "vocab", "help"];
+function showTab(name) {
+  if (name !== "practice" && session && !session.paused && session.phase !== "roundEnd") pause(); // never leave a word playing
+  for (const t of TABS) {
+    $("tab-" + t).setAttribute("aria-selected", String(t === name));
+    $("screen-" + t).classList.toggle("hidden", t !== name);
+  }
+  if (name !== "vocab" && vocabShown) { vocabShown = false; $("vocabListWrap").classList.add("hidden"); $("btnShowVocab").textContent = "Show word list"; $("btnShowVocab").setAttribute("aria-expanded", "false"); }
+  if (name !== "progress") $("missedDetails").open = false;
+  if (name === "progress") renderProgress();
+  if (name === "results" && !viewedId) viewResults(null);
+  if (name === "vocab") renderVocab();
+  if (name === "practice" && session && session.paused) $("btnResume").focus();
+}
+function bindUI() {
+  TABS.forEach((t, i) => {
+    $("tab-" + t).addEventListener("click", () => showTab(t));
+    $("tab-" + t).addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { const n = TABS[(i + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length]; showTab(n); $("tab-" + n).focus(); }
+    });
+  });
+  $("btnStart").addEventListener("click", startSession);
+  $("btnRepeat").addEventListener("click", () => repeat("repeat"));
+  $("btnSlow").addEventListener("click", () => repeat("slowRepeat"));
+  $("btnPause").addEventListener("click", pause);
+  $("btnResume").addEventListener("click", resume);
+  $("btnEnd").addEventListener("click", endSessionAsk);
+  $("btnEnd2").addEventListener("click", endSessionAsk);
+  $("btnResumeSaved").addEventListener("click", resumeSaved);
+  $("btnDiscardSaved").addEventListener("click", () => { if (confirm("Discard the unfinished session? Answers already given still count toward your missed-word list.")) { data.active = null; save(); updateResumeBanner(); } });
+  // Keep the answer box focused when clicking the in-session buttons.
+  ["btnRepeat", "btnSlow"].forEach((id) => $(id).addEventListener("mousedown", (e) => e.preventDefault()));
+  $("answer").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); submit(); }
+  });
+  $("answer").addEventListener("input", () => { if (session && session.phase === "answer") session.draft = $("answer").value; });
+  document.addEventListener("keydown", (e) => {
+    const inSession = session && !$("dictation").classList.contains("hidden") && !$("screen-practice").classList.contains("hidden");
+    if (!inSession) return;
+    const k = (e.key || "").toLowerCase();
+    if (e.altKey && !e.ctrlKey && (e.code === "KeyR" || k === "r")) { e.preventDefault(); repeat("repeat"); }
+    else if (e.altKey && !e.ctrlKey && (e.code === "KeyS" || k === "s")) { e.preventDefault(); repeat("slowRepeat"); }
+    else if ((e.altKey && !e.ctrlKey && (e.code === "KeyP" || k === "p")) || (k === "escape" && !e.altKey)) {
+      e.preventDefault(); session.paused ? resume() : pause();
+    } else if (k === "enter" && session.paused && document.activeElement !== $("btnResume") && document.activeElement !== $("btnEnd2")) {
+      e.preventDefault(); resume();
+    }
+  });
+  $("btnExport").addEventListener("click", exportProgress);
+  $("btnImportMerge").addEventListener("click", () => { importMode = "merge"; $("importFile").click(); });
+  $("btnImportReplace").addEventListener("click", () => { if (confirm("Replace ALL current progress, settings and vocabulary with the imported file?")) { importMode = "replace"; $("importFile").click(); } });
+  $("importFile").addEventListener("change", async (e) => { const f = e.target.files[0]; if (f) importProgress(await f.text()); e.target.value = ""; });
+  $("btnReset").addEventListener("click", () => {
+    if (confirm("Delete all session history and missed words? (Vocabulary and settings are kept.) Consider exporting first.")) {
+      data.history = []; data.missed = {}; data.active = null; save(); renderProgress(); updatePoolInfo(); updateResumeBanner(); viewedId = null; viewResults(null);
+      setStatus($("progressMsg"), "ok", "Progress reset.");
+    }
+  });
+  catOptions($("addCat")); $("addCat").value = "custom";
+  catOptions($("importCat")); $("importCat").value = "custom";
+  catOptions($("vocabFilter"), true);
+  $("btnAdd").addEventListener("click", addWord);
+  $("addWord").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addWord(); } });
+  $("btnImportVocab").addEventListener("click", () => $("vocabFile").click());
+  $("vocabFile").addEventListener("change", async (e) => { const f = e.target.files[0]; if (f) importVocabText(await f.text(), $("importCat").value); e.target.value = ""; });
+  $("btnExportVocab").addEventListener("click", exportVocab);
+  $("btnRestoreVocab").addEventListener("click", () => {
+    if (confirm("Replace your vocabulary with the built-in list from the IELTS document? Words you added or edited will be removed. Progress is kept.")) { data.vocab = null; save(); renderVocab(); updatePoolInfo(); setStatus($("vocabMsg"), "ok", "✓ Built-in list restored."); }
+  });
+  $("btnShowVocab").addEventListener("click", () => {
+    vocabShown = !vocabShown;
+    $("vocabListWrap").classList.toggle("hidden", !vocabShown);
+    $("btnShowVocab").textContent = vocabShown ? "Hide word list" : "Show word list";
+    $("btnShowVocab").setAttribute("aria-expanded", String(vocabShown));
+    renderVocab();
+  });
+  $("vocabFilter").addEventListener("change", renderVocab);
+  $("vocabSearch").addEventListener("input", renderVocab);
+  window.addEventListener("pagehide", () => { if (session) { session.draft = session.phase === "answer" || session.phase === "wrong" ? $("answer").value : ""; persist(); } });
+}
+
+/* ---------------- start up ---------------- */
+bindSettings();
+bindUI();
+save();
+updatePoolInfo();
+updateResumeBanner();
+renderVocab();
+initVoices(3000);
+
+// Exposed for the automated tests in dev/tests.
+window.__ielts = { norm, isCorrect, diff, buildItems, poolFor, importVocabText, Speaker,
+  get session() { return session; }, get data() { return data; } };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+[
+ {
+  "id": "b-expenditure",
+  "word": "expenditure",
+  "cat": "personal",
+  "hint": "expend + iture"
+ },
+ {
+  "id": "b-demonstrate",
+  "word": "demonstrate",
+  "cat": "personal",
+  "hint": "No i after demon"
+ },
+ {
+  "id": "b-comparison",
+  "word": "comparison",
+  "cat": "personal",
+  "hint": "Ends in ison"
+ },
+ {
+  "id": "b-steadily",
+  "word": "steadily",
+  "cat": "personal",
+  "hint": "steady becomes steadily"
+ },
+ {
+  "id": "b-similarly",
+  "word": "similarly",
+  "cat": "personal",
+  "hint": "One l"
+ },
+ {
+  "id": "b-children",
+  "word": "children",
+  "cat": "personal",
+  "hint": "child + ren"
+ },
+ {
+  "id": "b-sometimes",
+  "word": "sometimes",
+  "cat": "personal",
+  "hint": "some + times"
+ },
+ {
+  "id": "b-necessarily",
+  "word": "necessarily",
+  "cat": "personal",
+  "hint": "One c, two s; ends in ily"
+ },
+ {
+  "id": "b-absorbed",
+  "word": "absorbed",
+  "cat": "personal",
+  "hint": "Starts with ab"
+ },
+ {
+  "id": "b-emitted",
+  "word": "emitted",
+  "cat": "personal",
+  "hint": "One m, two t"
+ },
+ {
+  "id": "b-repetitive",
+  "word": "repetitive",
+  "cat": "personal",
+  "hint": "repet + itive"
+ },
+ {
+  "id": "b-colorful",
+  "word": "colorful",
+  "cat": "personal",
+  "hint": "color + ful"
+ },
+ {
+  "id": "b-principle",
+  "word": "principle",
+  "cat": "personal",
+  "hint": "Ends in ple",
+  "context": "principle, as in, a basic rule or belief"
+ },
+ {
+  "id": "b-highly",
+  "word": "highly",
+  "cat": "personal",
+  "hint": "high + ly; no extra e"
+ },
+ {
+  "id": "b-writing",
+  "word": "writing",
+  "cat": "personal",
+  "hint": "One t"
+ },
+ {
+  "id": "b-accommodation",
+  "word": "accommodation",
+  "cat": "listening",
+  "group": "Bookings",
+  "hint": "Two c and two m"
+ },
+ {
+  "id": "b-address",
+  "word": "address",
+  "cat": "listening",
+  "group": "Bookings",
+  "hint": "Two d and two s"
+ },
+ {
+  "id": "b-apartment",
+  "word": "apartment",
+  "cat": "listening",
+  "group": "Bookings",
+  "hint": "One p"
+ },
+ {
+  "id": "b-available",
+  "word": "available",
+  "cat": "listening",
+  "group": "Bookings",
+  "hint": "avail + able"
+ },
+ {
+  "id": "b-restaurant",
+  "word": "restaurant",
+  "cat": "listening",
+  "group": "Travel",
+  "hint": "Remember aurant"
+ },
+ {
+  "id": "b-receipt",
+  "word": "receipt",
+  "cat": "listening",
+  "group": "Payments",
+  "hint": "ei; silent p"
+ },
+ {
+  "id": "b-luggage",
+  "word": "luggage",
+  "cat": "listening",
+  "group": "Travel",
+  "hint": "Two g"
+ },
+ {
+  "id": "b-passenger",
+  "word": "passenger",
+  "cat": "listening",
+  "group": "Travel",
+  "hint": "Two s"
+ },
+ {
+  "id": "b-bicycle",
+  "word": "bicycle",
+  "cat": "listening",
+  "group": "Travel",
+  "hint": "Starts with bi"
+ },
+ {
+  "id": "b-wednesday",
+  "word": "Wednesday",
+  "cat": "listening",
+  "group": "Dates",
+  "hint": "Wed + nes + day"
+ },
+ {
+  "id": "b-thursday",
+  "word": "Thursday",
+  "cat": "listening",
+  "group": "Dates",
+  "hint": "Thurs, not Thrus"
+ },
+ {
+  "id": "b-tuesday",
+  "word": "Tuesday",
+  "cat": "listening",
+  "group": "Dates",
+  "hint": "ue, not eu"
+ },
+ {
+  "id": "b-february",
+  "word": "February",
+  "cat": "listening",
+  "group": "Dates",
+  "hint": "Keep the first r"
+ },
+ {
+  "id": "b-january",
+  "word": "January",
+  "cat": "listening",
+  "group": "Dates",
+  "hint": "No extra r"
+ },
+ {
+  "id": "b-autumn",
+  "word": "autumn",
+  "cat": "listening",
+  "group": "Seasons",
+  "hint": "Silent final n"
+ },
+ {
+  "id": "b-forty",
+  "word": "forty",
+  "cat": "listening",
+  "group": "Numbers",
+  "hint": "No u"
+ },
+ {
+  "id": "b-eighteen",
+  "word": "eighteen",
+  "cat": "listening",
+  "group": "Numbers",
+  "hint": "One t"
+ },
+ {
+  "id": "b-ninety",
+  "word": "ninety",
+  "cat": "listening",
+  "group": "Numbers",
+  "hint": "Keep the e in nine"
+ },
+ {
+  "id": "b-library",
+  "word": "library",
+  "cat": "listening",
+  "group": "Education",
+  "hint": "Keep both r letters"
+ },
+ {
+  "id": "b-college",
+  "word": "college",
+  "cat": "listening",
+  "group": "Education",
+  "hint": "Two l; ends in ege"
+ },
+ {
+  "id": "b-professor",
+  "word": "professor",
+  "cat": "listening",
+  "group": "Education",
+  "hint": "One f, two s"
+ },
+ {
+  "id": "b-questionnaire",
+  "word": "questionnaire",
+  "cat": "listening",
+  "group": "Education",
+  "hint": "Two n; ends in aire"
+ },
+ {
+  "id": "b-colleague",
+  "word": "colleague",
+  "cat": "listening",
+  "group": "Work",
+  "hint": "Ends in league"
+ },
+ {
+  "id": "b-equipment",
+  "word": "equipment",
+  "cat": "listening",
+  "group": "Work",
+  "hint": "No t before m"
+ },
+ {
+  "id": "b-maintenance",
+  "word": "maintenance",
+  "cat": "listening",
+  "group": "Work",
+  "hint": "mainten, not maintain"
+ },
+ {
+  "id": "b-illustrates",
+  "word": "illustrates",
+  "cat": "task1",
+  "group": "Introduction",
+  "example": "The diagram illustrates the process."
+ },
+ {
+  "id": "b-percentage",
+  "word": "percentage",
+  "cat": "task1",
+  "group": "Data",
+  "example": "The percentage rose to 40%."
+ },
+ {
+  "id": "b-proportion",
+  "word": "proportion",
+  "cat": "task1",
+  "group": "Data",
+  "example": "The proportion of older residents was higher."
+ },
+ {
+  "id": "b-increase",
+  "word": "increase",
+  "cat": "task1",
+  "group": "Change",
+  "example": "There was an increase in spending."
+ },
+ {
+  "id": "b-decrease",
+  "word": "decrease",
+  "cat": "task1",
+  "group": "Change",
+  "example": "Water use decreased over the period."
+ },
+ {
+  "id": "b-fluctuate",
+  "word": "fluctuate",
+  "cat": "task1",
+  "group": "Change",
+  "example": "Sales fluctuated between 100 and 150 units."
+ },
+ {
+  "id": "b-remain-stable",
+  "word": "remain stable",
+  "cat": "task1",
+  "group": "Change",
+  "example": "The figure remained stable at 20%."
+ },
+ {
+  "id": "b-peak",
+  "word": "peak",
+  "cat": "task1",
+  "group": "Change",
+  "example": "Sales peaked at 200 units in June.",
+  "context": "peak, as in, the highest point"
+ },
+ {
+  "id": "b-slightly",
+  "word": "slightly",
+  "cat": "task1",
+  "group": "Size of change",
+  "example": "Costs fell slightly."
+ },
+ {
+  "id": "b-significantly",
+  "word": "significantly",
+  "cat": "task1",
+  "group": "Size of change",
+  "example": "The population increased significantly."
+ },
+ {
+  "id": "b-respectively",
+  "word": "respectively",
+  "cat": "task1",
+  "group": "Matching figures",
+  "example": "A and B recorded 20% and 30%, respectively."
+ },
+ {
+  "id": "b-whereas",
+  "word": "whereas",
+  "cat": "task1",
+  "group": "Comparison",
+  "example": "Sales rose, whereas costs fell."
+ },
+ {
+  "id": "b-overall",
+  "word": "overall",
+  "cat": "task1",
+  "group": "Overview",
+  "example": "Overall, salaries were the largest expense."
+ },
+ {
+  "id": "b-production",
+  "word": "production",
+  "cat": "task1",
+  "group": "Process",
+  "example": "The diagram shows cement production."
+ },
+ {
+  "id": "b-transport",
+  "word": "transport",
+  "cat": "task1",
+  "group": "Process",
+  "example": "The materials are transported to a factory."
+ },
+ {
+  "id": "b-convert",
+  "word": "convert",
+  "cat": "task1",
+  "group": "Process",
+  "example": "Solar energy is converted into electricity."
+ },
+ {
+  "id": "b-initially",
+  "word": "initially",
+  "cat": "task1",
+  "group": "Sequence",
+  "example": "Initially, the raw materials are collected."
+ },
+ {
+  "id": "b-finally",
+  "word": "finally",
+  "cat": "task1",
+  "group": "Sequence",
+  "example": "Finally, the products are packaged."
+ },
+ {
+  "id": "b-replace",
+  "word": "replace",
+  "cat": "task1",
+  "group": "Maps",
+  "example": "The car park was replaced by a library."
+ },
+ {
+  "id": "b-expand",
+  "word": "expand",
+  "cat": "task1",
+  "group": "Maps",
+  "example": "The school was expanded."
+ },
+ {
+  "id": "b-education",
+  "word": "education",
+  "cat": "task2",
+  "group": "Education",
+  "example": "improve access to education"
+ },
+ {
+  "id": "b-knowledge",
+  "word": "knowledge",
+  "cat": "task2",
+  "group": "Education",
+  "example": "gain knowledge"
+ },
+ {
+  "id": "b-qualifications",
+  "word": "qualifications",
+  "cat": "task2",
+  "group": "Education",
+  "example": "gain professional qualifications"
+ },
+ {
+  "id": "b-employment",
+  "word": "employment",
+  "cat": "task2",
+  "group": "Work",
+  "example": "create employment opportunities"
+ },
+ {
+  "id": "b-salary",
+  "word": "salary",
+  "cat": "task2",
+  "group": "Work",
+  "example": "earn a higher salary"
+ },
+ {
+  "id": "b-opportunity",
+  "word": "opportunity",
+  "cat": "task2",
+  "group": "Work",
+  "example": "have an opportunity to learn",
+  "hint": "has two p"
+ },
+ {
+  "id": "b-technology",
+  "word": "technology",
+  "cat": "task2",
+  "group": "Technology",
+  "example": "use technology effectively"
+ },
+ {
+  "id": "b-communication",
+  "word": "communication",
+  "cat": "task2",
+  "group": "Technology",
+  "example": "develop communication skills"
+ },
+ {
+  "id": "b-environment",
+  "word": "environment",
+  "cat": "task2",
+  "group": "Environment",
+  "example": "protect the environment",
+  "hint": "includes n before m"
+ },
+ {
+  "id": "b-pollution",
+  "word": "pollution",
+  "cat": "task2",
+  "group": "Environment",
+  "example": "reduce air pollution"
+ },
+ {
+  "id": "b-government",
+  "word": "government",
+  "cat": "task2",
+  "group": "Society",
+  "example": "government investment in public services",
+  "hint": "keeps the n in govern"
+ },
+ {
+  "id": "b-society",
+  "word": "society",
+  "cat": "task2",
+  "group": "Society",
+  "example": "benefit society"
+ },
+ {
+  "id": "b-responsibility",
+  "word": "responsibility",
+  "cat": "task2",
+  "group": "Society",
+  "example": "take responsibility for your actions"
+ },
+ {
+  "id": "b-necessary",
+  "word": "necessary",
+  "cat": "task2",
+  "group": "Arguments",
+  "example": "It is necessary to improve services.",
+  "hint": "has one c and two s"
+ },
+ {
+  "id": "b-beneficial",
+  "word": "beneficial",
+  "cat": "task2",
+  "group": "Arguments",
+  "example": "Exercise is beneficial to health.",
+  "hint": "ends in cial"
+ },
+ {
+  "id": "b-advantage",
+  "word": "advantage",
+  "cat": "task2",
+  "group": "Arguments",
+  "example": "One advantage is the lower cost."
+ },
+ {
+  "id": "b-disadvantage",
+  "word": "disadvantage",
+  "cat": "task2",
+  "group": "Arguments",
+  "example": "One disadvantage is the lack of privacy."
+ },
+ {
+  "id": "b-however",
+  "word": "however",
+  "cat": "task2",
+  "group": "Contrast",
+  "example": "The service is useful. However, it is expensive."
+ },
+ {
+  "id": "b-therefore",
+  "word": "therefore",
+  "cat": "task2",
+  "group": "Result",
+  "example": "Costs are high; therefore, many students work."
+ },
+ {
+  "id": "b-although",
+  "word": "although",
+  "cat": "task2",
+  "group": "Contrast",
+  "example": "Although it is expensive, it is useful."
+ }
+]
