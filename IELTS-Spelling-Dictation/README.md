@@ -7,16 +7,15 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 | File | What it is |
 |---|---|
 | `IELTS-Spelling-Dictation.html` | The whole app (the 80 built-in words are inside it) |
-| `Start IELTS Dictation.bat` | Double-click to open the app in Microsoft Edge, or Chrome if Edge isn't found |
+| `Start IELTS Dictation.bat` | Optional launcher for Edge/Chrome (blocked when Smart App Control is on; open the .html instead) |
 | `sample-vocabulary.csv` | Example file showing the format for importing your own words |
 | `README.md` | This file |
 
 ## Start it on Windows
 
 1. Unzip `IELTS-Spelling-Dictation.zip` to any folder, for example `Documents\IELTS-Spelling-Dictation`. Don't run it from inside the ZIP.
-2. Double-click **`Start IELTS Dictation.bat`**.
-   - If Windows shows "Windows protected your PC", click **More info → Run anyway**. The file only opens the HTML page in your browser; you can open it in Notepad to check.
-   - **Or** skip the .bat: right-click `IELTS-Spelling-Dictation.html` → **Open with → Microsoft Edge** (or Google Chrome).
+2. Double-click **`IELTS-Spelling-Dictation.html`**. It opens in your browser. Edge or Chrome works best: if it opens elsewhere, right-click it → **Open with → Microsoft Edge** or **Google Chrome**.
+   - `Start IELTS Dictation.bat` is optional. **Windows Smart App Control blocks it** because it came from the internet. That's expected: click **Okay** and open the .html file instead. Don't turn Smart App Control off for this.
 3. In the **Audio** box, check that it says *Voice ready*, click **🔊 Test voice**, and adjust rate and volume.
 4. Click **▶ Start**. From then on you only need the keyboard.
 
