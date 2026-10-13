@@ -178,7 +178,7 @@ await test("full session: start → hear twice → type → Enter → feedback; 
   const st = await page.evaluate(() => window.__speechStats);
   assert.equal(st.queuedWhileBusy, 0, "speech was queued behind other speech");
   assert.ok((await spoken(page)).length > before, "repeat produced no speech");
-  assert.ok((await spoken(page)).slice(before).every((x) => x.text === it.word));
+  assert.ok((await spoken(page)).slice(before).every((x) => x.text === it.word || x.text === it.context)); // sound-alikes also get their spoken meaning
   assert.ok(!(await page.innerText("#dictation")).toLowerCase().includes(it.word.toLowerCase()), "repeat revealed the word");
   assert.equal(await page.evaluate(() => document.activeElement.id), "answer", "clicking Repeat stole focus");
   await page.keyboard.press("Alt+s");

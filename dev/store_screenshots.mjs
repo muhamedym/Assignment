@@ -1,0 +1,32 @@
+// Phone screenshots (1080x1920) for the Google Play listing.  Usage: node dev/store_screenshots.mjs
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+const { chromium } = await import(process.env.PLAYWRIGHT_PATH || "/opt/node22/lib/node_modules/playwright/index.mjs");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const out = path.join(root, "play-store/store-listing/screenshots");
+const MOCK = fs.readFileSync(path.join(root, "dev/tests/mock-speech.js"), "utf8");
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 360, height: 640 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,
+  userAgent: "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Mobile Safari/537.36" });
+await ctx.addInitScript(MOCK);
+const p = await ctx.newPage();
+await p.goto(pathToFileURL(path.join(root, "play-store/site/index.html")).href);
+await p.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+await p.screenshot({ path: path.join(out, "1-choose-what-to-practice.png") });
+await p.check("input[name=mode][value=reading]"); await p.selectOption("#sub", "Health & Medicine"); await p.uncheck("#autoAdvance");
+await p.click("#btnStart"); await p.waitForTimeout(400);
+await p.fill("#answer", "vaccin");
+await p.screenshot({ path: path.join(out, "2-listen-and-type.png") });
+const w = await p.evaluate(() => { const s = window.__ielts.session; return s.items[s.rounds[0].queue[s.pos]].word; });
+await p.fill("#answer", w.slice(0, 2) + w.slice(3)); await p.click("#btnSubmit");
+await p.evaluate(() => document.querySelector("#feedback").scrollIntoView({ block: "start" }));
+await p.screenshot({ path: path.join(out, "3-see-your-mistake.png") });
+await p.evaluate(() => document.querySelector(".wordinfo").scrollIntoView({ block: "start" }));
+await p.screenshot({ path: path.join(out, "4-meaning-and-word-family.png") });
+await p.click("#btnEnd");
+await p.click("#tab-vocab"); await p.click('[data-node="listening"]'); await p.click('#vocabSubs button:has-text("Dates")');
+await p.evaluate(() => document.querySelector("#vocabPanel").scrollIntoView({ block: "start" }));
+await p.screenshot({ path: path.join(out, "5-manage-your-words.png") });
+await b.close();
+console.log("screenshots saved");

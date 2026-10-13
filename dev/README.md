@@ -9,6 +9,8 @@
   word (checked: complete, and every sentence contains the exact word), plus text-to-speech fixes (resume → résumé).
 - `reading_words.txt` + `build_reading.py`: the 98 Academic Reading words by topic, with word info (run after
   `add_word_info.py`).
+- `make_icons.py`, `build_site.py`, `store_screenshots.mjs`: build `play-store/` (installable web version for
+  the Android app, icons, Play Store screenshots). `tests/site.test.mjs` checks the hosted version works offline.
 - `build.py`: injects `vocab.json` into `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
   `python -I dev/build.py`
 - `tests/e2e.test.mjs`: 20 end-to-end tests in headless Chromium (Playwright) against the real page.

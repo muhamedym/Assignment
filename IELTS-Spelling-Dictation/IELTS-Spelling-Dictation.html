@@ -3,7 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IELTS Spelling Dictation</title>
+<title>Spelling Dictation for IELTS Practice</title>
+<meta name="description" content="Hear a word, type it, and learn its spelling, meaning and word family. Offline spelling dictation for IELTS practice.">
+<meta name="author" content="Mohammed Mohammed">
+<meta name="theme-color" content="#1f5fbf">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
 :root {
   --bg: #f6f7f9; --panel: #ffffff; --text: #1d2330; --muted: #5a6475; --line: #d8dde6;
@@ -89,6 +95,12 @@ legend { font-weight: 600; padding: 0 6px; }
 .addbox details { margin-top: 8px; }
 .iconbtn { min-height: 36px; padding: 4px 10px; font-size: 15px; }
 .delbtn:hover { border-color: var(--bad); color: var(--bad); }
+.h1sub { font-weight: 400; color: var(--muted); font-size: 0.8em; }
+footer.credit { text-align: center; color: var(--muted); font-size: 14px; padding: 8px 16px 24px; }
+footer.credit a { color: var(--accent); }
+.touchhint { display: none; }
+@media (pointer: coarse) { .controls .keys, .keyhint { display: none; } .touchhint { display: inline; } }
+@media (max-width: 600px) { .iconbtn .lbl { display: none; } .iconbtn { padding: 4px 10px; } }
 .extra { margin-top: 8px; font-size: 17px; }
 .diff { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 10px 0; align-items: center; }
 .diff .lbl { font-size: 16px; color: var(--muted); }
@@ -127,7 +139,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 </head>
 <body>
 <header>
-  <h1>IELTS Spelling Dictation</h1>
+  <h1>Spelling Dictation <span class="h1sub">for IELTS Practice</span></h1>
   <nav role="tablist" aria-label="Screens">
     <button role="tab" id="tab-practice" aria-controls="screen-practice" aria-selected="true">Practice</button>
     <button role="tab" id="tab-results" aria-controls="screen-results" aria-selected="false">Results</button>
@@ -217,7 +229,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 
     <div class="row">
       <button class="primary big" id="btnStart" disabled>▶ Start</button>
-      <span class="muted small">After Start, keep your hands on the keyboard: type, press <kbd>Enter</kbd>. <kbd>Alt</kbd>+<kbd>R</kbd> repeats the word.</span>
+      <span class="muted small touchhint">After Start, type each word you hear and tap Submit. Use “Say a sentence” if a word isn’t clear.</span><span class="muted small keyhint">After Start, keep your hands on the keyboard: type, press <kbd>Enter</kbd>. <kbd>Alt</kbd>+<kbd>R</kbd> repeats the word.</span>
     </div>
   </div>
 
@@ -233,14 +245,14 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       <label for="answer" class="prompt" id="prompt">Listen, type the word, then press Enter or click Submit.</label>
       <div class="answerRow">
         <input type="text" id="answer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-               name="ielts-dictation-answer-field" aria-describedby="prompt" data-gramm="false" data-lt-active="false">
+               name="ielts-dictation-answer-field" enterkeyhint="go" aria-describedby="prompt" data-gramm="false" data-lt-active="false">
         <button class="primary big" id="btnSubmit">Submit ⏎</button>
       </div>
       <div class="controls">
-        <button id="btnRepeat" title="Alt+R">🔁 Repeat word <kbd>Alt</kbd>+<kbd>R</kbd></button>
-        <button id="btnSlow" title="Alt+S">🐢 Repeat slowly <kbd>Alt</kbd>+<kbd>S</kbd></button>
-        <button id="btnSentence" title="Alt+X">💬 Say a sentence <kbd>Alt</kbd>+<kbd>X</kbd></button>
-        <button id="btnPause" title="Alt+P or Esc">⏸ Pause <kbd>Esc</kbd></button>
+        <button id="btnRepeat" title="Alt+R">🔁 Repeat word <span class="keys"><kbd>Alt</kbd>+<kbd>R</kbd></span></button>
+        <button id="btnSlow" title="Alt+S">🐢 Repeat slowly <span class="keys"><kbd>Alt</kbd>+<kbd>S</kbd></span></button>
+        <button id="btnSentence" title="Alt+X">💬 Say a sentence <span class="keys"><kbd>Alt</kbd>+<kbd>X</kbd></span></button>
+        <button id="btnPause" title="Alt+P or Esc">⏸ Pause <span class="keys"><kbd>Esc</kbd></span></button>
         <button id="btnEnd">⏹ End session</button>
       </div>
       <div id="feedback" class="feedback hidden" aria-live="polite"></div>
@@ -358,6 +370,14 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 
 <!-- ============ HELP ============ -->
 <div id="screen-help" role="tabpanel" aria-labelledby="tab-help" class="hidden">
+  <section class="panel" id="about" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle">About</h2>
+    <p><b>Spelling Dictation for IELTS Practice</b><br>
+      Designed by <b>Mohammed Mohammed</b><br>
+      © 2026 Mohammed Mohammed. All rights reserved.</p>
+    <p>Listen to a word, type it, and learn its spelling, meaning, part of speech and word family. Everything stays on your device: no account, no ads, no tracking.</p>
+    <p class="muted small">Not affiliated with, approved or endorsed by IELTS, the British Council, IDP: IELTS Australia or Cambridge University Press &amp; Assessment. IELTS is a registered trademark of its owners.</p>
+  </section>
   <section class="panel">
     <h2>How it works</h2>
     <ol>
@@ -381,18 +401,20 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       <tr><td><kbd>Tab</kbd></td><td>Move between buttons and settings</td></tr>
     </table>
     <h3>Where your data is saved</h3>
-    <p>Everything is stored in this browser's local storage on this PC, inside your Windows user profile. Nothing is sent to any server and no account is needed.</p>
+    <p>Everything is stored on this device, in the app's own storage. Nothing is sent to any server and no account is needed.</p>
     <ul>
-      <li><b>Moving the app folder:</b> in Edge and Chrome, saved progress normally stays available, because the browser stores data for all local files together. Export a backup before moving anyway, just to be safe.</li>
-      <li><b>Changing browser, Windows user or PC:</b> the new browser starts empty. Use <b>Progress → Export</b>, then <b>Import</b> in the new browser.</li>
+      <li><b>Windows file version, moving the app folder:</b> in Edge and Chrome, saved progress normally stays available, because the browser stores data for all local files together. Export a backup before moving anyway, just to be safe.</li>
+      <li><b>New phone, PC or browser:</b> it starts empty. Use <b>Progress → Export</b> to save a backup file, then <b>Import</b> it on the new device.</li>
+      <li><b>Uninstalling the app</b> (or clearing its data) deletes your progress. Export a backup first.</li>
       <li><b>Clearing browsing data</b> ("Cookies and other site data") or using InPrivate/Incognito windows deletes or doesn't keep progress.</li>
     </ul>
     <h3>About the voices</h3>
-    <p id="voiceHelp">Voices marked <b>local</b> are installed in Windows and work offline. Voices marked <b>online</b> (for example the "Natural" voices in Edge) send the word being spoken to Microsoft's or Google's speech service and need internet. No other data is sent. Your vocabulary lists and results are never sent.</p>
+    <p id="voiceHelp">Voices marked <b>local</b> are installed on your device (Windows, or Google text-to-speech on Android) and work offline. Voices marked <b>online</b> (for example the "Natural" voices in Edge) send the word being spoken to Microsoft's or Google's speech service and need internet. No other data is sent. Your vocabulary lists and results are never sent.</p>
     <p>No US English voice? Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser.</p>
   </section>
 </div>
 </main>
+<footer class="credit">Designed by <b>Mohammed Mohammed</b> · © 2026 All rights reserved · <a href="#" id="aboutLink">About</a></footer>
 
 <script>
 /* Built-in vocabulary, extracted from "IELTS Essential Spelling and Vocabulary" by dev/extract_vocab.py */
@@ -631,7 +653,8 @@ function bestLocalVoice() {
 }
 function voiceLabel(v) { return `${isNatural(v) ? "★ " : ""}${v.name} (${v.lang}) — ${isNatural(v) ? "clearest, " : ""}${v.localService ? "local, works offline" : "online, needs internet"}`; }
 function setStatus(el, kind, html) { el.className = "status " + kind; el.innerHTML = html; el.classList.remove("hidden"); }
-const SETUP_HELP = `<b>How to fix:</b> Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser and click “Look for voices again”. Use Microsoft Edge or Google Chrome. Firefox and others may have fewer voices.`;
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+const SETUP_HELP = IS_ANDROID ? `<b>How to fix:</b> Open Android <b>Settings → System → Languages → Text-to-speech output</b>, choose <b>Speech Services by Google</b>, tap the ⚙ settings, then <b>Install voice data → English (United States)</b>. Then reopen the app and tap “Look for voices again”.` : `<b>How to fix:</b> Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser and click “Look for voices again”. Use Microsoft Edge or Google Chrome. Firefox and others may have fewer voices.`;
 async function initVoices(maxWait) {
   const sel = $("voice"), st = $("voiceStatus");
   if (!Speaker.supported) {
@@ -671,7 +694,7 @@ function describeVoice() {
   } else {
     const nat = Speaker.voices.some((x) => isNatural(x) && Speaker.isUS(x));
     setStatus(st, "ok", `✓ Voice ready: <b>${esc(v.name)}</b>. This is a local voice that works offline.` +
-      (nat ? ` <br>Tip: for clearer pronunciation, choose a voice marked <b>★</b> (online “Natural” voice).` : ` <br>Tip: Microsoft Edge offers clearer “Natural” voices than Chrome or Firefox.`) + ` Click “Test voice” to check the sound.`);
+      (nat ? ` <br>Tip: for clearer pronunciation, choose a voice marked <b>★</b> (online “Natural” voice).` : IS_ANDROID ? "" : ` <br>Tip: Microsoft Edge offers clearer “Natural” voices than Chrome or Firefox.`) + ` Click “Test voice” to check the sound.`);
   }
   updateStartEnabled();
 }
@@ -1284,7 +1307,7 @@ function renderVocab() {
         <label>Memory hint<input type="text" id="edHint" value="${esc(x.hint)}"></label>
       </div><div class="row" style="margin-top:8px"><button class="primary" data-save="${esc(x.id)}">Save</button><button data-cancel="1">Cancel</button></div></div></td></tr>`
       : `<tr><td><b>${esc(x.word)}</b>${x.pos ? `<br><i class="muted small">${esc(x.pos)}</i>` : ""}</td><td class="small">${esc(x.meaning || "")}</td>${showSub ? `<td class="small">${esc(subLabel(node, subOf(x, node)))}</td>` : ""}
-        <td style="white-space:nowrap"><button class="iconbtn" data-edit="${esc(x.id)}" aria-label="Edit ${esc(x.word)}">✎ Edit</button> <button class="iconbtn delbtn" data-del="${esc(x.id)}" aria-label="Delete ${esc(x.word)}">🗑 Delete</button></td></tr>`).join("")
+        <td style="white-space:nowrap"><button class="iconbtn" data-edit="${esc(x.id)}" aria-label="Edit ${esc(x.word)}">✎<span class="lbl"> Edit</span></button> <button class="iconbtn delbtn" data-del="${esc(x.id)}" aria-label="Delete ${esc(x.word)}">🗑<span class="lbl"> Delete</span></button></td></tr>`).join("")
   }</tbody></table>` : `<p class="muted">${q ? "No matching words." : "No words here yet. Click “＋ Add a word” to add one."}</p>`;
   const T = $("vocabTable");
   T.querySelectorAll("[data-edit]").forEach((b) => b.addEventListener("click", () => { editingId = b.dataset.edit; renderVocab(); $("edWord").focus(); }));
@@ -1376,6 +1399,7 @@ function showTab(name) {
   if (name === "practice" && session && session.paused) $("btnResume").focus();
 }
 function bindUI() {
+  $("aboutLink").addEventListener("click", (e) => { e.preventDefault(); showTab("help"); $("about").scrollIntoView(); });
   TABS.forEach((t, i) => {
     $("tab-" + t).addEventListener("click", () => showTab(t));
     $("tab-" + t).addEventListener("keydown", (e) => {
@@ -1435,6 +1459,11 @@ function bindUI() {
   });
   $("vocabSearch").addEventListener("input", renderVocab);
   window.addEventListener("pagehide", () => { if (session) { session.draft = session.phase === "answer" || session.phase === "wrong" ? $("answer").value : ""; persist(); } });
+}
+
+/* ---------------- installable app (offline support when served over https) ---------------- */
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 }
 
 /* ---------------- start up ---------------- */
