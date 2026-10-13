@@ -23,8 +23,12 @@ Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Wind
 
 ## Audio setup
 
-- Windows 10 and 11 normally include local US English voices (**Microsoft David**, **Zira**, **Mark**). In the voice list these are marked **"local, works offline"**, and one of them is chosen by default.
-- Edge also lists **"online, needs internet"** voices (for example *Aria Online (Natural)*). They sound more natural, but the word being spoken is sent to Microsoft's speech service. Nothing else is sent: not your vocabulary list, answers or results. Choose a *local* voice if you want to stay fully offline.
+**For the clearest pronunciation, use Microsoft Edge.** It offers Microsoft's "Natural" voices (for example *Aria* and *Jenny*), which sound far more human than the older built-in Windows voices. The app picks the clearest available US voice automatically; these are marked **★** in the voice list.
+
+- The ★ Natural voices are **online**: they need internet, and the word or sentence being spoken is sent to Microsoft's speech service. Nothing else is sent: not your vocabulary list, answers or results.
+- **If the online voice doesn't respond** (for example with no internet), the app switches automatically to a local Windows voice (**Microsoft David**, **Zira** or **Mark**, marked *"local, works offline"*) and says so on screen. The next time you open the app, it tries the clearer voice again.
+- To stay fully offline, choose a *local* voice in the list. Your choice is remembered.
+- Some words are pronounced with a small fix so the voice reads them correctly. For example, *resume* (the job document) is read as "résumé".
 - **No US English voice listed?** Open **Settings → Time & language → Speech → Manage voices → Add voices**, add **English (United States)**, then close and reopen the browser and click **Look for voices again**.
 - If no English voice exists, the app shows an error and won't start. It never shows the words on screen in place of audio.
 - **Silent but no error?** Check the Windows volume mixer, the output device and the app's own volume slider.
@@ -34,9 +38,11 @@ Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Wind
 1. Choose a mode (Mixed, Personal spelling priorities, Listening, 378 High Frequency Words in IELTS Listening, Writing Task 1, Writing Task 2, Previously missed words) and the number of words. The default is 10.
 2. Each word is read twice with a short pause. It is never shown or spelled before you answer.
 3. Type it and press **Enter**, or click the **Submit** button. Capital letters and extra spaces are ignored, and hyphens are optional because you can't hear them (*full-time*, *full time* and *fulltime* are all accepted). Wrong letters and endings are not.
-4. **Correct:** you see a ✓ and the next word starts automatically (you can switch this off; then press Enter).
-5. **Incorrect:** you see your answer and the correct spelling. Differences are marked with colour plus symbols (≠ wrong letter, ^ missing letter, + extra letter) and listed in words. Type the correct spelling and press Enter to continue. The word **still counts as incorrect**.
-6. At the end you get your score (first answers only). Press **Enter** to retest just the words you missed. The retest has its own separate score.
+4. **Correct:** you see a ✓, and the next word starts after about 4 seconds so you can read the word information. Press Enter to go on sooner, or switch auto-advance off. Pressing *Say a sentence* during this time stops the auto-advance.
+5. Unsure what you heard? Press **Alt + X** (or **💬 Say a sentence**) to hear the word in a full example sentence. The sentence isn't shown until you answer.
+6. **After every answer**, right or wrong, you see the word with its **meaning**, **part of speech** (noun, verb, adjective…), **word family** (e.g. *decide → decision, decisive*), the **example sentence** and its **category**.
+7. **Incorrect:** you see your answer and the correct spelling. Differences are marked with colour plus symbols (≠ wrong letter, ^ missing letter, + extra letter) and listed in words. Type the correct spelling and press Enter to continue. The word **still counts as incorrect**.
+8. At the end you get your score (first answers only). Press **Enter** to retest just the words you missed. The retest has its own separate score.
 
 The **Mixed** session fills about 60% of the words from your previously missed words and personal spelling priorities, and the rest from the other categories. The order is random, and no word repeats within a session.
 
@@ -51,6 +57,7 @@ Sound-alike words get a short spoken meaning after the two readings, for example
 | **Enter** or the **Submit** button | Submit answer / submit correction / next word / start retest / resume |
 | **Alt + R** | Repeat the word (any speech already playing stops first, so presses never overlap or queue) |
 | **Alt + S** | Repeat the word slowly |
+| **Alt + X** | Say an example sentence that uses the word |
 | **Esc** or **Alt + P** | Pause / resume (your place and anything you typed are kept) |
 | **Tab** | Move between buttons and settings |
 
@@ -75,11 +82,11 @@ After you answer, the feedback shows how the entry was originally written.
 
 "Your earlier spelling", headings and examples are never used as answers. The memory hints, topics and examples are shown *after* you answer.
 
-In the **Vocabulary** tab you can add, edit and delete words, import a file, export the list to CSV, or restore the built-in list. The word list stays hidden until you click **Show word list**.
+Every built-in word has a meaning, part of speech, word family and example sentence. In the **Vocabulary** tab you can add these for your own words too, and add, edit and delete words, import a file, export the list to CSV, or restore the built-in list. The word list stays hidden until you click **Show word list**.
 
 **Import format**
 
-- **CSV:** `word,category,group,hint,example`. The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
+- **CSV:** `word,category,group,hint,example,context,pos,meaning,sentence,family` (only `word` is required). The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
 - **TXT:** one word or phrase per line.
 - Duplicates are skipped. Use US spelling.
 

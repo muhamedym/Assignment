@@ -32,7 +32,7 @@ async function openApp(ctx, cfg = {}, file = APP) {
   await page.goto(pathToFileURL(file).href);
   return page;
 }
-const spoken = (page) => page.evaluate(() => window.__speechLog.filter((x) => x.ev === "start"));
+const spoken = (page) => page.evaluate(() => window.__speechLog.filter((x) => x.ev === "start").map((x) => Object.assign(x, { text: x.text.replace(/\.$/, "") })));
 async function waitSpoken(page, n, timeout = 8000) {
   await page.waitForFunction((n) => window.__speechLog.filter((x) => x.ev === "start").length >= n, n, { timeout });
 }
@@ -94,17 +94,18 @@ await test("answer checking ignores case and extra spaces but not letters or end
   await ctx.close();
 });
 
-await test("voices load late and a local US English voice is chosen by default; online voices are labelled", async () => {
+await test("voices load late; the clearest US voice (Natural) is chosen by default and labelled; local voices still listed", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx, { voiceDelay: 1200 });
   await page.waitForFunction(() => document.querySelector("#voiceStatus").textContent.includes("Voice ready"));
   const opts = await page.$$eval("#voice option", (o) => o.map((x) => x.textContent));
-  assert.match(opts[0], /Zira|David/); assert.match(opts[0], /local, works offline/);
-  assert.ok(opts.some((o) => /Aria Online.*online, needs internet/.test(o)));
+  assert.match(opts[0], /^★ Microsoft Aria Online \(Natural\).*clearest, online, needs internet/);
+  assert.match(await page.textContent("#voiceStatus"), /clearest.*online.*switches to the local voice/s);
+  assert.ok(opts.some((o) => /Zira.*local, works offline/.test(o)));
   assert.ok(opts.some((o) => /George/.test(o)) && !opts.some((o) => /Hedda/.test(o)), "non-English voice listed");
   assert.equal(await page.isDisabled("#btnStart"), false);
-  await page.selectOption("#voice", { label: opts.find((o) => /Aria/.test(o)) });
-  assert.match(await page.textContent("#voiceStatus"), /online.*needs internet/s);
+  await page.selectOption("#voice", { label: opts.find((o) => /Zira/.test(o)) });
+  assert.match(await page.textContent("#voiceStatus"), /local voice that works offline.*clearer pronunciation/s);
   await page.click("#btnTestVoice");
   await waitSpoken(page, 1);
   assert.match((await spoken(page))[0].text, /Hello/);
@@ -123,7 +124,7 @@ await test("full session: start → hear twice → type → Enter → feedback; 
   await waitSpoken(page, 2);
   let it = await current(page);
   const log = await page.evaluate(() => window.__speechLog);
-  const starts = log.filter((x) => x.ev === "start"), end1 = log.find((x) => x.ev === "end");
+  const starts = await spoken(page), end1 = log.find((x) => x.ev === "end");
   assert.equal(starts[0].text, it.word); assert.equal(starts[1].text, it.word);
   assert.ok(starts[1].t - end1.t >= 900, `pause between readings too short: ${starts[1].t - end1.t}ms`);
   const visible = (await page.innerText("#dictation")).toLowerCase() + (await page.title()).toLowerCase();
@@ -137,7 +138,7 @@ await test("full session: start → hear twice → type → Enter → feedback; 
   await page.keyboard.type(it.word.toUpperCase() + "  ");
   await page.keyboard.press("Enter");
   assert.match(await page.textContent("#feedback"), /✓ Correct/);
-  await page.waitForFunction(() => /Question 2 of 5/.test(document.querySelector("#qnum").textContent), null, { timeout: 4000 });
+  await page.waitForFunction(() => /Question 2 of 5/.test(document.querySelector("#qnum").textContent), null, { timeout: 7000 });
   assert.equal(await page.evaluate(() => document.activeElement.id), "answer");
   await waitSpoken(page, 4);
 
@@ -352,7 +353,7 @@ await test("automatic advance can be turned off; Enter then moves on", async () 
   await page.keyboard.type((await current(page)).word); await page.keyboard.press("Enter");
   await page.waitForTimeout(2000);
   assert.match(await page.textContent("#qnum"), /Question 1 of 5/);
-  assert.match(await page.textContent("#feedback"), /Press Enter for the next word/);
+  assert.match(await page.textContent("#feedback"), /Press Enter or click Next word/);
   await page.keyboard.press("Enter");
   assert.match(await page.textContent("#qnum"), /Question 2 of 5/);
   await ctx.close();
@@ -382,14 +383,14 @@ await test("no voices (real headless Chromium, no speech engine): clear error, S
   await ctx.close();
 });
 
-await test("voice that never starts speaking: a useful error appears during dictation, word not revealed", async () => {
+await test("no voice ever starts speaking (even after switching to a local voice): a useful error appears during dictation, word not revealed", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx, { noStart: true });
   await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
   await setMode(page, "personal", 5);
   await page.click("#btnStart");
-  await page.waitForSelector("#audioError:not(.hidden)", { timeout: 9000 });
-  assert.match(await page.textContent("#audioError"), /didn't start speaking/);
+  // The online voice fails first, the app switches to a local voice, which also fails: then the error is shown.
+  await page.waitForFunction(() => /didn't start speaking/.test(document.querySelector("#audioError").textContent), null, { timeout: 16000 });
   const w = (await current(page)).word;
   assert.ok(!(await page.innerText("#dictation")).toLowerCase().includes(w.toLowerCase()));
   await ctx.close();
@@ -519,6 +520,71 @@ await test("someone who had already edited their word list still gets the new hi
   assert.ok(!v.some((x) => x.word === "autumn"), "deleted word came back");
   await page.reload();
   assert.equal(await page.evaluate(() => window.__ielts.poolFor("mixed").length), v.length, "words added twice");
+  await ctx.close();
+});
+
+await test("an online voice that doesn't respond (no internet) switches to a local voice and the word is still heard", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx, { onlineFails: true });
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  await setMode(page, "personal", 5);
+  await page.click("#btnStart");
+  await page.waitForSelector("#audioError:not(.hidden)", { timeout: 9000 });
+  assert.match(await page.textContent("#audioError"), /didn't respond.*Switched to the local voice/s);
+  await waitSpoken(page, 2, 6000);
+  const s = await spoken(page), w = (await current(page)).word;
+  assert.ok(s.slice(0, 2).every((x) => x.text === w && /Zira|David|Mark/.test(x.voice)), JSON.stringify(s));
+  await ctx.close();
+});
+
+await test("Say a sentence: speaks a sentence with the word, shows nothing before answering; word info appears after", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  await setMode(page, "hf", 5);
+  await page.click("#btnStart");
+  await waitSpoken(page, 2);
+  const it = await page.evaluate(() => { const s = window.__ielts.session; const r = s.rounds[0]; return s.items[r.queue[s.pos]]; });
+  const n = (await spoken(page)).length;
+  await page.keyboard.press("Alt+x");
+  await waitSpoken(page, n + 1);
+  const said = (await spoken(page))[n].text;
+  assert.equal(said.replace(/résumé/g, "resume"), it.sentence.replace(/\.$/, ""));
+  const vis = (await page.innerText("#dictation")).toLowerCase();
+  assert.ok(!vis.includes(it.word.toLowerCase()) && !vis.includes(it.meaning.toLowerCase()), "word or meaning shown before answering");
+  await page.click("#btnSentence"); // the button works too, and focus stays in the answer box
+  assert.equal(await page.evaluate(() => document.activeElement.id), "answer");
+  await page.keyboard.type(it.word); await page.keyboard.press("Enter");
+  const fb = await page.innerText("#feedback");
+  for (const part of [it.word, it.pos, it.meaning, it.family, "378 High Frequency Words in IELTS Listening"]) assert.ok(fb.includes(part), "feedback missing: " + part);
+  assert.ok(fb.includes(it.sentence), "example sentence not shown after answering");
+  // Pressing Say a sentence during feedback stops the auto-advance so the sentence isn't cut off.
+  await page.waitForTimeout(300); // presses of the same button within 250 ms are ignored as key-repeat
+  await page.keyboard.press("Alt+x");
+  await page.waitForTimeout(5000);
+  assert.match(await page.textContent("#qnum"), /Question 1 of 5/);
+  assert.match(fb + await page.innerText("#feedback"), /when you're ready/);
+  await page.keyboard.press("Enter");
+  assert.match(await page.textContent("#qnum"), /Question 2 of 5/);
+  await ctx.close();
+});
+
+await test("pronunciation fixes: resume is spoken as résumé (word and sentence); old saved words get meanings", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  // A missed word saved by the earlier version: no meaning, sentence or pronunciation fix stored.
+  await page.evaluate(() => { window.__ielts.data.missed["h-resume"] = { id: "h-resume", word: "resume", cat: "hf", misses: 1, streak: 0, lastMissed: 1 }; });
+  await setMode(page, "missed", 5);
+  await page.click("#btnStart");
+  await waitSpoken(page, 2);
+  assert.deepEqual((await spoken(page)).slice(0, 2).map((x) => x.text), ["résumé", "résumé"]);
+  await page.keyboard.press("Alt+x");
+  await waitSpoken(page, 3);
+  assert.equal((await spoken(page))[2].text, "Send your résumé with the application form");
+  await page.keyboard.type("resumee"); await page.keyboard.press("Enter");
+  const fb = await page.innerText("#feedback");
+  assert.match(fb, /Not quite/); assert.match(fb, /a document listing your education and work experience/); assert.match(fb, /noun/);
   await ctx.close();
 });
 

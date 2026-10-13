@@ -22,6 +22,7 @@
     current = queue.shift();
     const u = current;
     if (cfg.noStart) return; // engine silently never starts
+    if (cfg.onlineFails && u.voice && !u.voice.localService) return; // online voice unreachable (no internet)
     stats.maxActive = Math.max(stats.maxActive, 1);
     const dur = 120 + 12 * u.text.length / (u.rate || 1);
     u.__t = setTimeout(() => {
