@@ -36,12 +36,19 @@ self.addEventListener("install", (e) => {{ e.waitUntil(caches.open(CACHE).then((
 self.addEventListener("activate", (e) => {{
   e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 }});
-// Cached copy first (fast, offline); refresh it in the background when online.
+// Pages: always try the internet first so updates show immediately; use the saved copy only when offline.
+// Icons and other files: saved copy first (fast), refreshed in the background.
 self.addEventListener("fetch", (e) => {{
-  if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
+  const req = e.request;
+  if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
+  const isPage = req.mode === "navigate" || /\\.html$|\\/$/.test(new URL(req.url).pathname);
   e.respondWith(caches.open(CACHE).then(async (c) => {{
-    const hit = await c.match(e.request, {{ ignoreSearch: true }});
-    const net = fetch(e.request).then((r) => {{ if (r.ok) c.put(e.request, r.clone()); return r; }}).catch(() => hit);
+    if (isPage) {{
+      try {{ const r = await fetch(req, {{ cache: "no-store" }}); if (r.ok) c.put(req, r.clone()); return r; }}
+      catch (err) {{ return (await c.match(req, {{ ignoreSearch: true }})) || (await c.match("index.html")); }}
+    }}
+    const hit = await c.match(req, {{ ignoreSearch: true }});
+    const net = fetch(req).then((r) => {{ if (r.ok) c.put(req, r.clone()); return r; }}).catch(() => hit);
     return hit || net;
   }}));
 }});
@@ -49,7 +56,7 @@ self.addEventListener("fetch", (e) => {{
 
 # Netlify / Cloudflare Pages: serve the Android app-link file from /.well-known (dot-folders can be skipped on upload)
 (site / "_redirects").write_text("/.well-known/assetlinks.json  /assetlinks.json  200\n", encoding="utf-8")
-(site / "_headers").write_text("/assetlinks.json\n  Content-Type: application/json\n/sw.js\n  Cache-Control: no-cache\n", encoding="utf-8")
+(site / "_headers").write_text("/assetlinks.json\n  Content-Type: application/json\n/sw.js\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n", encoding="utf-8")
 if not (site / "assetlinks.json").exists():
     (site / "assetlinks.json").write_text("[]\n", encoding="utf-8")  # replaced with the file PWABuilder gives you
 print(f"site built (cache version {version})")

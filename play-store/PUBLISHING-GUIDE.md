@@ -15,7 +15,7 @@ There are four stages. Steps marked **⚠** are permanent or protect your owners
 
 The Android app opens this website, so it must be online first. After the first visit it works offline.
 
-1. **Add your contact email to the privacy policy.** In the `site` folder, open `privacy.html` in Notepad, find `YOUR-EMAIL@example.com` (it appears twice), replace both with your contact email, and save.
+1. The privacy policy needs no editing. It refers people to the contact email on your Google Play page.
 2. Go to **netlify.com** → **Sign up** (you can use your Google account). It's free.
 3. Open **app.netlify.com/drop** and **drag the whole `site` folder** onto the page. In a few seconds you get an address like `https://jolly-tiger-123.netlify.app`.
 4. Give it a proper name: **Site configuration → Change site name** → e.g. `spelling-dictation-ielts`.

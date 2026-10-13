@@ -11,6 +11,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.resolve(here, "../../play-store/site");
 const MOCK = fs.readFileSync(path.join(here, "mock-speech.js"), "utf8");
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png", ".webmanifest": "application/manifest+json", ".json": "application/json" };
+let deployVersion = 1; // simulates uploading a new version to Netlify
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, "http://x").pathname);
   if (p === "/") p = "/index.html";
@@ -18,6 +19,7 @@ const server = http.createServer((req, res) => {
   const f = path.join(SITE, p);
   if (!f.startsWith(SITE) || !fs.existsSync(f)) { res.writeHead(404); return res.end(); }
   res.writeHead(200, { "Content-Type": TYPES[path.extname(f)] || "application/octet-stream" });
+  if (f.endsWith("index.html")) return res.end(fs.readFileSync(f, "utf8").replace("</body>", `<meta name="deploy-version" content="${deployVersion}"></body>`));
   fs.createReadStream(f).pipe(res);
 });
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
@@ -80,6 +82,11 @@ await check("Android voice help and phone layout (no sideways scrolling, keyboar
   // bottom tab bar on phones
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector("nav[role=tablist]")).position), "fixed");
   assert.equal(await page.getAttribute("#answer", "enterkeyhint"), "go");
+});
+await check("a new upload shows after one normal reload (online)", async () => {
+  deployVersion = 2;
+  await page.reload();
+  assert.equal(await page.getAttribute('meta[name="deploy-version"]', "content"), "2");
 });
 await check("privacy policy and app-link file are served", async () => {
   assert.equal((await page.request.get(base + "privacy.html")).status(), 200);
