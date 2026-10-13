@@ -6,7 +6,7 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 
 | File | What it is |
 |---|---|
-| `IELTS-Spelling-Dictation.html` | The whole app (all 449 built-in words are inside it) |
+| `IELTS-Spelling-Dictation.html` | The whole app (all 547 built-in words are inside it) |
 | `Start IELTS Dictation.bat` | Optional launcher for Edge/Chrome (blocked when Smart App Control is on; open the .html instead) |
 | `sample-vocabulary.csv` | Example file showing the format for importing your own words |
 | `README.md` | This file |
@@ -35,7 +35,16 @@ Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Wind
 
 ## How a session works
 
-1. Choose a mode (Mixed, Personal spelling priorities, Listening, 378 High Frequency Words in IELTS Listening, Writing Task 1, Writing Task 2, Previously missed words) and the number of words. The default is 10.
+1. Choose what to practice and the number of words (default 10):
+   - Mixed vocabulary (personal + missed words first)
+   - Personal spelling priorities
+   - Listening vocabulary: all, or one part (Bookings, Dates, Numbers, Travel, Education…)
+   - 378 High Frequency Words in IELTS Listening: all, or one topic (School, Daily Life, Business…)
+   - Reading: all, or one topic (Science & Research, Environment & Nature, History & Archaeology, Health & Medicine, Technology & Innovation, Psychology & Behavior, Business & Economics, Society & Culture)
+   - Academic Writing: Task 1 + Task 2 together, or just one task
+   - Previously missed words
+
+   When a category has parts, a **Part** menu appears under the list.
 2. Each word is read twice with a short pause. It is never shown or spelled before you answer.
 3. Type it and press **Enter**, or click the **Submit** button. Capital letters and extra spaces are ignored, and hyphens are optional because you can't hear them (*full-time*, *full time* and *fulltime* are all accepted). Wrong letters and endings are not.
 4. **Correct:** you see a ✓, and the next word starts after about 4 seconds so you can read the word information. Press Enter to go on sooner, or switch auto-advance off. Pressing *Say a sentence* during this time stops the auto-advance.
@@ -65,7 +74,7 @@ Switching to another tab during a session pauses it. If you close the browser mi
 
 ## Your vocabulary
 
-449 words are built in. The first 80 come from *IELTS Essential Spelling and Vocabulary*:
+547 words are built in. The first 80 come from *IELTS Essential Spelling and Vocabulary*:
 
 - **Personal spelling priorities:** 15 words, from the "Correct spelling" column
 - **Listening:** 25 words, from the "Correct spelling" column
@@ -80,9 +89,19 @@ Plus **378 High Frequency Words in IELTS Listening:** 369 words and phrases, gro
 
 After you answer, the feedback shows how the entry was originally written.
 
+Plus **Reading**: 98 academic words written for this app in 8 IELTS Reading topics, each with a meaning, part of speech, word family and example sentence.
+
 "Your earlier spelling", headings and examples are never used as answers. The memory hints, topics and examples are shown *after* you answer.
 
-Every built-in word has a meaning, part of speech, word family and example sentence. In the **Vocabulary** tab you can add these for your own words too, and add, edit and delete words, import a file, export the list to CSV, or restore the built-in list. The word list stays hidden until you click **Show word list**.
+Every built-in word has a meaning, part of speech, word family and example sentence.
+
+**Managing words (Vocabulary tab):**
+1. Click a category card (Listening, Reading, Academic Writing…). Its words appear. They stay hidden until then, so you don't see answers by accident.
+2. Use the subcategory buttons (e.g. *Dates*, *Health & Medicine*, *Task 2*) and the search box to narrow the list.
+3. **＋ Add a word** adds to the open category and subcategory. Only the word is required; meaning, sentence and so on are optional. You can also type a new subcategory name.
+4. **🗑 Delete** removes a word at once, with an **Undo** button. **✎ Edit** changes a word in place.
+5. **＋ My own words** lets anyone build their own list, with their own subcategories.
+6. **Import, export or restore words** (at the bottom) imports a CSV/TXT file, exports everything to CSV, or restores the built-in list.
 
 **Import format**
 

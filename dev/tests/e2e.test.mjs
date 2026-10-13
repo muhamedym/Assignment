@@ -41,21 +41,23 @@ const current = (page) => page.evaluate(() => { const s = window.__ielts.session
 // Always a letter substitution, so both "wrong" and "fix" highlights must appear.
 const misspell = (w) => w[0] + (w[1].toLowerCase() === "q" ? "z" : "q") + w.slice(2);
 
-async function setMode(page, mode, length) {
+async function setMode(page, mode, length, sub) {
+  if (mode === "task1" || mode === "task2") { sub = mode; mode = "writing"; } // Writing Task 1/2 are parts of Academic Writing
   await page.check(`input[name=mode][value=${mode}]`);
+  if (sub !== undefined) await page.selectOption("#sub", sub);
   await page.selectOption("#length", String(length));
 }
 
 const browser = await chromium.launch({ headless: true });
 console.log("IELTS Spelling Dictation — end-to-end tests\n");
 
-await test("vocabulary: 80 document words + 369 high-frequency listening words from the 4 tables, no earlier misspellings, no duplicates", async () => {
+await test("vocabulary: 80 document words + 369 high-frequency listening words + 98 reading words from the 4 tables, no earlier misspellings, no duplicates", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
-  assert.equal(v.length, 449);
+  assert.equal(v.length, 547);
   const counts = {}; for (const x of v) counts[x.cat] = (counts[x.cat] || 0) + 1;
-  assert.deepEqual(counts, { personal: 15, listening: 25, task1: 20, task2: 20, hf: 369 });
+  assert.deepEqual(counts, { personal: 15, listening: 25, task1: 20, task2: 20, hf: 369, reading: 98 });
   const words = v.map((x) => x.word.toLowerCase());
   assert.equal(new Set(words).size, words.length, "duplicates found");
   const hf = v.filter((x) => x.cat === "hf");
@@ -327,15 +329,16 @@ await test("default session is 10 mixed words, prioritising missed + personal wo
       const it = window.__ielts.buildItems("mixed", 10);
       const ids = it.map((x) => x.id);
       out.push({ n: it.length, uniq: new Set(ids).size, prio: it.filter((x) => x.cat === "personal" || ["b-receipt", "b-fluctuate"].includes(x.id)).length,
-        missed: ids.includes("b-receipt") && ids.includes("b-fluctuate"), cats: new Set(it.map((x) => x.cat)).size, first: ids[0] });
+        missed: ids.includes("b-receipt") && ids.includes("b-fluctuate"), cats: new Set(it.map((x) => x.cat)).size, first: ids[0], catList: it.map((x) => x.cat) });
     }
     return out;
   });
   assert.ok(r.every((x) => x.n === 10 && x.uniq === 10), "wrong length or repeated word");
   assert.ok(r.every((x) => x.missed), "missed words not prioritised");
   assert.ok(r.every((x) => x.prio === 6), "priority share is not 6/10");
-  assert.ok(r.every((x) => x.cats === 5), "other categories not included");
+  assert.ok(r.every((x) => x.cats >= 5), "other categories not included"); // 4 free slots shared by 5 other categories
   assert.ok(new Set(r.map((x) => x.first)).size > 20, "order not randomised");
+  assert.equal(new Set(r.flatMap((x) => x.catList)).size, 6, "some category never appears in mixed sessions");
   await page.click("#btnStart");
   await waitSpoken(page, 1);
   assert.match(await page.textContent("#qnum"), /Question 1 of 10/);
@@ -396,38 +399,121 @@ await test("no voice ever starts speaking (even after switching to a local voice
   await ctx.close();
 });
 
-await test("vocabulary: add, edit, CSV/TXT import with duplicates skipped, list hidden until requested", async () => {
+await test("vocabulary screen: browse by category and subcategory, add, edit, delete with undo, import", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.click("#tab-vocab");
-  assert.ok(!(await page.isVisible("#vocabTable")), "list visible by default");
-  await page.fill("#addWord", "  meteorology ");
-  await page.keyboard.press("Enter");
-  assert.match(await page.textContent("#vocabMsg"), /Added “meteorology”/);
-  const csv = path.join(tmp, "words.csv");
-  fs.writeFileSync(csv, 'word,category,group,hint,example\nmeticulous,Personal,,"ends in ous",\naccommodation,listening,,,\n"remain stable",task1,,,\nb@d,listening,,,\nhypothesis,Writing Task 2,Science,,"test the hypothesis"\n');
-  await page.setInputFiles("#vocabFile", csv);
-  await page.waitForFunction(() => /Added 2 words/.test(document.querySelector("#vocabMsg").textContent));
-  assert.match(await page.textContent("#vocabMsg"), /Skipped 2 duplicates/);
-  assert.match(await page.textContent("#vocabMsg"), /Skipped 1 invalid entry.*b@d/);
-  const txt = path.join(tmp, "words.txt");
-  fs.writeFileSync(txt, "photosynthesis\nwell-being\nmeteorology\n");
-  await page.setInputFiles("#vocabFile", txt);
-  await page.waitForFunction(() => /Added 2 words/.test(document.querySelector("#vocabMsg").textContent));
-  const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
-  assert.equal(v.length, 454);
-  assert.equal(v.find((x) => x.word === "meticulous").cat, "personal");
-  assert.equal(v.find((x) => x.word === "meticulous").hint, "ends in ous");
-  assert.equal(v.find((x) => x.word === "hypothesis").cat, "task2");
-  assert.equal(v.find((x) => x.word === "photosynthesis").cat, "custom");
-  await page.click("#btnShowVocab");
-  await page.selectOption("#vocabFilter", "custom");
+  assert.ok(!(await page.isVisible("#vocabPanel")), "word list visible before choosing a category");
+  const cards = await page.innerText("#vocabCats");
+  for (const c of ["Personal spelling priorities", "Listening vocabulary", "378 High Frequency", "Reading", "Academic Writing", "My own words"]) assert.ok(cards.includes(c), "missing card " + c);
+  // Listening › Dates
+  await page.click('[data-node="listening"]');
+  assert.match(await page.textContent("#vocabTitle"), /Listening vocabulary/);
+  await page.click('#vocabSubs button:has-text("Dates")');
+  const dates = await page.$$eval("#vocabTable tbody tr", (r) => r.map((x) => x.querySelector("b").textContent));
+  assert.deepEqual(dates.sort(), ["February", "January", "Thursday", "Tuesday", "Wednesday"]);
+  // Add a word straight into Listening › Dates
+  await page.click("#btnAddOpen");
+  assert.equal(await page.inputValue("#addSub"), "Dates");
+  await page.fill("#addWord", "Saturday");
+  await page.click("#addMore summary");
+  await page.fill("#addMeaning", "the day after Friday");
+  await page.keyboard.press("Tab");
+  await page.click("#btnAdd");
+  assert.match(await page.textContent("#addMsg"), /Added “Saturday” to Listening vocabulary › Dates/);
+  assert.ok((await page.innerText("#vocabTable")).includes("Saturday"));
+  await page.fill("#addWord", "january"); await page.keyboard.press("Enter");
+  assert.match(await page.textContent("#addMsg"), /already in Listening vocabulary/);
+  // Delete with undo
+  await page.click('button[aria-label="Delete Saturday"]');
+  assert.ok(!(await page.innerText("#vocabTable")).includes("Saturday"));
+  assert.match(await page.textContent("#undoBar"), /Deleted “Saturday”/);
+  await page.click("#btnUndo");
+  assert.ok((await page.innerText("#vocabTable")).includes("Saturday"), "undo did not restore the word");
+  await page.click('button[aria-label="Delete Saturday"]');
+  // Writing: add to Task 2
+  await page.click('[data-node="writing"]');
+  assert.match(await page.innerText("#vocabSubs"), /Academic Writing Task 1 \(20\)[\s\S]*Academic Writing Task 2 \(20\)/);
+  await page.click("#btnAddOpen");
+  await page.selectOption("#addSub", "task2");
+  await page.fill("#addWord", "globalization"); await page.click("#btnAdd");
+  // Reading topics
+  await page.click('[data-node="reading"]');
+  assert.match(await page.innerText("#vocabSubs"), /Science & Research \(13\)/);
+  // My own words: new list with a new subcategory
+  await page.click('[data-node="custom"]');
+  assert.ok(await page.isVisible("#addBox"), "add form should open for an empty list");
+  await page.fill("#addWord", "meteorology"); await page.fill("#addSub", "Weather words"); await page.click("#btnAdd");
+  assert.match(await page.innerText("#vocabSubs"), /Weather words \(1\)/);
+  // Edit
   await page.click('button[aria-label="Edit meteorology"]');
   await page.fill("#edWord", "meteorologist");
   await page.click("button[data-save]");
   assert.ok((await page.innerText("#vocabTable")).includes("meteorologist"));
+  // Import CSV and TXT (in the Import section)
+  await page.click("text=Import, export or restore words");
+  const csv = path.join(tmp, "words.csv");
+  fs.writeFileSync(csv, 'word,category,group,hint,example\nmeticulous,Personal,,"ends in ous",\naccommodation,listening,,,\n"remain stable",task1,,,\nb@d,listening,,,\nhypothesis,Writing Task 2,Science,,"test the hypothesis"\nphotosynthesis,Reading,Science & Research,,\n');
+  await page.setInputFiles("#vocabFile", csv);
+  await page.waitForFunction(() => /Added 2 words/.test(document.querySelector("#vocabMsg").textContent));
+  assert.match(await page.textContent("#vocabMsg"), /Skipped 3 duplicates/); // accommodation, remain stable, hypothesis (now a Reading word)
+  assert.match(await page.textContent("#vocabMsg"), /Skipped 1 invalid entry.*b@d/);
+  const txt = path.join(tmp, "words.txt");
+  fs.writeFileSync(txt, "photosynthesis\nwell-being\nmeteorologist\n");
+  await page.setInputFiles("#vocabFile", txt);
+  await page.waitForFunction(() => /Added 1 word\./.test(document.querySelector("#vocabMsg").textContent));
+  const v = await page.evaluate(() => window.__ielts.poolFor("mixed"));
+  assert.equal(v.length, 547 + 1 + 1 + 2 + 1); // globalization, meteorologist, meticulous+photosynthesis, well-being
+  assert.equal(v.find((x) => x.word === "meticulous").cat, "personal");
+  assert.equal(v.find((x) => x.word === "photosynthesis").cat, "reading");
+  assert.equal(v.find((x) => x.word === "globalization").cat, "task2");
   await page.reload();
-  assert.ok((await page.evaluate(() => window.__ielts.poolFor("custom"))).some((x) => x.word === "meteorologist"), "edit not saved");
+  const after = await page.evaluate(() => window.__ielts.poolFor("custom"));
+  assert.ok(after.some((x) => x.word === "meteorologist" && x.group === "Weather words"), "edit not saved");
+  // Leaving the tab hides the word list again
+  await page.click("#tab-vocab"); await page.click('[data-node="personal"]');
+  await page.click("#tab-practice"); await page.click("#tab-vocab");
+  assert.ok(!(await page.isVisible("#vocabPanel")));
+  await ctx.close();
+});
+
+await test("practice by part: Listening › Dates, Reading › a topic, Writing all and Task 2 only", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  assert.ok(!(await page.isVisible("#subRow")), "Part menu shown for Mixed");
+  await page.check("input[name=mode][value=listening]");
+  assert.ok(await page.isVisible("#subRow"));
+  const opts = await page.$$eval("#sub option", (o) => o.map((x) => x.textContent));
+  assert.match(opts[0], /All of Listening vocabulary \(25\)/);
+  assert.ok(opts.includes("Dates (5)") && opts.includes("Bookings (4)"), opts.join("|"));
+  await setMode(page, "listening", "all", "Dates");
+  assert.match(await page.textContent("#poolInfo"), /^5 words/);
+  await page.click("#btnStart");
+  await waitSpoken(page, 1);
+  let s = await sess(page);
+  assert.equal(s.items.length, 5);
+  assert.ok(s.items.every((x) => x.group === "Dates"));
+  await page.click("#btnEnd");
+  await setMode(page, "reading", 5, "Health & Medicine");
+  await page.click("#btnStart"); await waitSpoken(page, 3);
+  s = await sess(page);
+  assert.ok(s.items.every((x) => x.cat === "reading" && x.group === "Health & Medicine"));
+  assert.match(await page.textContent("#qcat"), /^Reading$/);
+  await page.click("#btnEnd");
+  await setMode(page, "writing", "all", "");
+  assert.match(await page.textContent("#poolInfo"), /^40 words/);
+  await setMode(page, "writing", "all", "task2");
+  assert.match(await page.textContent("#poolInfo"), /^20 words/);
+  await page.click("#btnStart"); await waitSpoken(page, 5);
+  s = await sess(page);
+  assert.ok(s.items.every((x) => x.cat === "task2"));
+  assert.equal(s.modeLabel, "Academic Writing › Academic Writing Task 2");
+  // The choice is remembered after reloading
+  await page.click("#btnEnd");
+  await page.reload();
+  assert.ok(await page.isChecked("input[name=mode][value=writing]"));
+  assert.equal(await page.inputValue("#sub"), "task2");
   await ctx.close();
 });
 

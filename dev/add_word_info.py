@@ -54,7 +54,7 @@ def main():
                 problems.append(f"{f.name}:{n}: sentence should end with punctuation")
             info[key(word)] = {"pos": pos, "meaning": meaning, "sentence": sentence, "family": family}
     vocab = json.loads(VOCAB.read_text(encoding="utf-8"))
-    words = {key(v["word"]) for v in vocab}
+    words = {key(v["word"]) for v in vocab if v["cat"] != "reading"}  # reading words carry their own info
     for w in sorted(words - set(info)):
         problems.append(f"no word info for: {w}")
     for w in sorted(set(info) - words):
@@ -62,6 +62,8 @@ def main():
     if problems:
         raise SystemExit("\n".join(problems))
     for v in vocab:
+        if v["cat"] == "reading":
+            continue
         v.update(info[key(v["word"])])
         if v["word"] in SAY:
             v["say"] = SAY[v["word"]]

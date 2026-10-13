@@ -4614,5 +4614,985 @@
   "meaning": "a machine that cools the air in a room",
   "sentence": "The air conditioner is too noisy.",
   "family": "air conditioning (noun), condition (verb)"
+ },
+ {
+  "id": "r-hypothesis",
+  "word": "hypothesis",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "an idea that can be tested by experiments",
+  "sentence": "The scientists tested their hypothesis with a series of experiments.",
+  "family": "hypotheses (plural), hypothesize (verb), hypothetical (adjective)"
+ },
+ {
+  "id": "r-phenomenon",
+  "word": "phenomenon",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "something that happens or exists and can be observed",
+  "sentence": "The northern lights are a natural phenomenon.",
+  "family": "phenomena (plural), phenomenal (adjective)"
+ },
+ {
+  "id": "r-experiment",
+  "word": "experiment",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun / verb",
+  "meaning": "a scientific test to discover or prove something",
+  "sentence": "The experiment was repeated three times.",
+  "family": "experimental (adjective), experimentation (noun), experimentally (adverb)"
+ },
+ {
+  "id": "r-laboratory",
+  "word": "laboratory",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "a room or building for scientific work",
+  "sentence": "The samples were sent to a laboratory for testing.",
+  "family": "laboratories (plural), lab (informal noun)"
+ },
+ {
+  "id": "r-analysis",
+  "word": "analysis",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "a careful study of something to understand it",
+  "sentence": "A detailed analysis of the data showed a clear pattern.",
+  "family": "analyses (plural), analyze (verb), analyst (noun), analytical (adjective)"
+ },
+ {
+  "id": "r-evidence",
+  "word": "evidence",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun (uncountable)",
+  "meaning": "facts or signs that show something is true",
+  "sentence": "There is strong evidence that exercise improves memory.",
+  "family": "evident (adjective), evidently (adverb)"
+ },
+ {
+  "id": "r-theory",
+  "word": "theory",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "a set of ideas that explains something",
+  "sentence": "Darwin's theory of evolution changed biology.",
+  "family": "theories (plural), theoretical (adjective), theorist (noun)"
+ },
+ {
+  "id": "r-conclusion",
+  "word": "conclusion",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "a judgment reached after thinking about the facts",
+  "sentence": "The researchers reached the conclusion that sleep aids learning.",
+  "family": "conclude (verb), conclusive (adjective), conclusively (adverb)"
+ },
+ {
+  "id": "r-variable",
+  "word": "variable",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun / adjective",
+  "meaning": "a factor that can change in an experiment; likely to change",
+  "sentence": "Temperature was the only variable in the study.",
+  "family": "vary (verb), variation (noun), variability (noun)"
+ },
+ {
+  "id": "r-observation",
+  "word": "observation",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "the act of watching something carefully to learn about it",
+  "sentence": "Careful observation of the birds lasted two years.",
+  "family": "observe (verb), observer (noun), observatory (noun)"
+ },
+ {
+  "id": "r-specimen",
+  "word": "specimen",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "a single example of something, used for study",
+  "sentence": "Each specimen was labeled and stored.",
+  "family": "specimens (plural)"
+ },
+ {
+  "id": "r-methodology",
+  "word": "methodology",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun",
+  "meaning": "the set of methods used in a study",
+  "sentence": "The methodology section explains how data were collected.",
+  "family": "method (noun), methodical (adjective), methodological (adjective)"
+ },
+ {
+  "id": "r-sample",
+  "word": "sample",
+  "cat": "reading",
+  "group": "Science & Research",
+  "pos": "noun / verb",
+  "meaning": "a small group or amount used to test or represent a whole",
+  "sentence": "The study used a sample of five hundred adults.",
+  "family": "samples (plural), sampling (noun)"
+ },
+ {
+  "id": "r-ecosystem",
+  "word": "ecosystem",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "all the living things in an area and how they interact",
+  "sentence": "Coral reefs are a fragile ecosystem.",
+  "family": "ecology (noun), ecological (adjective), ecologist (noun)"
+ },
+ {
+  "id": "r-biodiversity",
+  "word": "biodiversity",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "the variety of plants and animals in an area",
+  "sentence": "Rainforests have extremely high biodiversity.",
+  "family": "diverse (adjective), diversity (noun), biological (adjective)"
+ },
+ {
+  "id": "r-habitat",
+  "word": "habitat",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "the natural home of an animal or plant",
+  "sentence": "Pollution is destroying the bird's habitat.",
+  "family": "habitats (plural), inhabit (verb), inhabitant (noun)"
+ },
+ {
+  "id": "r-species",
+  "word": "species",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun (singular and plural)",
+  "meaning": "a group of animals or plants of the same kind",
+  "sentence": "Hundreds of species live in this forest.",
+  "family": "specific (adjective), specimen (noun)"
+ },
+ {
+  "id": "r-extinction",
+  "word": "extinction",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "the end of a species, when none are left alive",
+  "sentence": "Many frogs face extinction because of disease.",
+  "family": "extinct (adjective), extinguish (verb)"
+ },
+ {
+  "id": "r-drought",
+  "word": "drought",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "a long period without rain",
+  "sentence": "The drought destroyed most of the crops.",
+  "family": "droughts (plural), dry (adjective)"
+ },
+ {
+  "id": "r-glacier",
+  "word": "glacier",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "a large mass of ice that moves slowly",
+  "sentence": "The glacier has shrunk by half in fifty years.",
+  "family": "glacial (adjective), glaciers (plural)"
+ },
+ {
+  "id": "r-endangered",
+  "word": "endangered",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "adjective",
+  "meaning": "at risk of no longer existing",
+  "sentence": "The tiger is an endangered animal.",
+  "family": "endanger (verb), danger (noun), dangerous (adjective)"
+ },
+ {
+  "id": "r-predator",
+  "word": "predator",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "an animal that hunts and eats other animals",
+  "sentence": "The wolf is the main predator in the region.",
+  "family": "predatory (adjective), prey (noun), predation (noun)"
+ },
+ {
+  "id": "r-vegetation",
+  "word": "vegetation",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun (uncountable)",
+  "meaning": "plants in general, especially in an area",
+  "sentence": "Thick vegetation covers the hills.",
+  "family": "vegetable (noun), vegetarian (noun), vegetate (verb)"
+ },
+ {
+  "id": "r-sustainable",
+  "word": "sustainable",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "adjective",
+  "meaning": "able to continue without harming the environment",
+  "sentence": "Farmers are switching to sustainable methods.",
+  "family": "sustain (verb), sustainability (noun), sustainably (adverb)"
+ },
+ {
+  "id": "r-fertile",
+  "word": "fertile",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "adjective",
+  "meaning": "able to produce good crops or young",
+  "sentence": "The river valley has very fertile soil.",
+  "family": "fertility (noun), fertilize (verb), fertilizer (noun)"
+ },
+ {
+  "id": "r-irrigation",
+  "word": "irrigation",
+  "cat": "reading",
+  "group": "Environment & Nature",
+  "pos": "noun",
+  "meaning": "supplying water to land so crops can grow",
+  "sentence": "Irrigation allowed farming in the desert.",
+  "family": "irrigate (verb), irrigated (adjective)"
+ },
+ {
+  "id": "r-civilization",
+  "word": "civilization",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "an advanced human society with its own culture",
+  "sentence": "The Maya built a remarkable civilization.",
+  "family": "civilize (verb), civil (adjective), civilian (noun); UK: civilisation"
+ },
+ {
+  "id": "r-ancient",
+  "word": "ancient",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "adjective",
+  "meaning": "very old; from a long time ago",
+  "sentence": "They studied ancient Egyptian writing.",
+  "family": "anciently (adverb), antiquity (noun, related)"
+ },
+ {
+  "id": "r-archaeologist",
+  "word": "archaeologist",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a person who studies the past by digging up old objects",
+  "sentence": "An archaeologist found pottery near the river.",
+  "family": "archaeology (noun), archaeological (adjective); US also: archeologist"
+ },
+ {
+  "id": "r-excavation",
+  "word": "excavation",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "the act of digging to find old objects",
+  "sentence": "The excavation revealed the walls of a palace.",
+  "family": "excavate (verb), excavator (noun)"
+ },
+ {
+  "id": "r-artifact",
+  "word": "artifact",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "an object made by people long ago",
+  "sentence": "Each artifact was cleaned and photographed.",
+  "family": "artifacts (plural); UK: artefact"
+ },
+ {
+  "id": "r-century",
+  "word": "century",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a period of one hundred years",
+  "sentence": "The castle was built in the twelfth century.",
+  "family": "centuries (plural), centennial (adjective)"
+ },
+ {
+  "id": "r-empire",
+  "word": "empire",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a group of countries ruled by one leader or government",
+  "sentence": "The Roman empire lasted for centuries.",
+  "family": "emperor (noun), empress (noun), imperial (adjective)"
+ },
+ {
+  "id": "r-medieval",
+  "word": "medieval",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "adjective",
+  "meaning": "from the Middle Ages, about 500 to 1500",
+  "sentence": "The town still has its medieval walls.",
+  "family": "Middle Ages (noun); UK also: mediaeval"
+ },
+ {
+  "id": "r-inscription",
+  "word": "inscription",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "words cut into stone or metal",
+  "sentence": "The inscription on the stone was in Latin.",
+  "family": "inscribe (verb), inscribed (adjective)"
+ },
+ {
+  "id": "r-settlement",
+  "word": "settlement",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a place where people come to live",
+  "sentence": "The first settlement was built near the coast.",
+  "family": "settle (verb), settler (noun)"
+ },
+ {
+  "id": "r-ancestor",
+  "word": "ancestor",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a family member who lived long before you",
+  "sentence": "My ancestor came from Ireland.",
+  "family": "ancestry (noun), ancestral (adjective)"
+ },
+ {
+  "id": "r-monument",
+  "word": "monument",
+  "cat": "reading",
+  "group": "History & Archaeology",
+  "pos": "noun",
+  "meaning": "a building or statue built to remember a person or event",
+  "sentence": "The monument honors soldiers who died in the war.",
+  "family": "monumental (adjective), monuments (plural)"
+ },
+ {
+  "id": "r-vaccine",
+  "word": "vaccine",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "a substance that protects the body from a disease",
+  "sentence": "A new vaccine was developed in record time.",
+  "family": "vaccinate (verb), vaccination (noun)"
+ },
+ {
+  "id": "r-nutrition",
+  "word": "nutrition",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "the food needed for health and growth",
+  "sentence": "Good nutrition is vital for children.",
+  "family": "nutritious (adjective), nutrient (noun), nutritional (adjective)"
+ },
+ {
+  "id": "r-obesity",
+  "word": "obesity",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "being very overweight in a way that is unhealthy",
+  "sentence": "Obesity rates have doubled since 1990.",
+  "family": "obese (adjective)"
+ },
+ {
+  "id": "r-immune",
+  "word": "immune",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "adjective",
+  "meaning": "protected from a disease",
+  "sentence": "Some people are immune to the virus.",
+  "family": "immunity (noun), immunize (verb), immune system (noun)"
+ },
+ {
+  "id": "r-chronic",
+  "word": "chronic",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "adjective",
+  "meaning": "lasting a long time, especially an illness",
+  "sentence": "He suffers from chronic back pain.",
+  "family": "chronically (adverb)"
+ },
+ {
+  "id": "r-diagnosis",
+  "word": "diagnosis",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "identifying an illness from its signs",
+  "sentence": "Early diagnosis improves the chance of recovery.",
+  "family": "diagnoses (plural), diagnose (verb), diagnostic (adjective)"
+ },
+ {
+  "id": "r-therapy",
+  "word": "therapy",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "treatment to help a physical or mental problem",
+  "sentence": "She had speech therapy after the accident.",
+  "family": "therapist (noun), therapeutic (adjective)"
+ },
+ {
+  "id": "r-prescription",
+  "word": "prescription",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "a doctor's written order for medicine",
+  "sentence": "You need a prescription for this medicine.",
+  "family": "prescribe (verb), prescribed (adjective)"
+ },
+ {
+  "id": "r-bacteria",
+  "word": "bacteria",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun (plural)",
+  "meaning": "very small living things, some of which cause disease",
+  "sentence": "Washing your hands removes harmful bacteria.",
+  "family": "bacterium (singular), bacterial (adjective)"
+ },
+ {
+  "id": "r-virus",
+  "word": "virus",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "a tiny organism that causes disease",
+  "sentence": "The virus spreads through the air.",
+  "family": "viruses (plural), viral (adjective)"
+ },
+ {
+  "id": "r-disease",
+  "word": "disease",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "an illness of people, animals or plants",
+  "sentence": "Heart disease is a leading cause of death.",
+  "family": "diseases (plural), diseased (adjective)"
+ },
+ {
+  "id": "r-hygiene",
+  "word": "hygiene",
+  "cat": "reading",
+  "group": "Health & Medicine",
+  "pos": "noun",
+  "meaning": "keeping yourself and things clean to stay healthy",
+  "sentence": "Good hygiene stops infections from spreading.",
+  "family": "hygienic (adjective), unhygienic (adjective)"
+ },
+ {
+  "id": "r-innovation",
+  "word": "innovation",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "a new idea, method or invention",
+  "sentence": "The smartphone was a major innovation.",
+  "family": "innovate (verb), innovative (adjective), innovator (noun)"
+ },
+ {
+  "id": "r-invention",
+  "word": "invention",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "something new that someone creates",
+  "sentence": "The printing press was a world-changing invention.",
+  "family": "invent (verb), inventor (noun), inventive (adjective)"
+ },
+ {
+  "id": "r-device",
+  "word": "device",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "a machine or tool made for a purpose",
+  "sentence": "This device measures your heart rate.",
+  "family": "devices (plural), devise (verb, to plan)"
+ },
+ {
+  "id": "r-artificial-intelligence",
+  "word": "artificial intelligence",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "computer systems that can do tasks needing human thinking",
+  "sentence": "Artificial intelligence is changing how doctors work.",
+  "family": "AI (abbreviation), artificially (adverb), intelligent (adjective)"
+ },
+ {
+  "id": "r-automation",
+  "word": "automation",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "using machines to do work instead of people",
+  "sentence": "Automation has replaced many factory jobs.",
+  "family": "automate (verb), automatic (adjective), automated (adjective)"
+ },
+ {
+  "id": "r-software",
+  "word": "software",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun (uncountable)",
+  "meaning": "programs used by a computer",
+  "sentence": "The company updated its software last week.",
+  "family": "hardware (noun), soft (adjective)"
+ },
+ {
+  "id": "r-algorithm",
+  "word": "algorithm",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "a set of steps a computer follows to solve a problem",
+  "sentence": "The search engine uses a complex algorithm.",
+  "family": "algorithmic (adjective), algorithms (plural)"
+ },
+ {
+  "id": "r-prototype",
+  "word": "prototype",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "the first model of something new, used for testing",
+  "sentence": "Engineers tested the prototype for six months.",
+  "family": "prototypes (plural), prototypical (adjective)"
+ },
+ {
+  "id": "r-engineering",
+  "word": "engineering",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "designing and building machines, roads and structures",
+  "sentence": "She studied civil engineering at university.",
+  "family": "engineer (noun, verb), engine (noun)"
+ },
+ {
+  "id": "r-satellite",
+  "word": "satellite",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "an object that goes around the earth to send signals",
+  "sentence": "The satellite sends weather images every hour.",
+  "family": "satellites (plural)"
+ },
+ {
+  "id": "r-efficiency",
+  "word": "efficiency",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "noun",
+  "meaning": "doing something well without wasting time or energy",
+  "sentence": "The new engine improves fuel efficiency.",
+  "family": "efficient (adjective), efficiently (adverb), inefficiency (noun)"
+ },
+ {
+  "id": "r-digital",
+  "word": "digital",
+  "cat": "reading",
+  "group": "Technology & Innovation",
+  "pos": "adjective",
+  "meaning": "using computer technology; using numbers to store data",
+  "sentence": "Most photos today are digital.",
+  "family": "digitally (adverb), digitize (verb), digit (noun)"
+ },
+ {
+  "id": "r-behavior",
+  "word": "behavior",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "the way a person or animal acts",
+  "sentence": "The study examined the behavior of young children.",
+  "family": "behave (verb), behavioral (adjective); UK: behaviour"
+ },
+ {
+  "id": "r-cognitive",
+  "word": "cognitive",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "adjective",
+  "meaning": "connected with thinking and understanding",
+  "sentence": "Puzzles can improve cognitive skills.",
+  "family": "cognition (noun), cognitively (adverb)"
+ },
+ {
+  "id": "r-perception",
+  "word": "perception",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "the way you notice or understand something",
+  "sentence": "Our perception of time changes with age.",
+  "family": "perceive (verb), perceptive (adjective)"
+ },
+ {
+  "id": "r-motivation",
+  "word": "motivation",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "the reason or desire to do something",
+  "sentence": "Students with high motivation learn faster.",
+  "family": "motivate (verb), motive (noun), motivated (adjective)"
+ },
+ {
+  "id": "r-memory",
+  "word": "memory",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "the ability to remember; something you remember",
+  "sentence": "Sleep helps to strengthen memory.",
+  "family": "memories (plural), memorize (verb), memorable (adjective)"
+ },
+ {
+  "id": "r-intelligence",
+  "word": "intelligence",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "the ability to learn and understand",
+  "sentence": "Intelligence is difficult to measure.",
+  "family": "intelligent (adjective), intelligently (adverb), intellect (noun)"
+ },
+ {
+  "id": "r-emotion",
+  "word": "emotion",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "a strong feeling such as joy or anger",
+  "sentence": "Music can stir strong emotion in listeners.",
+  "family": "emotional (adjective), emotionally (adverb)"
+ },
+ {
+  "id": "r-conscious",
+  "word": "conscious",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "adjective",
+  "meaning": "aware of something; awake",
+  "sentence": "She was conscious of being watched.",
+  "family": "consciousness (noun), consciously (adverb), unconscious (adjective)"
+ },
+ {
+  "id": "r-stimulus",
+  "word": "stimulus",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "something that causes a reaction",
+  "sentence": "A sudden noise is a strong stimulus.",
+  "family": "stimuli (plural), stimulate (verb), stimulation (noun)"
+ },
+ {
+  "id": "r-adolescent",
+  "word": "adolescent",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun / adjective",
+  "meaning": "a young person between child and adult",
+  "sentence": "Every adolescent needs plenty of sleep.",
+  "family": "adolescence (noun)"
+ },
+ {
+  "id": "r-anxiety",
+  "word": "anxiety",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "a feeling of worry or nervousness",
+  "sentence": "Exams can cause a lot of anxiety.",
+  "family": "anxious (adjective), anxiously (adverb)"
+ },
+ {
+  "id": "r-instinct",
+  "word": "instinct",
+  "cat": "reading",
+  "group": "Psychology & Behavior",
+  "pos": "noun",
+  "meaning": "a natural way of behaving that is not learned",
+  "sentence": "Birds build nests by instinct.",
+  "family": "instinctive (adjective), instinctively (adverb)"
+ },
+ {
+  "id": "r-commerce",
+  "word": "commerce",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "the buying and selling of goods",
+  "sentence": "Online commerce has grown rapidly.",
+  "family": "commercial (adjective), commercially (adverb)"
+ },
+ {
+  "id": "r-consumer",
+  "word": "consumer",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "a person who buys goods or services",
+  "sentence": "Every consumer has the right to a refund.",
+  "family": "consume (verb), consumption (noun), consumerism (noun)"
+ },
+ {
+  "id": "r-revenue",
+  "word": "revenue",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "the income of a company or government",
+  "sentence": "Tourism is the main source of revenue.",
+  "family": "revenues (plural)"
+ },
+ {
+  "id": "r-investment",
+  "word": "investment",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "money put into something to make a profit",
+  "sentence": "The investment paid off after five years.",
+  "family": "invest (verb), investor (noun)"
+ },
+ {
+  "id": "r-profit",
+  "word": "profit",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun / verb",
+  "meaning": "money gained after costs are paid",
+  "sentence": "The company made a large profit this year.",
+  "family": "profitable (adjective), profitability (noun)"
+ },
+ {
+  "id": "r-enterprise",
+  "word": "enterprise",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "a business or company; a new project",
+  "sentence": "Small enterprise is the backbone of the economy.",
+  "family": "enterprising (adjective), enterprises (plural)"
+ },
+ {
+  "id": "r-entrepreneur",
+  "word": "entrepreneur",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "a person who starts their own business",
+  "sentence": "The young entrepreneur opened three cafes.",
+  "family": "entrepreneurial (adjective), entrepreneurship (noun)"
+ },
+ {
+  "id": "r-competition",
+  "word": "competition",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "trying to be more successful than others",
+  "sentence": "Competition between airlines keeps prices low.",
+  "family": "compete (verb), competitive (adjective), competitor (noun)"
+ },
+ {
+  "id": "r-demand",
+  "word": "demand",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun / verb",
+  "meaning": "the desire of people to buy something",
+  "sentence": "Demand for electric cars is rising.",
+  "family": "demanding (adjective), demands (plural)"
+ },
+ {
+  "id": "r-export",
+  "word": "export",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun / verb",
+  "meaning": "to sell goods to another country",
+  "sentence": "Coffee is the country's main export.",
+  "family": "exporter (noun), exports (plural), import (opposite)"
+ },
+ {
+  "id": "r-industry",
+  "word": "industry",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "the production of goods in factories; a type of business",
+  "sentence": "The car industry employs thousands of people.",
+  "family": "industrial (adjective), industrialize (verb), industrious (adjective)"
+ },
+ {
+  "id": "r-commodity",
+  "word": "commodity",
+  "cat": "reading",
+  "group": "Business & Economics",
+  "pos": "noun",
+  "meaning": "a product that can be bought and sold, such as oil or coffee",
+  "sentence": "Oil is the world's most traded commodity.",
+  "family": "commodities (plural)"
+ },
+ {
+  "id": "r-tradition",
+  "word": "tradition",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "a custom passed down over generations",
+  "sentence": "It is a tradition to eat together on holidays.",
+  "family": "traditional (adjective), traditionally (adverb)"
+ },
+ {
+  "id": "r-heritage",
+  "word": "heritage",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "history, traditions and buildings passed down from the past",
+  "sentence": "The old city is part of our cultural heritage.",
+  "family": "inherit (verb), inheritance (noun)"
+ },
+ {
+  "id": "r-population",
+  "word": "population",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "all the people living in an area",
+  "sentence": "The population of the city has doubled.",
+  "family": "populate (verb), populous (adjective), popular (adjective)"
+ },
+ {
+  "id": "r-urbanization",
+  "word": "urbanization",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "the growth of towns and cities",
+  "sentence": "Rapid urbanization has created traffic problems.",
+  "family": "urban (adjective), urbanize (verb); UK: urbanisation"
+ },
+ {
+  "id": "r-migration",
+  "word": "migration",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "moving from one place to live in another",
+  "sentence": "Migration from rural areas increased.",
+  "family": "migrate (verb), migrant (noun), immigration (noun)"
+ },
+ {
+  "id": "r-immigrant",
+  "word": "immigrant",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "a person who comes to live in another country",
+  "sentence": "Each immigrant must apply for a visa.",
+  "family": "immigrate (verb), immigration (noun), emigrant (noun)"
+ },
+ {
+  "id": "r-community",
+  "word": "community",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "the people living in one area or sharing interests",
+  "sentence": "The local community raised money for the school.",
+  "family": "communities (plural), communal (adjective)"
+ },
+ {
+  "id": "r-ethnic",
+  "word": "ethnic",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "adjective",
+  "meaning": "relating to a group with a shared culture or origin",
+  "sentence": "The city has many ethnic restaurants.",
+  "family": "ethnicity (noun), ethnically (adverb)"
+ },
+ {
+  "id": "r-generation",
+  "word": "generation",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "all the people born around the same time",
+  "sentence": "The younger generation uses social media more.",
+  "family": "generate (verb), generational (adjective)"
+ },
+ {
+  "id": "r-literacy",
+  "word": "literacy",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "the ability to read and write",
+  "sentence": "Adult literacy rates have improved.",
+  "family": "literate (adjective), illiterate (adjective), literacy rate (noun)"
+ },
+ {
+  "id": "r-ritual",
+  "word": "ritual",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "a set of actions always done in the same way, often religious",
+  "sentence": "The tea ceremony is an ancient ritual.",
+  "family": "ritually (adverb), rituals (plural)"
+ },
+ {
+  "id": "r-diversity",
+  "word": "diversity",
+  "cat": "reading",
+  "group": "Society & Culture",
+  "pos": "noun",
+  "meaning": "a range of different people or things",
+  "sentence": "The university celebrates cultural diversity.",
+  "family": "diverse (adjective), diversify (verb)"
  }
 ]
