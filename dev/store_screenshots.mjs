@@ -11,6 +11,7 @@ const ctx = await b.newContext({ viewport: { width: 360, height: 640 }, deviceSc
   userAgent: "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Mobile Safari/537.36" });
 await ctx.addInitScript(MOCK);
 const p = await ctx.newPage();
+p.on("dialog", (d) => d.accept());
 await p.goto(pathToFileURL(path.join(root, "play-store/site/index.html")).href);
 await p.waitForFunction(() => !document.querySelector("#btnStart").disabled);
 await p.screenshot({ path: path.join(out, "1-choose-what-to-practice.png") });

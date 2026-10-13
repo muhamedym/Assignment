@@ -1,5 +1,5 @@
 // Offline support: keeps the app working with no internet. New version = new cache name.
-const CACHE = "spelling-dictation-9758e22cb1";
+const CACHE = "spelling-dictation-a2d6e7f323";
 const FILES = ["./", "index.html", "privacy.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => {

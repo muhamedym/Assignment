@@ -67,8 +67,18 @@ await check("designer credit and About section are shown", async () => {
 await check("Android voice help and phone layout (no sideways scrolling, keyboard hints hidden)", async () => {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector(".controls .keys")).display), "none");
-  // touch hint shown, keyboard hint hidden
-  assert.deepEqual(await page.evaluate(() => [".touchhint", ".keyhint"].map((q) => getComputedStyle(document.querySelector(q)).display !== "none")), [true, false]);
+  // keyboard-shortcut hint never shown on a phone
+  assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector(".keyhint")).display), "none");
+  // the tab bar hides while typing and comes back after the session ends
+  await page.click("#tab-practice"); // the session from the offline check is still open (paused)
+  await page.click("#btnResume");
+  await page.waitForFunction(() => document.body.classList.contains("typing"));
+  assert.ok(!(await page.isVisible("#tab-vocab")), "tab bar should hide while typing");
+  page.once("dialog", (d) => d.accept()); await page.click("#btnEnd");
+  await page.waitForTimeout(100);
+  assert.ok(await page.isVisible("#tab-vocab"), "tab bar still hidden after ending the session");
+  // bottom tab bar on phones
+  assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector("nav[role=tablist]")).position), "fixed");
   assert.equal(await page.getAttribute("#answer", "enterkeyhint"), "go");
 });
 await check("privacy policy and app-link file are served", async () => {

@@ -51,7 +51,8 @@ label { cursor: pointer; }
 .muted { color: var(--muted); }
 .small { font-size: 15px; }
 .hidden { display: none !important; }
-fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0; }
+fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0; min-width: 0; }
+select { max-width: 100%; }
 legend { font-weight: 600; padding: 0 6px; }
 .modes label { display: block; padding: 4px 0; }
 .status { border-radius: 10px; padding: 10px 14px; margin: 10px 0; border: 1px solid var(--line); }
@@ -101,6 +102,58 @@ footer.credit a { color: var(--accent); }
 .touchhint { display: none; }
 @media (pointer: coarse) { .controls .keys, .keyhint { display: none; } .touchhint { display: inline; } }
 @media (max-width: 600px) { .iconbtn .lbl { display: none; } .iconbtn { padding: 4px 10px; } }
+/* ---------- choices as tappable cards (all screen sizes) ---------- */
+.modes > label { display: block; position: relative; padding: 10px 12px 10px 42px; margin: 6px 0; border: 1px solid var(--line); border-radius: 10px; }
+.modes > label input[type=radio] { position: absolute; left: 14px; top: 13px; width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+.modes > label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.audiopanel summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.audiopanel summary::-webkit-details-marker { display: none; }
+.audiopanel summary h2 { margin: 0; }
+.audiopanel summary::after { content: "▾"; margin-left: auto; color: var(--muted); }
+.audiopanel details[open] summary::after { content: "▴"; }
+.audiopanel details[open] summary { margin-bottom: 10px; }
+.voiceshort:empty { display: none; }
+.ti { display: none; }
+#feedback { margin-bottom: 4px; }
+
+/* ---------- phone layout ---------- */
+@media (max-width: 700px) {
+  body { padding-bottom: 76px; }
+  header { padding: 10px 14px; }
+  header h1 { font-size: 19px; }
+  .h1sub { display: block; font-size: 14px; }
+  nav[role=tablist] { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+    background: var(--panel); border-top: 1px solid var(--line); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); box-shadow: 0 -2px 10px rgba(0,0,0,.08); }
+  nav[role=tablist] button { border: 0; border-radius: 10px; background: transparent; min-height: 56px; padding: 4px 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 12px; }
+  nav[role=tablist] button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .ti { display: block; font-size: 21px; line-height: 1; }
+  section.panel { padding: 14px; border-radius: 14px; }
+  h2 { font-size: 21px; }
+  .grid2 { gap: 10px; }
+  .startbar { position: sticky; bottom: 70px; z-index: 10; background: var(--bg); padding: 10px 0; margin: 0 -2px; }
+  .startbar #btnStart { width: 100%; font-size: 22px; min-height: 56px; }
+  .startbar .muted { display: none; }
+  .qnum { font-size: 21px; }
+  .qhead { align-items: center; }
+  #prompt { font-size: 16px; }
+  #askArea .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #askArea .controls button { min-height: 50px; font-size: 16px; padding: 6px 8px; }
+  #askArea .controls #btnEnd { grid-column: 1 / -1; background: transparent; border-style: dashed; color: var(--muted); min-height: 44px; }
+  .controls .keys { display: none; }
+  .feedback { padding: 12px; }
+  .feedback .verdict { font-size: 21px; }
+  #feedback .cells { font-size: 21px; flex-wrap: nowrap; }
+  #feedback .cells span { min-width: 0.72em; }
+  #feedback .diff { grid-template-columns: 1fr; gap: 0; overflow-x: auto; }
+  #feedback .diff .lbl { font-size: 13px; margin-top: 4px; }
+  #feedback .diff .lbl:empty { display: none; }
+  body.typing nav[role=tablist], body.typing .startbar { display: none; } /* more room above the on-screen keyboard */
+  body.typing { padding-bottom: 0; }
+  footer.credit { padding-bottom: 12px; }
+  .catgrid { grid-template-columns: 1fr 1fr; }
+  .catcard { min-height: 70px; padding: 10px; }
+  .catcard b { font-size: 16px; }
+}
 .extra { margin-top: 8px; font-size: 17px; }
 .diff { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 10px 0; align-items: center; }
 .diff .lbl { font-size: 16px; color: var(--muted); }
@@ -141,11 +194,11 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 <header>
   <h1>Spelling Dictation <span class="h1sub">for IELTS Practice</span></h1>
   <nav role="tablist" aria-label="Screens">
-    <button role="tab" id="tab-practice" aria-controls="screen-practice" aria-selected="true">Practice</button>
-    <button role="tab" id="tab-results" aria-controls="screen-results" aria-selected="false">Results</button>
-    <button role="tab" id="tab-progress" aria-controls="screen-progress" aria-selected="false">Progress</button>
-    <button role="tab" id="tab-vocab" aria-controls="screen-vocab" aria-selected="false">Vocabulary</button>
-    <button role="tab" id="tab-help" aria-controls="screen-help" aria-selected="false">Help</button>
+    <button role="tab" id="tab-practice" aria-controls="screen-practice" aria-selected="true"><span class="ti" aria-hidden="true">🎯</span><span class="tl">Practice</span></button>
+    <button role="tab" id="tab-results" aria-controls="screen-results" aria-selected="false"><span class="ti" aria-hidden="true">🏁</span><span class="tl">Results</span></button>
+    <button role="tab" id="tab-progress" aria-controls="screen-progress" aria-selected="false"><span class="ti" aria-hidden="true">📈</span><span class="tl">Progress</span></button>
+    <button role="tab" id="tab-vocab" aria-controls="screen-vocab" aria-selected="false"><span class="ti" aria-hidden="true">📚</span><span class="tl">Vocabulary</span></button>
+    <button role="tab" id="tab-help" aria-controls="screen-help" aria-selected="false"><span class="ti" aria-hidden="true">❓</span><span class="tl">Help</span></button>
   </nav>
 </header>
 <main>
@@ -200,8 +253,9 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       </div>
     </section>
 
-    <section class="panel" aria-labelledby="audioHeading">
-      <h2 id="audioHeading">Audio</h2>
+    <section class="panel audiopanel" aria-labelledby="audioHeading">
+      <details id="audioDetails" open>
+      <summary><h2 id="audioHeading">🔊 Voice &amp; speed</h2><span id="voiceShort" class="voiceshort muted small"></span></summary>
       <div id="voiceStatus" class="status" role="status">Checking for voices…</div>
       <div class="grid2">
         <div>
@@ -225,9 +279,10 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
         <select id="gap"><option value="600">0.6 s</option><option value="1000" selected>1 s</option><option value="1500">1.5 s</option><option value="2500">2.5 s</option></select>
         <label><input type="checkbox" id="speakContext" checked> Add a short meaning for sound-alike words (e.g. principle / principal)</label>
       </div>
+      </details>
     </section>
 
-    <div class="row">
+    <div class="row startbar">
       <button class="primary big" id="btnStart" disabled>▶ Start</button>
       <span class="muted small touchhint">After Start, type each word you hear and tap Submit. Use “Say a sentence” if a word isn’t clear.</span><span class="muted small keyhint">After Start, keep your hands on the keyboard: type, press <kbd>Enter</kbd>. <kbd>Alt</kbd>+<kbd>R</kbd> repeats the word.</span>
     </div>
@@ -248,6 +303,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
                name="ielts-dictation-answer-field" enterkeyhint="go" aria-describedby="prompt" data-gramm="false" data-lt-active="false">
         <button class="primary big" id="btnSubmit">Submit ⏎</button>
       </div>
+      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
       <div class="controls">
         <button id="btnRepeat" title="Alt+R">🔁 Repeat word <span class="keys"><kbd>Alt</kbd>+<kbd>R</kbd></span></button>
         <button id="btnSlow" title="Alt+S">🐢 Repeat slowly <span class="keys"><kbd>Alt</kbd>+<kbd>S</kbd></span></button>
@@ -255,7 +311,6 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
         <button id="btnPause" title="Alt+P or Esc">⏸ Pause <span class="keys"><kbd>Esc</kbd></span></button>
         <button id="btnEnd">⏹ End session</button>
       </div>
-      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
     </div>
 
     <div id="pausedArea" class="overlay hidden">
@@ -473,6 +528,7 @@ const DEFAULT_SETTINGS = { voiceURI: "", rate: 0.9, volume: 1, slow: false, gapM
   autoAdvance: true, length: "10", lengthCustom: 12, mode: "mixed", sub: "" };
 
 /* ---------------- helpers ---------------- */
+const isPhone = () => window.matchMedia("(max-width: 700px)").matches;
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 function clean(s) { return String(s || "").replace(/[‘’ʼ]/g, "'").replace(/\s+/g, " ").trim(); }
@@ -652,7 +708,13 @@ function bestLocalVoice() {
   return Speaker.voices.filter((v) => v.localService && Speaker.isEnglish(v)).sort((a, b) => voiceScore(b) - voiceScore(a))[0] || null;
 }
 function voiceLabel(v) { return `${isNatural(v) ? "★ " : ""}${v.name} (${v.lang}) — ${isNatural(v) ? "clearest, " : ""}${v.localService ? "local, works offline" : "online, needs internet"}`; }
-function setStatus(el, kind, html) { el.className = "status " + kind; el.innerHTML = html; el.classList.remove("hidden"); }
+function setStatus(el, kind, html) {
+  el.className = "status " + kind; el.innerHTML = html; el.classList.remove("hidden");
+  if (el.id === "voiceStatus") {
+    $("voiceShort").textContent = kind === "bad" ? "✗ Needs attention" : currentVoice ? (kind === "ok" ? "✓ " : "ⓘ ") + currentVoice.name.replace(/^Microsoft |^Google /, "").replace(/ - English.*| \(.*$/, "") : "";
+    if (kind === "bad") $("audioDetails").open = true; // never hide a voice problem
+  }
+}
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 const SETUP_HELP = IS_ANDROID ? `<b>How to fix:</b> Open Android <b>Settings → System → Languages → Text-to-speech output</b>, choose <b>Speech Services by Google</b>, tap the ⚙ settings, then <b>Install voice data → English (United States)</b>. Then reopen the app and tap “Look for voices again”.` : `<b>How to fix:</b> Open Windows <b>Settings → Time &amp; language → Speech → Manage voices → Add voices</b>, add <b>English (United States)</b>, then close and reopen the browser and click “Look for voices again”. Use Microsoft Edge or Google Chrome. Firefox and others may have fewer voices.`;
 async function initVoices(maxWait) {
@@ -862,6 +924,8 @@ function showDictation() {
   $("dictation").classList.remove("hidden");
 }
 function showSetup() {
+  if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); // closes the phone keyboard
+  document.body.classList.remove("typing");
   $("dictation").classList.add("hidden");
   $("setup").classList.remove("hidden");
   updatePoolInfo(); updateResumeBanner();
@@ -884,7 +948,7 @@ function present(speak) {
   inp.disabled = false; inp.readOnly = false;
   if (session.phase === "answer") {
     $("feedback").className = "feedback hidden"; $("feedback").innerHTML = "";
-    $("prompt").textContent = "Listen, type the word, then press Enter or click Submit.";
+    $("prompt").textContent = isPhone() ? "Listen, type the word, then tap Submit." : "Listen, type the word, then press Enter or click Submit.";
     setSubmitLabel();
     inp.value = session.draft || "";
   } else {
@@ -958,7 +1022,7 @@ function renderFeedback() {
   const extraHTML = `<div class="wordinfo">
       <div class="wi-head"><span class="wi-word">${esc(it.word)}</span>${it.pos ? ` <span class="wi-pos">${esc(it.pos)}</span>` : ""}</div>
       <dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>`;
-  const next = `<span class="nextNote">${data.settings.autoAdvance ? "Next word in a few seconds… (press Enter to go now)" : "Press Enter or click Next word to continue."}</span>`;
+  const next = `<span class="nextNote">${data.settings.autoAdvance ? (isPhone() ? "Next word in a few seconds… (tap Next word to go now)" : "Next word in a few seconds… (press Enter to go now)") : (isPhone() ? "Tap Next word to continue." : "Press Enter or click Next word to continue.")}</span>`;
   setSubmitLabel();
   if (session.phase === "correct") {
     fb.className = "feedback ok";
@@ -970,7 +1034,7 @@ function renderFeedback() {
     fb.innerHTML = `<div class="verdict bad">✗ Not quite</div>
       <div>Your answer: <b>${esc(clean(res.answer))}</b> · Correct spelling: <b>${esc(it.word)}</b></div>
       ${diffHTML(res.answer, it.word)}${retry}${extraHTML}`;
-    $("prompt").textContent = "Type the correct spelling and press Enter to continue.";
+    $("prompt").textContent = isPhone() ? "Type the correct spelling, then tap Submit correction." : "Type the correct spelling and press Enter to continue.";
   } else if (session.phase === "corrected") {
     fb.className = "feedback ok";
     fb.innerHTML = `<div class="verdict ok">✓ Well done, corrected: ${esc(it.word)}</div>
@@ -1001,6 +1065,7 @@ function submit() {
     renderFeedback();
     persist();
     if (ok) scheduleAdvance();
+    if (isPhone()) $("answer").scrollIntoView({ block: "start" }); // answer, result and correct spelling above the keyboard
   } else if (session.phase === "wrong") {
     r.results[session.pos].corrections++;
     if (isCorrect(val, it.word)) {
@@ -1465,6 +1530,11 @@ function bindUI() {
 if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 }
+
+if (isPhone()) $("audioDetails").open = false;
+const isTypingField = (el) => el && (el.tagName === "TEXTAREA" || (el.tagName === "INPUT" && /^(text|search|number)$/.test(el.type)));
+document.addEventListener("focusin", (e) => { if (isTypingField(e.target)) document.body.classList.add("typing"); });
+document.addEventListener("focusout", () => setTimeout(() => { if (!isTypingField(document.activeElement)) document.body.classList.remove("typing"); }, 50));
 
 /* ---------------- start up ---------------- */
 bindSettings();
