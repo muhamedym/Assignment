@@ -1,0 +1,697 @@
+;;; Subset of the CMU Pronouncing Dictionary used by this app (first pronunciation of each word).
+;;; Copyright (C) 1993-2015 Carnegie Mellon University. All rights reserved. BSD-style licence: see cmudict-LICENSE.txt
+a AH0
+absorbed AH0 B Z AO1 R B D
+accommodate AH0 K AA1 M AH0 D EY2 T
+accommodation AH0 K AA2 M AH0 D EY1 SH AH0 N
+ache EY1 K
+achievement AH0 CH IY1 V M AH0 N T
+action AE1 K SH AH0 N
+activity AE0 K T IH1 V AH0 T IY0
+addicted AH0 D IH1 K T IH0 D
+address AE1 D R EH2 S
+adolescent AE2 D AH0 L EH1 S AH0 N T
+ads AE1 D Z
+advanced AH0 D V AE1 N S T
+advantage AE0 D V AE1 N T IH0 JH
+advertisement AE0 D V ER1 T AH0 Z M AH0 N T
+agency EY1 JH AH0 N S IY0
+air EH1 R
+algorithm AE1 L G ER0 IH2 DH AH0 M
+all AO1 L
+allergy AE1 L ER0 JH IY0
+along AH0 L AO1 NG
+although AO2 L DH OW1
+alumni AH0 L AH1 M N AY2
+alumnus AH0 L AH1 M N AH0 S
+an AE1 N
+analysis AH0 N AE1 L AH0 S AH0 S
+ancestor AE1 N S EH2 S T ER0
+ancient EY1 N CH AH0 N T
+and AH0 N D
+anesthetist AH0 N EH1 S TH AH0 T AH0 S T
+anomaly AH0 N AA1 M AH0 L IY0
+anxiety AE0 NG Z AY1 AH0 T IY0
+apartment AH0 P AA1 R T M AH0 N T
+appetizer AE1 P AH0 T AY2 Z ER0
+application AE2 P L AH0 K EY1 SH AH0 N
+appointment AH0 P OY1 N T M AH0 N T
+archaeologist AA2 R K IY0 AA1 L AH0 JH IH0 S T
+area EH1 R IY0 AH0
+artifact AA1 R T AH0 F AE2 K T
+artificial AA2 R T AH0 F IH1 SH AH0 L
+as AE1 Z
+assistance AH0 S IH1 S T AH0 N S
+assistant AH0 S IH1 S T AH0 N T
+associate AH0 S OW1 S IY0 AH0 T
+attending AH0 T EH1 N D IH0 NG
+attitude AE1 T AH0 T UW2 D
+automation AO0 T AH0 M EY1 SH AH0 N
+autumn AO1 T AH0 M
+available AH0 V EY1 L AH0 B AH0 L
+baby B EY1 B IY0
+bachelor B AE1 CH AH0 L ER0
+back B AE1 K
+bacteria B AE0 K T IH1 R IY0 AH0
+balance B AE1 L AH0 N S
+bankrupt B AE1 NG K R AH0 P T
+bath B AE1 TH
+be B IY1
+beef B IY1 F
+behavior B IH0 HH EY1 V Y ER0
+beneficial B EH2 N AH0 F IH1 SH AH0 L
+beverage B EH1 V ER0 IH0 JH
+bicycle B AY1 S IH0 K AH0 L
+bid B IH1 D
+biodiversity B AY2 OW0 D AY0 V ER1 S AH0 T IY0
+biography B AY0 AA1 G R AH0 F IY0
+bird B ER1 D
+blaze B L EY1 Z
+board B AO1 R D
+book B UH1 K
+booth B UW1 TH
+branch B R AE1 N CH
+breeze B R IY1 Z
+broad B R AO1 D
+broadcast B R AO1 D K AE2 S T
+budget B AH1 JH IH0 T
+buffet B AH1 F AH0 T
+bulb B AH1 L B
+burglar B ER1 G L ER0
+business B IH1 Z N AH0 S
+call K AO1 L
+camera K AE1 M ER0 AH0
+campaign K AE0 M P EY1 N
+candidate K AE1 N D AH0 D EY0 T
+car K AA1 R
+card K AA1 R D
+cast K AE1 S T
+catalog K AE1 T AH0 L AO0 G
+century S EH1 N CH ER0 IY0
+chain CH EY1 N
+chairman CH EH1 R M AH0 N
+change CH EY1 N JH
+channels CH AE1 N AH0 L Z
+charge CH AA1 R JH
+check CH EH1 K
+chief CH IY1 F
+children CH IH1 L D R AH0 N
+chronic K R AA1 N IH0 K
+circulation S ER1 K Y AH0 L EY2 SH AH0 N
+civilization S IH2 V AH0 L IH0 Z EY1 SH AH0 N
+cleaner K L IY1 N ER0
+client K L AY1 AH0 N T
+climate K L AY1 M AH0 T
+climatic K L AY0 M AE1 T IH0 K
+clinic K L IH1 N IH0 K
+closing K L OW1 Z IH0 NG
+cognitive K AA1 G N IH0 T IH0 V
+collapse K AH0 L AE1 P S
+colleague K AA1 L IY0 G
+college K AA1 L IH0 JH
+colorful K AH1 L ER0 F AH0 L
+commerce K AA1 M ER0 S
+commercial K AH0 M ER1 SH AH0 L
+commodity K AH0 M AA1 D AH0 T IY0
+communication K AH0 M Y UW2 N AH0 K EY1 SH AH0 N
+community K AH0 M Y UW1 N AH0 T IY0
+comparison K AH0 M P EH1 R AH0 S AH0 N
+competition K AA2 M P AH0 T IH1 SH AH0 N
+complaint K AH0 M P L EY1 N T
+compromise K AA1 M P R AH0 M AY2 Z
+compulsory K AH0 M P AH1 L S ER0 IY0
+computer K AH0 M P Y UW1 T ER0
+conclusion K AH0 N K L UW1 ZH AH0 N
+conditioner K AH0 N D IH1 SH AH0 N ER0
+conductor K AH0 N D AH1 K T ER0
+confident K AA1 N F AH0 D AH0 N T
+conflict K AA1 N F L IH0 K T
+conscious K AA1 N SH AH0 S
+conservation K AA2 N S ER0 V EY1 SH AH0 N
+consult K AH0 N S AH1 L T
+consultant K AH0 N S AH1 L T AH0 N T
+consumer K AH0 N S UW1 M ER0
+contact K AA1 N T AE2 K T
+contest K AA1 N T EH0 S T
+continuous K AH0 N T IH1 N Y UW0 AH0 S
+contribution K AA2 N T R AH0 B Y UW1 SH AH0 N
+convenience K AH0 N V IY1 N Y AH0 N S
+convert K AA1 N V ER0 T
+cooker K UH1 K ER0
+cooperation K OW0 AA2 P ER0 EY1 SH AH0 N
+copier K AA1 P IY0 ER0
+copy K AA1 P IY0
+cost K AA1 S T
+counter K AW1 N T ER0
+course K AO1 R S
+crack K R AE1 K
+credit K R EH1 D AH0 T
+crib K R IH1 B
+crisis K R AY1 S AH0 S
+cupboard K AH1 B ER0 D
+current K ER1 AH0 N T
+curriculum K AH0 R IH1 K Y AH0 L AH0 M
+customer K AH1 S T AH0 M ER0
+cutlery K AH1 T L ER0 IY0
+cyber S AY1 B ER0
+cyberspace S AY1 B ER0 S P EY2 S
+date D EY1 T
+dean D IY1 N
+decay D IH0 K EY1
+decline D IH0 K L AY1 N
+decoration D EH2 K ER0 EY1 SH AH0 N
+decrease D IH0 K R IY1 S
+deflation D IH0 F L EY1 SH AH0 N
+deforestation D IH0 F AO2 R IH0 S T EY1 SH AH0 N
+deliver D IH0 L IH1 V ER0
+demand D IH0 M AE1 N D
+demonstrate D EH1 M AH0 N S T R EY2 T
+dental D EH1 N T AH0 L
+department D IH0 P AA1 R T M AH0 N T
+depression D IH0 P R EH1 SH AH0 N
+dessert D IH0 Z ER1 T
+determined D IH0 T ER1 M AH0 N D
+device D IH0 V AY1 S
+devote D IH0 V OW1 T
+diabetes D AY2 AH0 B IY1 T IY0 Z
+diagnosis D AY2 AH0 G N OW1 S AH0 S
+diet D AY1 AH0 T
+digital D IH1 JH AH0 T AH0 L
+diligent D IH1 L IH0 JH AH0 N T
+dinner D IH1 N ER0
+disadvantage D IH2 S AH0 D V AE1 N T IH0 JH
+disease D IH0 Z IY1 Z
+distance D IH1 S T AH0 N S
+diversity D IH0 V ER1 S IH0 T IY0
+do D UW1
+doctor D AA1 K T ER0
+doctoral D AA1 K T ER0 AH0 L
+doctorate D AA1 K T ER0 AH0 T
+documentary D AA2 K Y AH0 M EH1 N T ER0 IY0
+done D AH1 N
+down D AW1 N
+downpour D AW1 N P AO0 R
+downtown D AW1 N T AW1 N
+drop D R AA1 P
+dropout D R AA1 P AW2 T
+drought D R AW1 T
+due D UW1
+dutch D AH1 CH
+dwell D W EH1 L
+eco IY1 K OW0
+economic EH2 K AH0 N AA1 M IH0 K
+economical EH2 K AH0 N AA1 M IH0 K AH0 L
+ecosystem IY1 K OW0 S IH2 S T AH0 M
+edition AH0 D IH1 SH AH0 N
+editorial EH2 D AH0 T AO1 R IY0 AH0 L
+education EH2 JH AH0 K EY1 SH AH0 N
+efficiency IH0 F IH1 SH AH0 N S IY0
+eighteen EY0 T IY1 N
+election IH0 L EH1 K SH AH0 N
+elective IH0 L EH1 K T IH0 V
+electric IH0 L EH1 K T R IH0 K
+electronic IH2 L EH2 K T R AA1 N IH0 K
+emitted IH0 M IH1 T AH0 D
+emotion IH0 M OW1 SH AH0 N
+empire EH1 M P AY0 ER0
+employment EH0 M P L OY1 M AH0 N T
+endangered EH0 N D EY1 N JH ER0 D
+energy EH1 N ER0 JH IY0
+engineering EH1 N JH AH0 N IH1 R IH0 NG
+enroll EH0 N R OW1 L
+enterprise EH1 N T ER0 P R AY2 Z
+entertainment EH2 N T ER0 T EY1 N M AH0 N T
+entrance EH1 N T R AH0 N S
+entrepreneur AA2 N T R AH0 P R AH0 N ER1
+environment IH0 N V AY1 R AH0 N M AH0 N T
+epidemic EH2 P AH0 D EH1 M IH0 K
+equipment IH0 K W IH1 P M AH0 N T
+erosion IH0 R OW1 ZH AH0 N
+ethnic EH1 TH N IH0 K
+ever EH1 V ER0
+evidence EH1 V AH0 D AH0 N S
+exam IH0 G Z AE1 M
+excavation EH2 K S K AH0 V EY1 SH AH0 N
+excursion IH0 K S K ER1 ZH AH0 N
+exercise EH1 K S ER0 S AY2 Z
+expand IH0 K S P AE1 N D
+expenditure IH0 K S P EH1 N D AH0 CH ER0
+expenses IH0 K S P EH1 N S AH0 Z
+experiment IH0 K S P EH1 R AH0 M AH0 N T
+exploration EH2 K S P L ER0 EY1 SH AH0 N
+export EH1 K S P AO0 R T
+express IH0 K S P R EH1 S
+expressway IH0 K S P R EH1 S W EY2
+extensively IH0 K S T EH1 N S IH0 V L IY0
+extinction IH0 K S T IH1 NG K SH AH0 N
+extra EH1 K S T R AH0
+eye AY1
+family F AE1 M AH0 L IY0
+february F EH1 B R UW0 EH2 R IY0
+feel F IY1 L
+ferry F EH1 R IY0
+fertile F ER1 T AH0 L
+fiddle F IH1 D AH0 L
+finally F AY1 N AH0 L IY0
+financier F IH2 N AH0 N S IH1 R
+fine F AY1 N
+fire F AY1 ER0
+fit F IH1 T
+fix F IH1 K S
+flat F L AE1 T
+flight F L AY1 T
+flu F L UW1
+fluctuate F L AH1 K CH UW0 EY2 T
+for F AO1 R
+fore F AO1 R
+forecast F AO1 R K AE2 S T
+forgetful F AO0 R G EH1 T F AH0 L
+forty F AO1 R T IY0
+fracture F R AE1 K CH ER0
+free F R IY1
+freeway F R IY1 W EY2
+freshman F R EH1 SH M AH0 N
+fridge F R IH1 JH
+full F UH1 L
+furnace F ER1 N AH0 S
+furnished F ER1 N IH0 SH T
+gardening G AA1 R D AH0 N IH0 NG
+generation JH EH2 N ER0 EY1 SH AH0 N
+get G EH1 T
+glacier G L EY1 SH ER0
+glazing G L EY1 Z IH0 NG
+go G OW1
+good G UH1 D
+government G AH1 V ER0 M AH0 N T
+grocery G R OW1 S ER0 IY0
+ground G R AW1 N D
+gust G AH1 S T
+habitat HH AE1 B AH0 T AE2 T
+hacker HH AE1 K ER0
+hall HH AO1 L
+hallway HH AO1 L W EY2
+hang HH AE1 NG
+hard HH AA1 R D
+hardworking HH AA1 R D W ER2 K IH0 NG
+have HH AE1 V
+heater HH IY1 T ER0
+heritage HH EH1 R AH0 T AH0 JH
+high HH AY1
+highly HH AY1 L IY0
+hike HH AY1 K
+hiking HH AY1 K IH0 NG
+hire HH AY1 ER0
+hitch HH IH1 CH
+hitchhike HH IH1 CH HH AY2 K
+hold HH OW1 L D
+hood HH UH1 D
+hopping HH AA1 P IH0 NG
+horror HH AO1 R ER0
+hospitable HH AA1 S P IH1 T AH0 B AH0 L
+house HH AW1 S
+household HH AW1 S HH OW2 L D
+housekeeper HH AW1 S K IY2 P ER0
+housemaid HH AW1 S M EY2 D
+housewarming HH AW1 S W AO2 R M IH0 NG
+housewife HH AW1 S W AY2 F
+housework HH AW1 S W ER2 K
+how HH AW1
+however HH AW2 EH1 V ER0
+humidity HH Y UW0 M IH1 D AH0 T IY0
+hunting HH AH1 N T IH0 NG
+hygiene HH AY1 JH IY2 N
+hypothesis HH AY0 P AA1 TH AH0 S AH0 S
+illness IH1 L N AH0 S
+illustrates IH1 L AH0 S T R EY2 T S
+immigrant IH1 M AH0 G R AH0 N T
+immune IH2 M Y UW1 N
+impression IH2 M P R EH1 SH AH0 N
+in IH0 N
+increase IH2 N K R IY1 S
+index IH1 N D EH0 K S
+industry IH1 N D AH0 S T R IY0
+inexperienced IH0 N IH0 K S P IH1 R IY0 AH0 N S T
+infectious IH2 N F EH1 K SH AH0 S
+infirmary IH0 N F ER1 M ER0 IY0
+inflation IH2 N F L EY1 SH AH0 N
+initially IH2 N IH1 SH AH0 L IY0
+innovation IH2 N AH0 V EY1 SH AH0 N
+inquiry IH2 N K W AY1 R IY2
+inscription IH2 N S K R IH1 P SH AH0 N
+install IH2 N S T AO1 L
+instinct IH1 N S T IH0 NG K T
+intelligence IH2 N T EH1 L AH0 JH AH0 N S
+interview IH1 N T ER0 V Y UW2
+interviewee IH2 N T ER0 V Y UW0 IY1
+interviewer IH1 N T ER0 V Y UW2 ER0
+introductory IH2 N T R AH0 D AH1 K T ER0 IY0
+invention IH2 N V EH1 N SH AH0 N
+investment IH2 N V EH1 S T M AH0 N T
+involved IH2 N V AA1 L V D
+iron AY1 ER0 N
+irrigation IH2 R AH0 G EY1 SH AH0 N
+issue IH1 SH UW0
+items AY1 T AH0 M Z
+january JH AE1 N Y UW0 EH2 R IY0
+job JH AA1 B
+jobs JH AA1 B Z
+join JH OY1 N
+junior JH UW1 N Y ER0
+keep K IY1 P
+keeper K IY1 P ER0
+key K IY1
+keyword K IY1 W ER2 D
+knowledge N AA1 L AH0 JH
+laboratory L AE1 B R AH0 T AO2 R IY0
+lady L EY1 D IY0
+land L AE1 N D
+landlady L AE1 N D L EY2 D IY0
+landlord L AE1 N D L AO2 R D
+latest L EY1 T AH0 S T
+laundry L AO1 N D R IY0
+leak L IY1 K
+lecturer L EH1 K CH ER0 ER0
+legend L EH1 JH AH0 N D
+leisure L EH1 ZH ER0
+let L EH1 T
+letter L EH1 T ER0
+librarian L AY0 B R EH1 R IY2 AH0 N
+library L AY1 B R EH0 R IY2
+light L AY1 T
+list L IH1 S T
+literacy L IH1 T ER0 AH0 S IY0
+live L AY1 V
+load L OW1 D
+loaf L OW1 F
+long L AO1 NG
+lord L AO1 R D
+lose L UW1 Z
+lounge L AW1 N JH
+luggage L AH1 G AH0 JH
+luxurious L AH0 G ZH ER1 IY0 AH0 S
+machine M AH0 SH IY1 N
+magazine M AE1 G AH0 Z IY2 N
+maid M EY1 D
+maintenance M EY1 N T AH0 N AH0 N S
+make M EY1 K
+makeup M EY1 K AH2 P
+mall M AO1 L
+manager M AE1 N AH0 JH ER0
+master M AE1 S T ER0
+match M AE1 CH
+media M IY1 D IY0 AH0
+medieval M IH0 D IY1 V AH0 L
+medium M IY1 D IY0 AH0 M
+memory M EH1 M ER0 IY0
+menu M EH1 N Y UW0
+mess M EH1 S
+message M EH1 S AH0 JH
+methodology M EH2 TH AH0 D AA1 L AH0 JH IY0
+migration M AY0 G R EY1 SH AH0 N
+mineral M IH1 N ER0 AH0 L
+monetary M AA1 N AH0 T EH2 R IY0
+monument M AA1 N Y UW0 M AH0 N T
+motel M OW0 T EH1 L
+motivation M OW2 T AH0 V EY1 SH AH0 N
+movie M UW1 V IY0
+muggy M AH1 G IY0
+multi M AH1 L T IY0
+multimedia M AH2 L T IY0 M IY1 D IY0 AH0
+multiple M AH1 L T AH0 P AH0 L
+mutton M AH1 T AH0 N
+napkin N AE1 P K IH0 N
+necessarily N EH2 S AH0 S EH1 R AH0 L IY0
+necessary N EH1 S AH0 S EH2 R IY0
+neighbor N EY1 B ER0
+neighborhood N EY1 B ER0 HH UH2 D
+ninety N AY1 N T IY0
+no N OW1
+nose N OW1 Z
+novel N AA1 V AH0 L
+number N AH1 M B ER0
+nutrition N UW0 T R IH1 SH AH0 N
+obesity OW0 B IY1 S AH0 T IY0
+observation AA2 B Z ER0 V EY1 SH AH0 N
+odd AA1 D
+of AH1 V
+on AA1 N
+one W AH1 N
+opening OW1 P AH0 N IH0 NG
+opportunity AA2 P ER0 T UW1 N AH0 T IY0
+optional AA1 P SH AH0 N AH0 L
+out AW1 T
+outlet AW1 T L EH2 T
+over OW1 V ER0
+overall OW1 V ER0 AO2 L
+overdue OW1 V ER0 D UW1
+overweight OW2 V ER0 W EY1 T
+overwork OW2 V ER0 W ER1 K
+paper P EY1 P ER0
+paperback P EY1 P ER0 B AE2 K
+part P AA1 R T
+participant P AA0 R T IH1 S AH0 P AH0 N T
+party P AA1 R T IY0
+passenger P AE1 S AH0 N JH ER0
+past P AE1 S T
+pay P EY1
+peak P IY1 K
+percentage P ER0 S EH1 N T AH0 JH
+perception P ER0 S EH1 P SH AH0 N
+performance P ER0 F AO1 R M AH0 N S
+periodical P IH2 R IY0 AA1 D IH0 K AH0 L
+permission P ER0 M IH1 SH AH0 N
+perseverance P ER2 S AH0 V IH1 R AH0 N S
+personality P ER2 S AH0 N AE1 L IH0 T IY0
+phenomenon F AH0 N AA1 M AH0 N AA2 N
+phone F OW1 N
+physical F IH1 Z IH0 K AH0 L
+physician F AH0 Z IH1 SH AH0 N
+physics F IH1 Z IH0 K S
+pioneer P AY2 AH0 N IH1 R
+pipe P AY1 P
+platform P L AE1 T F AO2 R M
+plow P L AW1
+plumber P L AH1 M ER0
+pollution P AH0 L UW1 SH AH0 N
+poor P UW1 R
+population P AA2 P Y AH0 L EY1 SH AH0 N
+pork P AO1 R K
+position P AH0 Z IH1 SH AH0 N
+post P OW1 S T
+potential P AH0 T EH1 N SH AH0 L
+pour P AO1 R
+predator P R EH1 D AH0 T ER0
+prescription P R AH0 S K R IH1 P SH AH0 N
+press P R EH1 S
+prime P R AY1 M
+principle P R IH1 N S AH0 P AH0 L
+print P R IH1 N T
+product P R AA1 D AH0 K T
+production P R AH0 D AH1 K SH AH0 N
+professor P R AH0 F EH1 S ER0
+profit P R AA1 F AH0 T
+proportion P R AH0 P AO1 R SH AH0 N
+proposal P R AH0 P OW1 Z AH0 L
+prosperous P R AA1 S P ER0 AH0 S
+proto P R OW1 T AH0
+prototype P R OW1 T AH0 T AY2 P
+psychology S AY0 K AA1 L AH0 JH IY0
+publication P AH2 B L IH0 K EY1 SH AH0 N
+publisher P AH1 B L IH0 SH ER0
+put P UH1 T
+qualifications K W AA2 L AH0 F AH0 K EY1 SH AH0 N Z
+quarterly K W AO1 R T ER0 L IY0
+questionnaire K W EH2 S CH AH0 N EH1 R
+rank R AE1 NG K
+rate R EY1 T
+raw R AA1
+read R IY1 D
+reading R IY1 D IH0 NG
+receipt R IH0 S IY1 T
+recession R IH0 S EH1 SH AH0 N
+recognition R EH2 K AH0 G N IH1 SH AH0 N
+recruit R AH0 K R UW1 T
+recyclable R IY0 S AY1 K L AH0 B AH0 L
+recycled R IY0 S AY1 K AH0 L D
+reference R EH1 F ER0 AH0 N S
+refrigerator R AH0 F R IH1 JH ER0 EY2 T ER0
+register R EH1 JH IH0 S T ER0
+regular R EH1 G Y AH0 L ER0
+remain R IH0 M EY1 N
+renewable R IY0 N UW1 AH0 B AH0 L
+repetitive R IH0 P EH1 T IH0 T IH0 V
+replace R IY2 P L EY1 S
+reservation R EH2 Z ER0 V EY1 SH AH0 N
+reserve R IH0 Z ER1 V
+residence R EH1 Z IH0 D AH0 N S
+resort R IH0 Z AO1 R T
+respectively R IH0 S P EH1 K T IH0 V L IY0
+responsibility R IY0 S P AA2 N S AH0 B IH1 L AH0 T IY0
+restaurant R EH1 S T ER0 AA2 N T
+resume R EH1 Z AH0 M EY2
+return R IH0 T ER1 N
+revenue R EH1 V AH0 N UW2
+review R IY2 V Y UW1
+ritual R IH1 CH UW0 AH0 L
+room R UW1 M
+round R AW1 N D
+run R AH1 N
+runny R AH1 N IY0
+salary S AE1 L ER0 IY0
+sale S EY1 L
+sample S AE1 M P AH0 L
+sars S AA1 R Z
+satellite S AE1 T AH0 L AY2 T
+science S AY1 AH0 N S
+selectively S AH0 L EH1 K T IH0 V L IY0
+sell S EH1 L
+seminar S EH1 M AH0 N AA2 R
+senior S IY1 N Y ER0
+sensitive S EH1 N S AH0 T IH0 V
+server S ER1 V ER0
+settlement S EH1 T AH0 L M AH0 N T
+sewage S UW1 AH0 JH
+shape SH EY1 P
+shelf SH EH1 L F
+shopping SH AA1 P IH0 NG
+shuttle SH AH1 T AH0 L
+side S AY1 D
+sideboard S AY1 D B AO2 R D
+sign S AY1 N
+significantly S IH0 G N IH1 F IH0 K AH0 N T L IY0
+similarly S IH1 M AH0 L ER0 L IY0
+sink S IH1 NG K
+size S AY1 Z
+skiing S K IY1 IH0 NG
+slightly S L AY1 T L IY0
+snack S N AE1 K
+sneeze S N IY1 Z
+society S AH0 S AY1 AH0 T IY0
+software S AO1 F T W EH2 R
+soil S OY1 L
+some S AH1 M
+someone S AH1 M W AH2 N
+sometimes S AH0 M T AY1 M Z
+sophomore S AA1 F M AO2 R
+sore S AO1 R
+space S P EY1 S
+spare S P EH1 R
+species S P IY1 SH IY0 Z
+specimen S P EH1 S AH0 M AH0 N
+speech S P IY1 CH
+speed S P IY1 D
+stable S T EY1 B AH0 L
+stacks S T AE1 K S
+staple S T EY1 P AH0 L
+state S T EY1 T
+stationery S T EY1 SH AH0 N EH2 R IY0
+steadily S T EH1 D AH0 L IY0
+steak S T EY1 K
+stimulus S T IH1 M Y AH0 L AH0 S
+stock S T AA1 K
+stomach S T AH1 M AH0 K
+stomachache S T AH1 M AH0 K EY2 K
+store S T AO1 R
+street S T R IY1 T
+streetcar S T R IY1 T K AA2 R
+struggle S T R AH1 G AH0 L
+student S T UW1 D AH0 N T
+study S T AH1 D IY0
+sub S AH1 B
+suburb S AH1 B ER0 B
+subway S AH1 B W EY2
+super S UW1 P ER0
+supermarket S UW1 P ER0 M AA2 R K IH0 T
+supervisor S UW1 P ER0 V AY2 Z ER0
+surgeon S ER1 JH AH0 N
+surplus S ER1 P L AH0 S
+sustainable S AH0 S T EY1 N AH0 B AH0 L
+syllabus S IH1 L AH0 B AH0 S
+symbol S IH1 M B AH0 L
+symptom S IH1 M P T AH0 M
+system S IH1 S T AH0 M
+take T EY1 K
+teaching T IY1 CH IH0 NG
+technology T EH0 K N AA1 L AH0 JH IY0
+telephone T EH1 L AH0 F OW2 N
+temperature T EH1 M P R AH0 CH ER0
+tenant T EH1 N AH0 N T
+the DH AH0
+theater TH IY1 AH0 T ER0
+theory TH IH1 R IY0
+therapy TH EH1 R AH0 P IY0
+there DH EH1 R
+therefore DH EH1 R F AO2 R
+throat TH R OW1 T
+through TH R UW1
+thursday TH ER1 Z D EY2
+ticket T IH1 K AH0 T
+time T AY1 M
+times T AY1 M Z
+to T UW1
+tooth T UW1 TH
+toothache T UW1 TH EY2 K
+town T AW1 N
+tradition T R AH0 D IH1 SH AH0 N
+trail T R EY1 L
+train T R EY1 N
+trans T R AE1 N Z
+transaction T R AE0 N Z AE1 K SH AH0 N
+transfer T R AE0 N S F ER1
+transport T R AE0 N S P AO1 R T
+transportation T R AE2 N S P ER0 T EY1 SH AH0 N
+travel T R AE1 V AH0 L
+treatment T R IY1 T M AH0 N T
+trend T R EH1 N D
+tribute T R IH1 B Y UW0 T
+trip T R IH1 P
+tube T UW1 B
+tuesday T UW1 Z D IY0
+turn T ER1 N
+tv T IY1 V IY1
+type T AY1 P
+under AH1 N D ER0
+underground AH1 N D ER0 G R AW2 N D
+unemployment AH2 N IH0 M P L OY1 M AH0 N T
+unfurnished AH0 N F ER1 N IH0 SH T
+union Y UW1 N Y AH0 N
+up AH1 P
+urbanization ER2 B AH0 N AH0 Z EY1 SH AH0 N
+vacancy V EY1 K AH0 N S IY0
+vaccine V AE2 K S IY1 N
+vacuum V AE1 K Y UW0 M
+variable V EH1 R IY0 AH0 B AH0 L
+variation V EH2 R IY0 EY1 SH AH0 N
+vegetation V EH2 JH AH0 T EY1 SH AH0 N
+ventilation V EH2 N T AH0 L EY1 SH AH0 N
+video V IH1 D IY0 OW0
+violence V AY1 AH0 L AH0 N S
+virus V AY1 R AH0 S
+visa V IY1 Z AH0
+visor V AY1 Z ER0
+volume V AA1 L Y UW0 M
+vote V OW1 T
+wage W EY1 JH
+waiter W EY1 T ER0
+waitress W EY1 T R AH0 S
+want W AA1 N T
+warming W AO1 R M IH0 NG
+washing W AA1 SH IH0 NG
+watch W AA1 CH
+water W AO1 T ER0
+way W EY1
+wear W EH1 R
+weather W EH1 DH ER0
+wednesday W EH1 N Z D IY0
+weight W EY1 T
+where W EH1 R
+whereas W EH0 R AE1 Z
+wife W AY1 F
+with W IH1 DH
+word W ER1 D
+work W ER1 K
+workaholic W ER2 K AH0 HH AA1 L IH0 K
+working W ER1 K IH0 NG
+workload W ER1 K L OW2 D
+writing R AY1 T IH0 NG
+your Y AO1 R

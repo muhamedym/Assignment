@@ -11,9 +11,12 @@
   `add_word_info.py`).
 - `make_icons.py`, `build_site.py`, `store_screenshots.mjs`: build `play-store/` (installable web version for
   the Android app, icons, Play Store screenshots). `tests/site.test.mjs` checks the hosted version works offline.
+- `add_pronunciation.py`: American IPA, syllables and letter-to-sound breakdown (silent/double letters) for
+  every word, from the CMU Pronouncing Dictionary (`cmudict-subset.txt`, licence in `cmudict-LICENSE.txt`).
+  Run after `build_reading.py`.
 - `build.py`: injects `vocab.json` into `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
   `python -I dev/build.py`
-- `tests/e2e.test.mjs`: 20 end-to-end tests in headless Chromium (Playwright) against the real page.
+- `tests/e2e.test.mjs`: 22 end-to-end tests in headless Chromium (Playwright) against the real page.
   `tests/mock-speech.js` simulates the Web Speech API (late-loading voices, queueing, cancel) so the
   timing and overlap rules can be checked; the "no voices" test uses real Chromium with no speech engine.
   `node dev/tests/e2e.test.mjs`

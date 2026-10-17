@@ -674,6 +674,66 @@ await test("pronunciation fixes: resume is spoken as résumé (word and sentence
   await ctx.close();
 });
 
+await test("pronunciation: American IPA, syllables, letter-to-sound breakdown and silent letters after answering", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled);
+  // data checks
+  const r = await page.evaluate(() => { const v = window.__ielts.poolFor("mixed"); const g = (w) => v.find((x) => x.word === w); return {
+    n: v.filter((x) => x.ipa && x.syl && Array.isArray(x.parts)).length, total: v.length,
+    receipt: g("receipt"), accommodation: g("accommodation"), autumn: g("autumn"), wednesday: g("Wednesday"), knowledge: g("knowledge") }; });
+  assert.equal(r.n, r.total, "every built-in word should have IPA, syllables and a breakdown");
+  assert.equal(r.receipt.ipa, "/rɪˈsit/");
+  assert.equal(r.accommodation.ipa, "/əˌkɑməˈdeɪʃən/");
+  assert.equal(r.accommodation.syl, "ac·com·mo·da·tion");
+  for (const x of [r.receipt, r.accommodation, r.autumn, r.wednesday, r.knowledge]) assert.equal(x.parts.map((p) => p[0]).join(""), x.word, "breakdown must spell the word");
+  const silent = (x) => x.parts.filter((p) => p[2] === "s" || p[2] === "e").map((p) => p[0].toLowerCase()).join(",");
+  assert.equal(silent(r.receipt), "p"); assert.equal(silent(r.autumn), "n"); assert.equal(silent(r.wednesday), "d,e"); assert.equal(silent(r.knowledge), "k,w,e");
+  assert.deepEqual(r.accommodation.parts.filter((p) => p[2] === "d").map((p) => p[0]), ["cc", "mm"]);
+  // shown after answering (old saved missed words get it too)
+  await page.evaluate(() => { window.__ielts.data.missed["b-receipt"] = { id: "b-receipt", word: "receipt", cat: "listening", misses: 1, streak: 0 }; });
+  await setMode(page, "missed", 5);
+  await page.check("#showIpaHint");
+  await page.click("#btnStart");
+  await waitSpoken(page, 2);
+  assert.match(await page.textContent("#ipaHint"), /IPA hint: \/rɪˈsit\//);
+  assert.ok(!(await page.innerText("#dictation")).toLowerCase().includes("receipt"), "word revealed before answering");
+  await page.keyboard.type("reciept"); await page.keyboard.press("Enter");
+  const fb = await page.innerText("#feedback");
+  assert.match(fb, /\/rɪˈsit\//); assert.match(fb, /re·ceipt/); assert.match(fb, /2 syllables/);
+  assert.match(fb, /Silent: p/);
+  assert.equal(await page.$$eval("#feedback .chip.f-s", (e) => e.map((x) => x.querySelector("b").textContent).join()), "p");
+  // Hear button speaks the word and keeps the answer box focused
+  const n = (await spoken(page)).length;
+  await page.click("#feedback .hearbtn");
+  await waitSpoken(page, n + 1);
+  assert.equal((await spoken(page))[n].text, "receipt");
+  assert.equal(await page.evaluate(() => document.activeElement.id), "answer");
+  await ctx.close();
+});
+
+await test("Sounds page: IPA chart with spellings from your words, silent and double letters, look-up", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnStart").disabled); // voice ready
+  await page.click("#tab-sounds");
+  const vowels = await page.innerText("#soundsVowels"), cons = await page.innerText("#soundsConsonants");
+  for (const sym of ["/i/", "/ɪ/", "/eɪ/", "/ə/", "/ɚ/", "/ɔɪ/"]) assert.ok(vowels.includes(sym), "missing vowel " + sym);
+  for (const sym of ["/θ/", "/ð/", "/ʃ/", "/ʒ/", "/tʃ/", "/dʒ/", "/ŋ/"]) assert.ok(cons.includes(sym), "missing consonant " + sym);
+  assert.match(cons, /\/ʃ\/[\s\S]*ti[\s\S]*accommodation/, "sh-sound spelled ti should list e.g. accommodation");
+  const silent = await page.innerText("#soundsSilent");
+  assert.ok(/receipt/.test(silent) && /autumn/.test(silent) && /knowledge/.test(silent));
+  assert.equal((silent.match(/sometimes/g) || []).length, 1, "a word should be listed once per group");
+  assert.match(await page.innerText("#soundsDouble"), /cc[\s\S]*accommodation/);
+  await page.fill("#soundLookup", "wednesday");
+  const out = await page.innerText("#soundLookupOut");
+  assert.match(out, /Wednesday/); assert.match(out, /\/ˈwɛnzdi\//); assert.match(out, /Silent: d, e/);
+  await page.click('#soundsSilent button.wordlink:has-text("receipt")');
+  await waitSpoken(page, 1);
+  assert.equal((await spoken(page))[0].text, "receipt");
+  await ctx.close();
+});
+
 await browser.close();
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log(`\n${passed} passed, ${failed} failed`);

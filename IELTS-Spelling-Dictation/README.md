@@ -59,6 +59,25 @@ A missed word leaves the "Previously missed words" list after you spell it right
 
 Sound-alike words get a short spoken meaning after the two readings, for example *principle* ("as in, a basic rule or belief", so you don't write *principal*), *stationery* ("as in, paper and pens") and *dessert*. You can switch this off in Audio settings.
 
+## Pronunciation help (IPA, syllables, silent letters)
+
+After every answer, the word panel shows:
+- **American pronunciation in IPA**, e.g. *accommodation* /əˌkɑməˈdeɪʃən/, with a **🔊 Hear** button.
+- **Syllables:** ac·com·mo·da·tion (5 syllables).
+- **Letters and sounds:** each letter group with the sound it makes (cc → /k/, ti → /ʃ/).
+- **Silent letters** crossed out in red (the **p** in *receipt*, the **n** in *autumn*, the **d** in *Wednesday*), and **double letters** that make one sound (the **cc** and **mm** in *accommodation*).
+
+The **Sounds** tab is a reference page:
+- what every American IPA symbol sounds like, with a key word
+- how each sound is spelled in your own words (/ʃ/ = sh, ti, ci, ss…)
+- every word with a silent letter
+- every word with a double letter
+- a look-up box for any word
+
+Optional: tick **"Show the IPA pronunciation as a hint while I listen"** (Practice → Session) to see the IPA before you answer. It shows sounds, not spelling.
+
+Pronunciations are based on the CMU Pronouncing Dictionary (American English, © Carnegie Mellon University, BSD-style licence). Words you add yourself have no automatic pronunciation; you can type an IPA in the word's details.
+
 ## Keyboard shortcuts
 
 | Key | Action |
