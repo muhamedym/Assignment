@@ -24,50 +24,47 @@ async function test(name, fn) {
 }
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ielts-e2e-"));
 
-// Simulated online dictionaries (no internet in the test environment). Responses follow the
-// documented formats of api.dictionaryapi.dev and api.datamuse.com.
+// Simulated online dictionaries (no internet in the test environment). Responses follow the documented
+// formats of api.dictionaryapi.dev, the Wiktionary REST API, the MediaWiki (Wikipedia) API and api.datamuse.com.
 const DICT = {
-  meticulous: [{ word: "meticulous", meanings: [{ partOfSpeech: "adjective", definitions: [
-    { definition: "Showing great attention to detail; very careful and precise.", example: "She was meticulous about keeping records.", synonyms: ["careful", "precise"] }], synonyms: ["thorough"] }] }],
-  undoubtedly: [{ word: "undoubtedly", meanings: [{ partOfSpeech: "adverb", definitions: [{ definition: "Without doubt; definitely." }] }] }],
-  zzexample: [{ word: "zzexample", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "A test word with no example anywhere." }] }] }],
-  resent: [{ word: "resent", meanings: [{ partOfSpeech: "verb", definitions: [{ definition: "(transitive) To feel resentment over; to consider as an affront." }] }] }],
+  youngster: [{ word: "youngster", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "A young person." }] }] }],
+  blorft: [{ word: "blorft", meanings: [{ partOfSpeech: "verb", definitions: [{ definition: "(transitive) To test something online.", example: "We blorft the app every day." }] }] }],
   saturday: [{ word: "Saturday", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "The day of the week following Friday." }] }] }],
 };
-const WIKI = {
-  resent: { en: [{ partOfSpeech: "Verb", language: "English", definitions: [{ definition: "(<i>transitive</i>) To feel resentment over.",
-    examples: ["<b>1874</b>, an old quotation that is far too long to be a useful dictation sentence, mentioning how people <b>resent</b> taxes and other things in many many words, which goes on and on and on."],
-    parsedExamples: [{ example: "She <b>resented</b> being treated like a child." }] }] }] },
+const WIKTIONARY = {
+  flimble: { en: [{ partOfSpeech: "Verb", language: "English", definitions: [{ definition: "(<i>intransitive</i>) To wobble gently.",
+    examples: ["It was a cold and windy night in the small village by the sea, and everyone stayed indoors. The old bridge would <b>flimble</b> in the wind every winter."] }] }] },
 };
-WIKI.undoubtedly = { en: [{ partOfSpeech: "Adverb", definitions: [{ definition: "Without doubt; definitely.",
-  examples: ["<b>1851</b>, Some Author, <i>A Very Old Book</i>, page 12: It was, <b>undoubtedly</b>, a matter of the greatest consequence to every person then living in the town; and nobody, whatever his station in life or his opinion of the affair, could afford to ignore it for very long."] }] }] };
-const WIKIPEDIA = {
-  '"undoubtedly"': { query: { search: [
-    { snippet: "the river valley. The castle is <span class=\"searchmatch\">undoubtedly</span> the oldest building in the region. It was built in 1120 by" },
-    { snippet: "of the team. She was <span class=\"searchmatch\">undoubtedly</span> one of the best players of her generation. Later she" } ] } },
+const WIKIPEDIA = {   // search results and article texts, by word / title
+  search: { youngster: ["Youngster (film)", "Swimming lessons", "Football club"] },
+  pages: {
+    "Swimming lessons": "Swimming lessons are classes that teach people how to swim.\nThe youngster learned to swim at the local pool in only two weeks.\nIn 1998, Youngster Club opened a pool.",
+    "Football club": "Every youngster in the town wanted to join the new football club. The club has 300 members.",
+  },
 };
-const MUSE = {
-  "meticul*": [{ word: "meticulously", tags: ["adv", "f:2.1"] }, { word: "meticulousness", tags: ["n", "f:0.4"] }, { word: "meticulous", tags: ["adj", "f:5"] }],
-  "doubtedly": [{ word: "undoubtedly", score: 900 }, { word: "doubtfully", score: 300 }],
-  "doubted*": [{ word: "doubted", tags: ["adj", "f:3"] }],
-  "zorbl": [{ word: "zorbl", defs: ["n\ta made-up test word"] }],
+const MUSE = {   // by query: sp=…, rel_syn=…, ml=…
+  "sp=doubtedly": [{ word: "undoubtedly", score: 900 }, { word: "doubtfully", score: 300 }],
+  "sp=doubted*": [{ word: "doubted", tags: ["adj", "f:3"] }],
+  "sp=zorbl": [{ word: "zorbl", defs: ["n\ta made-up test word"] }],
+  "rel_syn=blorft": [{ word: "probe" }, { word: "check" }],
 };
 async function mockLookup(ctx, mode = "mock") {
   const log = [];
-  await ctx.route(/https:\/\/(api\.dictionaryapi\.dev|api\.datamuse\.com|en\.wiktionary\.org|en\.wikipedia\.org)\//, async (route) => {
-    const u = new URL(route.request().url()); log.push(u.href);
+  await ctx.route(/https:\/\/(api\.dictionaryapi\.dev|api\.datamuse\.com|en\.wiktionary\.org|(simple|en)\.wikipedia\.org)\//, async (route) => {
+    const u = new URL(route.request().url()); log.push(decodeURIComponent(u.href));
     if (mode === "offline") return route.abort("internetdisconnected");
     const headers = { "access-control-allow-origin": "*", "content-type": "application/json" };
-    if (u.host === "api.dictionaryapi.dev") {
-      const w = decodeURIComponent(u.pathname.split("/").pop()), d = DICT[w];
-      return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || { title: "No Definitions Found" }) });
+    const json = (status, body) => route.fulfill({ status, headers, body: JSON.stringify(body) });
+    const last = decodeURIComponent(u.pathname.split("/").pop());
+    if (u.host === "api.dictionaryapi.dev") return DICT[last] ? json(200, DICT[last]) : json(404, { title: "No Definitions Found" });
+    if (u.host === "en.wiktionary.org") return WIKTIONARY[last] ? json(200, WIKTIONARY[last]) : json(404, {});
+    if (u.host.endsWith("wikipedia.org")) {
+      if (u.searchParams.get("list") === "search") return json(200, { query: { search: (WIKIPEDIA.search[u.searchParams.get("srsearch")] || []).map((title) => ({ title })) } });
+      const t = u.searchParams.get("titles");
+      return json(200, { query: { pages: { 1: { title: t, extract: WIKIPEDIA.pages[t] || "" } } } });
     }
-    if (u.host === "en.wikipedia.org") return route.fulfill({ status: 200, headers, body: JSON.stringify(WIKIPEDIA[u.searchParams.get("srsearch")] || { query: { search: [] } }) });
-    if (u.host === "en.wiktionary.org") {
-      const w = decodeURIComponent(u.pathname.split("/").pop()), d = WIKI[w];
-      return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || {}) });
-    }
-    return route.fulfill({ status: 200, headers, body: JSON.stringify(MUSE[u.searchParams.get("sp")] || []) });
+    const key = ["sp", "rel_syn", "ml"].filter((k) => u.searchParams.has(k)).map((k) => k + "=" + u.searchParams.get(k))[0];
+    return json(200, MUSE[key] || []);
   });
   return log;
 }
@@ -475,10 +472,10 @@ await test("vocabulary screen: browse by category and subcategory, add, edit, de
   assert.match(await page.textContent("#addMsg"), /already in Listening vocabulary/);
   await page.click("#btnAddClose");
   assert.ok(!(await page.isVisible("#wordDialog")));
-  // the empty boxes were filled in: pronunciation offline, meaning from the (simulated) dictionary
-  await page.waitForFunction(() => { const x = window.__ielts.data.vocab.find((y) => y.word === "Saturday"); return x && x.meaning && x.ipa; });
+  // the empty boxes were filled in from the built-in dictionary
+  await page.waitForFunction(() => { const x = window.__ielts.data.vocab.find((y) => y.word === "Saturday"); return x && x.meaning && x.ipa && x.sentence; });
   const sat = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "Saturday"));
-  assert.equal(sat.ipa, "/ˈsætɚdi/"); assert.equal(sat.meaning, "the day of the week following Friday."); assert.equal(sat.pos, "noun");
+  assert.equal(sat.ipa, "/ˈsætɚdi/"); assert.match(sat.meaning, /^the seventh and last day of the week/); assert.equal(sat.pos, "noun");
   assert.equal(sat.hint, "Sat-ur-day", "what the person typed is kept");
   // Delete with undo
   await page.click('button[aria-label="Delete Saturday"]');
@@ -701,7 +698,8 @@ await test("Say a sentence: speaks a sentence with the word, shows nothing befor
   const said = (await spoken(page))[n].text;
   assert.equal(said.replace(/résumé/g, "resume"), it.sentence.replace(/\.$/, ""));
   const vis = (await page.innerText("#dictation")).toLowerCase();
-  assert.ok(!vis.includes(it.word.toLowerCase()) && !vis.includes(it.meaning.toLowerCase()), "word or meaning shown before answering");
+  const shown = (t) => new RegExp("(^|[^a-z])" + t.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "($|[^a-z])").test(vis);
+  assert.ok(!shown(it.word) && !shown(it.meaning), "word or meaning shown before answering: " + it.word);
   await page.click("#btnSentence"); // the button works too, and focus stays in the answer box
   assert.equal(await page.evaluate(() => document.activeElement.id), "answer");
   await page.keyboard.type(it.word); await page.keyboard.press("Enter");
@@ -776,115 +774,166 @@ await test("pronunciation: American IPA, syllables, letter-to-sound breakdown an
   await ctx.close();
 });
 
-await test("adding a word fills the gaps: pronunciation offline, meaning/example/family online (only the word is sent); typed text is kept", async () => {
+await test("adding a word fills every gap: built-in dictionary first (offline), online only for what's missing (only the word is sent); typed text is kept", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.click("#tab-vocab"); await page.click('[data-node="personal"]'); await page.click("#btnAddOpen");
-  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev, wiktionary\.org, wikipedia\.org and datamuse\.com; only the word is sent/);
+  assert.match(await page.innerText(".dlg-foot"), /Look up online\s+\(only the word is sent\)/);
+  assert.match(await page.textContent(".wd-sources"), /dictionaryapi\.dev, wiktionary\.org, wikipedia\.org and datamuse\.com\. Only the word is sent/);
+  const val = (id) => page.inputValue(id), tag = (f) => page.textContent(`[data-src="${f}"]`);
+  const waitDone = () => page.waitForFunction(() => /^[✓⚠]/.test(document.querySelector("#wdStatus").textContent));
+
+  // 1. a word in the built-in dictionary: every box filled without going online; what was typed is kept
   await page.fill("#addHint", "my own hint");
   await page.fill("#addMeaning", "my own meaning");
   await page.type("#addWord", "meticulous");
-  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
-  assert.equal(await page.inputValue("#addMeaning"), "my own meaning", "typed meaning was overwritten");
-  assert.equal(await page.inputValue("#addPos"), "adjective");
-  assert.equal(await page.inputValue("#addSentence"), "She was meticulous about keeping records.");
-  assert.equal(await page.inputValue("#addFamily"), "meticulously (adverb), meticulousness (noun)");
-  assert.equal(await page.inputValue("#addSyn"), "thorough, careful, precise");
-  assert.equal(await page.inputValue("#addIpa"), "/məˈtɪkjələs/");
-  assert.match(await page.innerText("#wdPron"), /me·ti·cu·lous/);
-  assert.ok(await page.evaluate(() => document.querySelector("#addPos").classList.contains("autofilled")));
-  assert.ok(!(await page.evaluate(() => document.querySelector("#addMeaning").classList.contains("autofilled"))));
-  // only the word itself goes out
-  for (const u of ctx.__lookupLog) assert.ok(!/hint|own/.test(u) && /meticul/.test(u), "unexpected request " + u);
+  await waitDone();
+  assert.equal(await val("#addMeaning"), "my own meaning", "typed meaning was replaced");
+  assert.equal(await val("#addHint"), "my own hint");
+  assert.equal(await val("#addPos"), "adjective");
+  assert.equal(await val("#addSentence"), "Almost worryingly meticulous in his business formalities.");
+  assert.equal(await val("#addSyn"), "punctilious");
+  assert.equal(await val("#addFamily"), "meticulosity (noun), meticulousness (noun)");
+  assert.equal(await val("#addIpa"), "/məˈtɪkjələs/");
+  assert.match(await tag("sentence"), /WordNet/); assert.equal(await tag("meaning"), "", "a typed box has no source label");
+  assert.equal((await page.$$("#wdSummary .sumchip.miss")).length, 0, "every box should be filled");
+  assert.match(await page.textContent("#wdStatus"), /All details filled in/);
+  assert.ok(!ctx.__lookupLog.length, "nothing needed from the internet");
   await page.click("#btnAdd");
   const m = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "meticulous"));
   assert.equal(m.meaning, "my own meaning"); assert.equal(m.hint, "my own hint"); assert.equal(m.pos, "adjective");
-  assert.ok(m.parts && m.syl === "me·ti·cu·lous");
-  // no example in the first dictionary: Wiktionary's short example is used; "(transitive)" labels are removed
-  await page.fill("#addMeaning", ""); await page.fill("#addHint", "");
-  await page.fill("#addWord", "resent");
-  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
-  assert.equal(await page.inputValue("#addMeaning"), "to feel resentment over; to consider as an affront.");
-  assert.equal(await page.inputValue("#addSentence"), "She resented being treated like a child.");
-  assert.ok(ctx.__lookupLog.some((u) => u === "https://en.wiktionary.org/api/rest_v1/page/definition/resent"));
+  assert.ok(m.parts && m.syl === "me·ti·cu·lous"); assert.equal(m.src.sentence, "WordNet");
+  assert.ok(m.auto.includes("sentence") && !m.auto.includes("meaning"));
+
+  // 2. no example in the built-in dictionary: a real sentence from a Wikipedia article (not a cut-off snippet)
+  await page.type("#addWord", "youngster");
+  await page.waitForFunction(() => document.querySelector("#addSentence").value.startsWith("The youngster"));
+  await waitDone();
+  assert.equal(await val("#addSentence"), "The youngster learned to swim at the local pool in only two weeks.");
+  assert.match(await tag("sentence"), /Simple English Wikipedia/);
+  assert.equal(await val("#addMeaning"), "a young person of either sex");
+  assert.equal(await val("#addFamily"), "young (adjective)");
+  assert.equal(await val("#addHint"), "young + ster");
+  assert.equal(await val("#addSyn"), "child, kid, minor, shaver, nipper");
+  for (const u of ctx.__lookupLog) assert.ok(!/own|hint|meticul/i.test(u), "unexpected data sent: " + u);
+  assert.ok(ctx.__lookupLog.some((u) => /simple\.wikipedia\.org.*srsearch=youngster/.test(u)));
+  assert.ok(!ctx.__lookupLog.some((u) => /titles=Youngster \(film\)/.test(u)), "an article named after the word is skipped");
+  // ↻ Another example: the other article sentence, then the one made from the meaning, then back
+  await page.click("#btnNextExample");
+  await page.waitForFunction(() => document.querySelector("#addSentence").value.startsWith("Every youngster"));
+  await page.click("#btnNextExample");
+  assert.equal(await val("#addSentence"), "A youngster is a young person of either sex.");
+  assert.match(await tag("sentence"), /made from the meaning/);
+  await page.click("#btnNextExample");
+  assert.equal(await val("#addSentence"), "The youngster learned to swim at the local pool in only two weeks.");
   await page.click("#btnAdd");
-  // no short example in the dictionaries: the sentence with the word from a long quotation, else Wikipedia
-  const r1 = await page.evaluate(() => window.__ielts.lookupOnline("undoubtedly"));
-  assert.equal(r1.meaning, "without doubt; definitely.");
-  assert.equal(r1.sentence, "She was undoubtedly one of the best players of her generation.");
-  const r2 = await page.evaluate(() => window.__ielts.lookupOnline("zzexample"));
-  assert.equal(r2.meaning, "A test word with no example anywhere."); assert.ok(!r2.sentence);
-  await page.fill("#addWord", "zzexample");
-  await page.waitForFunction(() => /No example sentence was found online/.test(document.querySelector("#wdStatus").textContent));
+  const y = await page.evaluate(() => window.__ielts.data.vocab.find((x) => x.word === "youngster"));
+  assert.equal(y.src.sentence, "Simple English Wikipedia"); assert.equal(y.lookup, "v3");
+
+  // 3. a word only an online dictionary knows: its meaning (labels removed), example and similar words
+  await page.fill("#addWord", "blorft");
+  await page.waitForFunction(() => document.querySelector("#addMeaning").value);
+  await waitDone();
+  assert.equal(await val("#addMeaning"), "to test something online.");
+  assert.equal(await val("#addSentence"), "We blorft the app every day.");
+  assert.match(await tag("sentence"), /dictionaryapi\.dev/);
+  assert.equal(await val("#addPos"), "verb");
+  assert.equal(await val("#addSyn"), "probe, check");
   await page.fill("#addWord", "");
-  // a misspelled word: warning, suggestions (online + offline), nothing guessed, confirm before saving
+
+  // 4. a long Wiktionary quotation: just the sentence that uses the word
+  await page.fill("#addWord", "flimble");
+  await page.waitForFunction(() => document.querySelector("#addSentence").value);
+  assert.equal(await val("#addSentence"), "The old bridge would flimble in the wind every winter.");
+  assert.equal(await val("#addMeaning"), "to wobble gently.");
+  await page.fill("#addWord", "");
+
+  // 5. a misspelled word: warning, suggestions (online + offline), nothing guessed, confirm before saving
   await page.fill("#addWord", "Doubtedly");
   await page.waitForFunction(() => /Not found in any dictionary/.test(document.querySelector("#wdStatus").textContent));
   assert.match(await page.innerText("#wdPron"), /isn’t in the dictionary/);
   const sugs = await page.$$eval("#wdPron [data-suggest]", (b) => b.map((x) => x.textContent));
   assert.equal(sugs[0], "undoubtedly");
-  assert.equal(await page.inputValue("#addFamily"), "", "no guessed word family for a misspelled word");
+  for (const id of ["#addFamily", "#addMeaning", "#addSentence", "#addHint"]) assert.equal(await val(id), "", "nothing guessed for " + id);
   await page.click("#btnAdd");
   assert.match(await page.textContent("#addMsg"), /wasn’t found in any dictionary.*Save word.*again/);
   assert.ok(!(await page.evaluate(() => window.__ielts.data.vocab.some((y) => y.word === "Doubtedly"))), "saved without confirming");
   await page.click('#wdPron [data-suggest="undoubtedly"]');
-  assert.equal(await page.inputValue("#addWord"), "undoubtedly");
-  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
+  assert.equal(await val("#addWord"), "undoubtedly");
+  await page.waitForFunction(() => document.querySelector("#addSentence").value);
   assert.match(await page.innerText("#wdPron"), /ənˈdaʊtɪdli/);
-  assert.equal(await page.inputValue("#addSentence"), "She was undoubtedly one of the best players of her generation.");
-  // offline suggestions come from the built-in dictionary
-  assert.ok((await page.evaluate(() => window.__ielts.Pron.similar("doubtedly"))).includes("undoubtedly"));
+  assert.equal(await val("#addSentence"), "It's undoubtedly very beautiful.");
+  assert.equal(await val("#addHint"), "un + doubt + ed + ly · silent b");
+  assert.equal(await val("#addFamily"), "doubt (noun)");
+  assert.ok((await page.evaluate(() => window.__ielts.Pron.similar("doubtedly"))).includes("undoubtedly"), "offline suggestions");
   await page.fill("#addWord", "");
-  // look-up switched off: nothing is sent, pronunciation is still filled in
+
+  // 6. look-up switched off: nothing is sent, and the built-in dictionary still fills every box
   await page.uncheck("#onlineLookup");
   const before = ctx.__lookupLog.length;
-  await page.fill("#addWord", "psychology"); await page.click("#btnAdd");
-  await page.waitForTimeout(1200);
+  await page.type("#addWord", "psychology");
+  await waitDone();
+  assert.equal(await val("#addSentence"), "Psychology is the science of mental life.");
+  assert.match(await tag("sentence"), /made from the meaning/);
+  assert.equal(await val("#addHint"), "psy·chol·o·gy · silent p · ch sounds like k");
+  assert.equal((await page.$$("#wdSummary .sumchip.miss")).length, 0);
+  await page.click("#btnAdd");
+  await page.waitForTimeout(800);
   assert.equal(ctx.__lookupLog.length, before, "requests were sent with look-up off");
   const ps = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "psychology"));
-  assert.equal(ps.ipa, "/saɪˈkɑlədʒi/"); assert.ok(!ps.meaning);
-  // ... and the list offers to fill the details later
+  assert.equal(ps.meaning, "the science of mental life"); assert.equal(ps.ipa, "/saɪˈkɑlədʒi/");
+  // switching look-up back on offers to find a real example for it
+  await page.check("#onlineLookup");
   await page.click("#btnAddClose");
   await page.waitForFunction(() => /missing details/.test(document.querySelector("#fillBar").textContent));
   // Say a sentence uses the meaning when there's no example
   const say = await page.evaluate(() => window.__ielts.sentenceFor({ word: "zorbl", meaning: "a made-up test word" }));
   assert.equal(say, "zorbl. zorbl means: a made-up test word.");
+  await page.click("#btnAddOpen"); await page.uncheck("#onlineLookup"); await page.click("#btnAddClose");
   await page.reload();
   assert.equal(await page.evaluate(() => window.__ielts.data.settings.onlineLookup), false, "setting not remembered");
   await ctx.close();
 });
 
-await test("imported words get their missing details filled in the background; with no internet the pronunciation is still filled and a clear message shows", async () => {
+await test("imported and older words get every gap filled in the background; without internet the built-in dictionary still fills them and the app offers to try online later", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.click("#tab-vocab"); await page.click('[data-node="custom"]'); await page.click("#btnAddX");
   await page.click("text=Import, export or restore words");
-  const txt = path.join(tmp, "fill.txt"); fs.writeFileSync(txt, "meticulous\nzorbl\n");
+  const txt = path.join(tmp, "fill.txt"); fs.writeFileSync(txt, "meticulous\nzorbl\nyoungster\n");
   await page.setInputFiles("#vocabFile", txt);
-  await page.waitForFunction(() => { const v = window.__ielts.data.vocab; const a = v.find((y) => y.word === "meticulous"), b = v.find((y) => y.word === "zorbl"); return a && a.meaning && b && b.meaning; });
+  await page.waitForFunction(() => { const v = window.__ielts.data.vocab, f = (w) => v.find((y) => y.word === w) || {}; return f("meticulous").meaning && f("zorbl").meaning && f("youngster").lookup === "v3"; });
+  await page.waitForFunction(() => !/Filling in details/.test(document.querySelector("#fillBar").textContent));
   const v = await page.evaluate(() => window.__ielts.data.vocab.filter((y) => y.cat === "custom"));
-  const met = v.find((y) => y.word === "meticulous"), zo = v.find((y) => y.word === "zorbl");
-  assert.equal(met.ipa, "/məˈtɪkjələs/"); assert.match(met.meaning, /great attention to detail/);
+  const met = v.find((y) => y.word === "meticulous"), zo = v.find((y) => y.word === "zorbl"), yo = v.find((y) => y.word === "youngster");
+  assert.equal(met.ipa, "/məˈtɪkjələs/"); assert.equal(met.meaning, "marked by precise accordance with details"); assert.equal(met.src.meaning, "WordNet");
+  assert.equal(met.hint, "me·ti·cu·lous"); assert.ok(met.auto.includes("meaning") && met.auto.includes("hint"));
   assert.equal(zo.meaning, "a made-up test word"); assert.equal(zo.pos, "noun"); assert.ok(!zo.ipa && zo.pronTried);
-  // a word saved by the earlier version without an example is looked up once more
-  await page.evaluate(() => { const v = window.__ielts.data.vocab; v.push({ id: "c-old", word: "resent", cat: "custom", meaning: "to feel bitter about", lookup: "done" }); });
+  assert.equal(zo.sentence, "A zorbl is a made-up test word."); assert.equal(zo.src.sentence, "made from the meaning");
+  assert.equal(yo.sentence, "The youngster learned to swim at the local pool in only two weeks.");
+  // a word saved by an earlier version, with an empty example, is filled in too; what was typed stays
+  await page.evaluate(() => { window.__ielts.data.vocab.push({ id: "c-old", word: "resent", cat: "custom", meaning: "to feel bitter about", lookup: "v2" }); });
   await page.click("#tab-practice"); await page.click("#tab-vocab"); await page.click('[data-node="custom"]');
+  assert.match(await page.textContent("#fillBar"), /missing details/);
   await page.click("#btnFillAll");
   await page.waitForFunction(() => window.__ielts.data.vocab.find((y) => y.id === "c-old").sentence);
   const old = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.id === "c-old"));
-  assert.equal(old.sentence, "She resented being treated like a child."); assert.equal(old.meaning, "to feel bitter about", "typed meaning kept");
+  assert.equal(old.sentence, "She resents being paid less than her co-workers."); assert.equal(old.meaning, "to feel bitter about", "typed meaning kept");
+  assert.equal(old.syn, "begrudge"); assert.equal(old.hint, "re·sent · s sounds like z"); assert.equal(old.family, "resentment (noun)");
   await ctx.close();
 
   const ctx2 = await browser.newContext();
   const p2 = await openApp(ctx2, { lookup: "offline" });
   await p2.click("#tab-vocab"); await p2.click('[data-node="custom"]');
-  await p2.fill("#addWord", "doubtful"); await p2.click("#btnAutoFill");
-  await p2.waitForFunction(() => /Couldn't reach the online dictionary/.test(document.querySelector("#wdStatus").textContent));
-  assert.equal(await p2.inputValue("#addIpa"), "/ˈdaʊtfəl/");
+  await p2.fill("#addWord", "youngster");
+  await p2.waitForFunction(() => /Couldn't reach the online dictionaries/.test(document.querySelector("#wdStatus").textContent));
+  assert.equal(await p2.inputValue("#addIpa"), "/ˈjʌŋstɚ/");
+  assert.equal(await p2.inputValue("#addMeaning"), "a young person of either sex");
+  assert.equal(await p2.inputValue("#addSentence"), "A youngster is a young person of either sex.");
   await p2.click("#btnAdd"); await p2.click("#btnAddClose");
-  await p2.waitForFunction(() => /couldn't be looked up/.test(document.querySelector("#fillBar").textContent));
-  const d = await p2.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "doubtful"));
-  assert.equal(d.ipa, "/ˈdaʊtfəl/"); assert.ok(!d.meaning && !d.lookup, "should try again later");
+  await p2.waitForFunction(() => /couldn't be looked up online/.test(document.querySelector("#fillBar").textContent));
+  const d = await p2.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "youngster"));
+  assert.equal(d.meaning, "a young person of either sex"); assert.ok(!d.lookup, "should try online again later");
   await ctx2.close();
 });
 

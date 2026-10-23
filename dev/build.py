@@ -1,4 +1,6 @@
-"""Inject dev/vocab.json into the app's BUILTIN_VOCAB block.  Usage: python -I dev/build.py"""
+"""Inject dev/vocab.json, the pronunciation dictionary and the offline WordNet dictionary into the app.
+
+Usage: python -I dev/build.py"""
 import json
 import pathlib
 import re
@@ -30,5 +32,16 @@ packed = ",".join(codes) + "\n" + "\n".join(w + " " + "".join(code_of[x] for x i
 blob = base64.b64encode(gzip.compress(packed.encode("utf-8"), 9, mtime=0)).decode("ascii")
 new, n = re.subn(r'(<script type="text/plain" id="cmuData">).*?(</script>)', lambda m: m.group(1) + blob + m.group(2), new, flags=re.S)
 assert n == 1, "cmuData marker not found"
+pron_kb = len(blob) // 1024
+
+# Offline dictionary for words people add (meanings, examples, similar words, word family):
+# dev/wordnet-compact.txt.gz, made by dev/build_wordnet.py from WordNet 3.1.
+wn_text = gzip.decompress((root / "dev" / "wordnet-compact.txt.gz").read_bytes())
+wn_blob = base64.b64encode(gzip.compress(wn_text, 9, mtime=0)).decode("ascii")
+if 'id="wnData"' not in new:
+    new = new.replace('<script type="text/plain" id="cmuData">', '<script type="text/plain" id="wnData"></script>\n<script type="text/plain" id="cmuData">', 1)
+new, n = re.subn(r'(<script type="text/plain" id="wnData">).*?(</script>)', lambda m: m.group(1) + wn_blob + m.group(2), new, flags=re.S)
+assert n == 1, "wnData marker not found"
 html_path.write_text(new, encoding="utf-8")
-print(f"Injected {len(vocab)} words and a {len(entries)}-word pronunciation dictionary ({len(blob) // 1024} KB) into {html_path.name}")
+print(f"Injected {len(vocab)} words, a {len(entries)}-word pronunciation dictionary ({pron_kb} KB) and a "
+      f"{wn_text.count(b'\n')}-word offline dictionary ({len(wn_blob) // 1024} KB) into {html_path.name}")

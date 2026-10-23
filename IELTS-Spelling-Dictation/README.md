@@ -6,9 +6,10 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 
 | File | What it is |
 |---|---|
-| `IELTS-Spelling-Dictation.html` | The whole app (all 547 built-in words are inside it) |
+| `IELTS-Spelling-Dictation.html` | The whole app (all 547 built-in words, plus the built-in pronunciation dictionary and WordNet, are inside it; about 4 MB) |
 | `Start IELTS Dictation.bat` | Optional launcher for Edge/Chrome (blocked when Smart App Control is on; open the .html instead) |
 | `sample-vocabulary.csv` | Example file showing the format for importing your own words |
+| `wordnet-LICENSE.txt` | Licence of WordNet (Princeton University), the built-in dictionary for words you add |
 | `README.md` | This file |
 
 ## Practice screen
@@ -80,7 +81,7 @@ The **Sounds** tab is a reference page:
 
 Optional: tick **"Show the IPA pronunciation as a hint while I listen"** (Practice → Session) to see the IPA before you answer. It shows sounds, not spelling.
 
-Pronunciations are based on the CMU Pronouncing Dictionary (American English, © Carnegie Mellon University, BSD-style licence). The full dictionary (about 126,000 words) is built into the app, so words you add get their pronunciation automatically, offline. For a word it doesn't know, you can type the IPA yourself.
+Pronunciations are based on the CMU Pronouncing Dictionary (American English, © Carnegie Mellon University, BSD-style licence). The full dictionary (about 126,000 words) is built into the app, so words you add get their pronunciation automatically, offline. Meanings and examples for words you add come from WordNet 3.1 (WordNet 3.0 Copyright 2006 by Princeton University; licence in `wordnet-LICENSE.txt`). For a word it doesn't know, you can type the IPA yourself.
 
 ## Keyboard shortcuts
 
@@ -122,14 +123,15 @@ Every built-in word has a meaning, part of speech, word family and example sente
 1. Click a category card (Listening, Reading, Academic Writing…). Its words appear. They stay hidden until then, so you don't see answers by accident.
 2. Use the subcategory buttons (e.g. *Dates*, *Health & Medicine*, *Task 2*) and the search box to narrow the list.
 3. **＋ Add a word** opens a window. Type the word, choose the category and (optionally) a subcategory, then click **Save word**. Only the word is required.
-4. **Empty boxes are filled in for you:**
-   - **Offline:** American IPA, syllables, letter-to-sound breakdown and silent letters (from the built-in dictionary).
-   - **Online:** meaning, part of speech, example sentence, word family and similar words. These come from free services: **dictionaryapi.dev**, **Wiktionary** (wiktionary.org) and **datamuse.com**. If neither dictionary has a short example, the app takes one sentence from a longer Wiktionary quotation, or a real sentence that uses the word from **Wikipedia** (wikipedia.org). Only the word itself is sent; your list, answers and results never are. No account or key is needed.
-   - Filled-in boxes are **highlighted in blue**. Anything you type yourself is never replaced. Automatic details can be wrong or describe another meaning of the word, so check them.
-   - **Spelling check:** if the word isn't in any dictionary (for example *doubtedly* instead of *undoubtedly*), the window warns you and suggests real words; click one to use it. Nothing is guessed for an unknown word, and you're asked to confirm before saving it. Suggestions also work offline, from the built-in dictionary.
-   - Untick **Look up online** in the Add window to stay fully offline. The setting is remembered.
+4. **Every empty box is filled in for you:** pronunciation (IPA), meaning, example sentence, part of speech, word family, similar words and a memory hint. A row of ✓ marks shows what was filled in.
+   - **Built-in dictionary first (works offline):** pronunciations from the CMU Pronouncing Dictionary; meanings, examples, similar words and word families from **WordNet** (about 41,000 words, © Princeton University). Memory hints are made from the spelling, for example *un + doubt + ed + ly · silent b* or *begin + n + ing (double the n)*.
+   - **Online, only for what's still missing:** **dictionaryapi.dev**, **Wiktionary** (wiktionary.org), **Wikipedia** (real sentences from articles; wikipedia.org) and **datamuse.com**. Only the word itself is sent; your list, answers and results never are. No account or key is needed.
+   - **If no example exists anywhere,** one is made from the meaning (for example *A youngster is a young person.*). **↻ Another example** shows other sentences; **🔊 Hear** reads it aloud.
+   - Filled-in boxes are **highlighted in blue** and labelled with where they came from (for example *✨ WordNet*, *✨ Wikipedia*). Anything you type yourself is never replaced. **✨ Fill in again** looks everything up again. **Where do these details come from?** lists what each source answered.
+   - **Spelling check:** if the word isn't in any dictionary (for example *doubtedly* instead of *undoubtedly*), the window warns you and suggests real words; click one to use it. Nothing is guessed for an unknown word, and you're asked to confirm before saving it.
+   - Untick **Look up online** (at the bottom of the window) to stay fully offline; the built-in dictionary still fills the boxes. The setting is remembered.
    - Imported words are filled in the same way, in the background. If you're offline, the list shows **✨ Fill them in** to try again later.
-   - If no example is found anywhere, the Add window says so. **Say a sentence** then reads the meaning instead, or you can type your own example.
+   - Automatic details can be wrong or describe another meaning of the word, so check them.
 5. **🗑 Delete** removes a word at once, with an **Undo** button. **✎ Edit** opens the same window with the word's details.
 6. **＋ My own words** lets anyone build their own list, with their own subcategories.
 7. **Import, export or restore words** (at the bottom) imports a CSV/TXT file, exports everything to CSV, or restores the built-in list.
@@ -155,4 +157,4 @@ Session history, missed words, settings and vocabulary changes are saved in the 
 
 There's no account and no tracking. Your vocabulary list, answers and results are never sent anywhere. There are only two possible outside connections:
 - **An *online* voice:** the browser sends the word or sentence being spoken to Microsoft's (Edge) or Google's (Chrome) speech service.
-- **Look-up for words you add or import:** the word itself is sent to dictionaryapi.dev, wiktionary.org, wikipedia.org and datamuse.com to get its meaning, example and word family. Switch this off with **Look up online** in the Add window.
+- **Look-up for words you add or import:** only when the built-in dictionary is missing something, the word itself is sent to dictionaryapi.dev, wiktionary.org, wikipedia.org and datamuse.com. Switch this off with **Look up online** in the Add window.

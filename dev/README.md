@@ -13,10 +13,17 @@
   the Android app, icons, Play Store screenshots). `tests/site.test.mjs` checks the hosted version works offline.
 - `add_pronunciation.py`: American IPA, syllables and letter-to-sound breakdown (silent/double letters) for
   every word, from the CMU Pronouncing Dictionary (`cmudict-subset.txt`, licence in `cmudict-LICENSE.txt`).
-  Run after `build_reading.py`.
-- `build.py`: injects `vocab.json` into `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
+  Run after `build_reading.py`. `cmudict-full.txt.gz` (126,037 words) gives words people add a pronunciation in the app.
+- `build_wordnet.py`: makes `wordnet-compact.txt.gz` (40,984 words: parts of speech, meaning, up to two
+  example sentences that use the word, similar words, word family) from WordNet 3.1, the built-in dictionary
+  for words people add. The WordNet files come from the npm package `wordnet-db`
+  (`npm pack wordnet-db && tar xzf wordnet-db-*.tgz`, then `python -I dev/build_wordnet.py package/dict`).
+  Licence: `wordnet-LICENSE.txt`.
+- `build.py`: injects `vocab.json`, the pronunciation dictionary and the WordNet dictionary into
+  `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
   `python -I dev/build.py`
-- `tests/e2e.test.mjs`: 22 end-to-end tests in headless Chromium (Playwright) against the real page.
+- `tests/e2e.test.mjs`: 25 end-to-end tests in headless Chromium (Playwright) against the real page. The online
+  dictionaries (dictionaryapi.dev, Wiktionary, Wikipedia, datamuse) are simulated with responses in their documented formats.
   `tests/mock-speech.js` simulates the Web Speech API (late-loading voices, queueing, cancel) so the
   timing and overlap rules can be checked; the "no voices" test uses real Chromium with no speech engine.
   `node dev/tests/e2e.test.mjs`
