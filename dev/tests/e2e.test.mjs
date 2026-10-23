@@ -29,6 +29,8 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ielts-e2e-"));
 const DICT = {
   meticulous: [{ word: "meticulous", meanings: [{ partOfSpeech: "adjective", definitions: [
     { definition: "Showing great attention to detail; very careful and precise.", example: "She was meticulous about keeping records.", synonyms: ["careful", "precise"] }], synonyms: ["thorough"] }] }],
+  undoubtedly: [{ word: "undoubtedly", meanings: [{ partOfSpeech: "adverb", definitions: [{ definition: "Without doubt; definitely." }] }] }],
+  zzexample: [{ word: "zzexample", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "A test word with no example anywhere." }] }] }],
   resent: [{ word: "resent", meanings: [{ partOfSpeech: "verb", definitions: [{ definition: "(transitive) To feel resentment over; to consider as an affront." }] }] }],
   saturday: [{ word: "Saturday", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "The day of the week following Friday." }] }] }],
 };
@@ -37,13 +39,20 @@ const WIKI = {
     examples: ["<b>1874</b>, an old quotation that is far too long to be a useful dictation sentence, mentioning how people <b>resent</b> taxes and other things in many many words, which goes on and on and on."],
     parsedExamples: [{ example: "She <b>resented</b> being treated like a child." }] }] }] },
 };
+WIKI.undoubtedly = { en: [{ partOfSpeech: "Adverb", definitions: [{ definition: "Without doubt; definitely.",
+  examples: ["<b>1851</b>, Some Author, <i>A Very Old Book</i>, page 12: It was, <b>undoubtedly</b>, a matter of the greatest consequence to every person then living in the town; and nobody, whatever his station in life or his opinion of the affair, could afford to ignore it for very long."] }] }] };
+const WIKIPEDIA = {
+  '"undoubtedly"': { query: { search: [
+    { snippet: "the river valley. The castle is <span class=\"searchmatch\">undoubtedly</span> the oldest building in the region. It was built in 1120 by" },
+    { snippet: "of the team. She was <span class=\"searchmatch\">undoubtedly</span> one of the best players of her generation. Later she" } ] } },
+};
 const MUSE = {
   "meticul*": [{ word: "meticulously", tags: ["adv", "f:2.1"] }, { word: "meticulousness", tags: ["n", "f:0.4"] }, { word: "meticulous", tags: ["adj", "f:5"] }],
   "zorbl": [{ word: "zorbl", defs: ["n\ta made-up test word"] }],
 };
 async function mockLookup(ctx, mode = "mock") {
   const log = [];
-  await ctx.route(/https:\/\/(api\.dictionaryapi\.dev|api\.datamuse\.com|en\.wiktionary\.org)\//, async (route) => {
+  await ctx.route(/https:\/\/(api\.dictionaryapi\.dev|api\.datamuse\.com|en\.wiktionary\.org|en\.wikipedia\.org)\//, async (route) => {
     const u = new URL(route.request().url()); log.push(u.href);
     if (mode === "offline") return route.abort("internetdisconnected");
     const headers = { "access-control-allow-origin": "*", "content-type": "application/json" };
@@ -51,6 +60,7 @@ async function mockLookup(ctx, mode = "mock") {
       const w = decodeURIComponent(u.pathname.split("/").pop()), d = DICT[w];
       return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || { title: "No Definitions Found" }) });
     }
+    if (u.host === "en.wikipedia.org") return route.fulfill({ status: 200, headers, body: JSON.stringify(WIKIPEDIA[u.searchParams.get("srsearch")] || { query: { search: [] } }) });
     if (u.host === "en.wiktionary.org") {
       const w = decodeURIComponent(u.pathname.split("/").pop()), d = WIKI[w];
       return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || {}) });
@@ -768,7 +778,7 @@ await test("adding a word fills the gaps: pronunciation offline, meaning/example
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.click("#tab-vocab"); await page.click('[data-node="personal"]'); await page.click("#btnAddOpen");
-  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev, wiktionary\.org and datamuse\.com; only the word is sent/);
+  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev, wiktionary\.org, wikipedia\.org and datamuse\.com; only the word is sent/);
   await page.fill("#addHint", "my own hint");
   await page.fill("#addMeaning", "my own meaning");
   await page.type("#addWord", "meticulous");
@@ -796,6 +806,15 @@ await test("adding a word fills the gaps: pronunciation offline, meaning/example
   assert.equal(await page.inputValue("#addSentence"), "She resented being treated like a child.");
   assert.ok(ctx.__lookupLog.some((u) => u === "https://en.wiktionary.org/api/rest_v1/page/definition/resent"));
   await page.click("#btnAdd");
+  // no short example in the dictionaries: the sentence with the word from a long quotation, else Wikipedia
+  const r1 = await page.evaluate(() => window.__ielts.lookupOnline("undoubtedly"));
+  assert.equal(r1.meaning, "without doubt; definitely.");
+  assert.equal(r1.sentence, "She was undoubtedly one of the best players of her generation.");
+  const r2 = await page.evaluate(() => window.__ielts.lookupOnline("zzexample"));
+  assert.equal(r2.meaning, "A test word with no example anywhere."); assert.ok(!r2.sentence);
+  await page.fill("#addWord", "zzexample");
+  await page.waitForFunction(() => /No example sentence was found online/.test(document.querySelector("#wdStatus").textContent));
+  await page.fill("#addWord", "");
   // look-up switched off: nothing is sent, pronunciation is still filled in
   await page.uncheck("#onlineLookup");
   const before = ctx.__lookupLog.length;

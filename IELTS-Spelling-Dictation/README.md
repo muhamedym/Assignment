@@ -124,11 +124,11 @@ Every built-in word has a meaning, part of speech, word family and example sente
 3. **＋ Add a word** opens a window. Type the word, choose the category and (optionally) a subcategory, then click **Save word**. Only the word is required.
 4. **Empty boxes are filled in for you:**
    - **Offline:** American IPA, syllables, letter-to-sound breakdown and silent letters (from the built-in dictionary).
-   - **Online:** meaning, part of speech, example sentence, word family and similar words. These come from three free services: **dictionaryapi.dev**, **Wiktionary** (wiktionary.org; used for example sentences the first dictionary lacks) and **datamuse.com**. Only the word itself is sent; your list, answers and results never are. No account or key is needed.
+   - **Online:** meaning, part of speech, example sentence, word family and similar words. These come from free services: **dictionaryapi.dev**, **Wiktionary** (wiktionary.org) and **datamuse.com**. If neither dictionary has a short example, the app takes one sentence from a longer Wiktionary quotation, or a real sentence that uses the word from **Wikipedia** (wikipedia.org). Only the word itself is sent; your list, answers and results never are. No account or key is needed.
    - Filled-in boxes are **highlighted in blue**. Anything you type yourself is never replaced. Automatic details can be wrong or describe another meaning of the word, so check them.
    - Untick **Look up online** in the Add window to stay fully offline. The setting is remembered.
    - Imported words are filled in the same way, in the background. If you're offline, the list shows **✨ Fill them in** to try again later.
-   - Some words have no example sentence in any of these sources. Then **Say a sentence** reads the meaning instead, or you can type your own example.
+   - If no example is found anywhere, the Add window says so. **Say a sentence** then reads the meaning instead, or you can type your own example.
 5. **🗑 Delete** removes a word at once, with an **Undo** button. **✎ Edit** opens the same window with the word's details.
 6. **＋ My own words** lets anyone build their own list, with their own subcategories.
 7. **Import, export or restore words** (at the bottom) imports a CSV/TXT file, exports everything to CSV, or restores the built-in list.
@@ -154,4 +154,4 @@ Session history, missed words, settings and vocabulary changes are saved in the 
 
 There's no account and no tracking. Your vocabulary list, answers and results are never sent anywhere. There are only two possible outside connections:
 - **An *online* voice:** the browser sends the word or sentence being spoken to Microsoft's (Edge) or Google's (Chrome) speech service.
-- **Look-up for words you add or import:** the word itself is sent to dictionaryapi.dev, wiktionary.org and datamuse.com to get its meaning, example and word family. Switch this off with **Look up online** in the Add window.
+- **Look-up for words you add or import:** the word itself is sent to dictionaryapi.dev, wiktionary.org, wikipedia.org and datamuse.com to get its meaning, example and word family. Switch this off with **Look up online** in the Add window.
