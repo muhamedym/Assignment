@@ -48,6 +48,8 @@ const WIKIPEDIA = {
 };
 const MUSE = {
   "meticul*": [{ word: "meticulously", tags: ["adv", "f:2.1"] }, { word: "meticulousness", tags: ["n", "f:0.4"] }, { word: "meticulous", tags: ["adj", "f:5"] }],
+  "doubtedly": [{ word: "undoubtedly", score: 900 }, { word: "doubtfully", score: 300 }],
+  "doubted*": [{ word: "doubted", tags: ["adj", "f:3"] }],
   "zorbl": [{ word: "zorbl", defs: ["n\ta made-up test word"] }],
 };
 async function mockLookup(ctx, mode = "mock") {
@@ -814,6 +816,24 @@ await test("adding a word fills the gaps: pronunciation offline, meaning/example
   assert.equal(r2.meaning, "A test word with no example anywhere."); assert.ok(!r2.sentence);
   await page.fill("#addWord", "zzexample");
   await page.waitForFunction(() => /No example sentence was found online/.test(document.querySelector("#wdStatus").textContent));
+  await page.fill("#addWord", "");
+  // a misspelled word: warning, suggestions (online + offline), nothing guessed, confirm before saving
+  await page.fill("#addWord", "Doubtedly");
+  await page.waitForFunction(() => /Not found in any dictionary/.test(document.querySelector("#wdStatus").textContent));
+  assert.match(await page.innerText("#wdPron"), /isn’t in the dictionary/);
+  const sugs = await page.$$eval("#wdPron [data-suggest]", (b) => b.map((x) => x.textContent));
+  assert.equal(sugs[0], "undoubtedly");
+  assert.equal(await page.inputValue("#addFamily"), "", "no guessed word family for a misspelled word");
+  await page.click("#btnAdd");
+  assert.match(await page.textContent("#addMsg"), /wasn’t found in any dictionary.*Save word.*again/);
+  assert.ok(!(await page.evaluate(() => window.__ielts.data.vocab.some((y) => y.word === "Doubtedly"))), "saved without confirming");
+  await page.click('#wdPron [data-suggest="undoubtedly"]');
+  assert.equal(await page.inputValue("#addWord"), "undoubtedly");
+  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
+  assert.match(await page.innerText("#wdPron"), /ənˈdaʊtɪdli/);
+  assert.equal(await page.inputValue("#addSentence"), "She was undoubtedly one of the best players of her generation.");
+  // offline suggestions come from the built-in dictionary
+  assert.ok((await page.evaluate(() => window.__ielts.Pron.similar("doubtedly"))).includes("undoubtedly"));
   await page.fill("#addWord", "");
   // look-up switched off: nothing is sent, pronunciation is still filled in
   await page.uncheck("#onlineLookup");
