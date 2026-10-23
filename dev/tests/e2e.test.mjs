@@ -29,7 +29,13 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ielts-e2e-"));
 const DICT = {
   meticulous: [{ word: "meticulous", meanings: [{ partOfSpeech: "adjective", definitions: [
     { definition: "Showing great attention to detail; very careful and precise.", example: "She was meticulous about keeping records.", synonyms: ["careful", "precise"] }], synonyms: ["thorough"] }] }],
+  resent: [{ word: "resent", meanings: [{ partOfSpeech: "verb", definitions: [{ definition: "(transitive) To feel resentment over; to consider as an affront." }] }] }],
   saturday: [{ word: "Saturday", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "The day of the week following Friday." }] }] }],
+};
+const WIKI = {
+  resent: { en: [{ partOfSpeech: "Verb", language: "English", definitions: [{ definition: "(<i>transitive</i>) To feel resentment over.",
+    examples: ["<b>1874</b>, an old quotation that is far too long to be a useful dictation sentence, mentioning how people <b>resent</b> taxes and other things in many many words, which goes on and on and on."],
+    parsedExamples: [{ example: "She <b>resented</b> being treated like a child." }] }] }] },
 };
 const MUSE = {
   "meticul*": [{ word: "meticulously", tags: ["adv", "f:2.1"] }, { word: "meticulousness", tags: ["n", "f:0.4"] }, { word: "meticulous", tags: ["adj", "f:5"] }],
@@ -37,13 +43,17 @@ const MUSE = {
 };
 async function mockLookup(ctx, mode = "mock") {
   const log = [];
-  await ctx.route(/https:\/\/api\.(dictionaryapi\.dev|datamuse\.com)\//, async (route) => {
+  await ctx.route(/https:\/\/(api\.dictionaryapi\.dev|api\.datamuse\.com|en\.wiktionary\.org)\//, async (route) => {
     const u = new URL(route.request().url()); log.push(u.href);
     if (mode === "offline") return route.abort("internetdisconnected");
     const headers = { "access-control-allow-origin": "*", "content-type": "application/json" };
     if (u.host === "api.dictionaryapi.dev") {
       const w = decodeURIComponent(u.pathname.split("/").pop()), d = DICT[w];
       return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || { title: "No Definitions Found" }) });
+    }
+    if (u.host === "en.wiktionary.org") {
+      const w = decodeURIComponent(u.pathname.split("/").pop()), d = WIKI[w];
+      return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || {}) });
     }
     return route.fulfill({ status: 200, headers, body: JSON.stringify(MUSE[u.searchParams.get("sp")] || []) });
   });
@@ -456,7 +466,7 @@ await test("vocabulary screen: browse by category and subcategory, add, edit, de
   // the empty boxes were filled in: pronunciation offline, meaning from the (simulated) dictionary
   await page.waitForFunction(() => { const x = window.__ielts.data.vocab.find((y) => y.word === "Saturday"); return x && x.meaning && x.ipa; });
   const sat = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "Saturday"));
-  assert.equal(sat.ipa, "/ˈsætɚdi/"); assert.equal(sat.meaning, "The day of the week following Friday."); assert.equal(sat.pos, "noun");
+  assert.equal(sat.ipa, "/ˈsætɚdi/"); assert.equal(sat.meaning, "the day of the week following Friday."); assert.equal(sat.pos, "noun");
   assert.equal(sat.hint, "Sat-ur-day", "what the person typed is kept");
   // Delete with undo
   await page.click('button[aria-label="Delete Saturday"]');
@@ -758,7 +768,7 @@ await test("adding a word fills the gaps: pronunciation offline, meaning/example
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.click("#tab-vocab"); await page.click('[data-node="personal"]'); await page.click("#btnAddOpen");
-  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev and datamuse\.com; only the word is sent/);
+  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev, wiktionary\.org and datamuse\.com; only the word is sent/);
   await page.fill("#addHint", "my own hint");
   await page.fill("#addMeaning", "my own meaning");
   await page.type("#addWord", "meticulous");
@@ -778,6 +788,14 @@ await test("adding a word fills the gaps: pronunciation offline, meaning/example
   const m = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "meticulous"));
   assert.equal(m.meaning, "my own meaning"); assert.equal(m.hint, "my own hint"); assert.equal(m.pos, "adjective");
   assert.ok(m.parts && m.syl === "me·ti·cu·lous");
+  // no example in the first dictionary: Wiktionary's short example is used; "(transitive)" labels are removed
+  await page.fill("#addMeaning", ""); await page.fill("#addHint", "");
+  await page.fill("#addWord", "resent");
+  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
+  assert.equal(await page.inputValue("#addMeaning"), "to feel resentment over; to consider as an affront.");
+  assert.equal(await page.inputValue("#addSentence"), "She resented being treated like a child.");
+  assert.ok(ctx.__lookupLog.some((u) => u === "https://en.wiktionary.org/api/rest_v1/page/definition/resent"));
+  await page.click("#btnAdd");
   // look-up switched off: nothing is sent, pronunciation is still filled in
   await page.uncheck("#onlineLookup");
   const before = ctx.__lookupLog.length;
@@ -809,6 +827,13 @@ await test("imported words get their missing details filled in the background; w
   const met = v.find((y) => y.word === "meticulous"), zo = v.find((y) => y.word === "zorbl");
   assert.equal(met.ipa, "/məˈtɪkjələs/"); assert.match(met.meaning, /great attention to detail/);
   assert.equal(zo.meaning, "a made-up test word"); assert.equal(zo.pos, "noun"); assert.ok(!zo.ipa && zo.pronTried);
+  // a word saved by the earlier version without an example is looked up once more
+  await page.evaluate(() => { const v = window.__ielts.data.vocab; v.push({ id: "c-old", word: "resent", cat: "custom", meaning: "to feel bitter about", lookup: "done" }); });
+  await page.click("#tab-practice"); await page.click("#tab-vocab"); await page.click('[data-node="custom"]');
+  await page.click("#btnFillAll");
+  await page.waitForFunction(() => window.__ielts.data.vocab.find((y) => y.id === "c-old").sentence);
+  const old = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.id === "c-old"));
+  assert.equal(old.sentence, "She resented being treated like a child."); assert.equal(old.meaning, "to feel bitter about", "typed meaning kept");
   await ctx.close();
 
   const ctx2 = await browser.newContext();

@@ -491,7 +491,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       <label>Memory hint<input type="text" id="addHint" placeholder="e.g. two c, two m"></label>
       <label>IPA pronunciation<input type="text" id="addIpa" class="ipa" placeholder="filled in automatically"></label>
     </div>
-    <p class="muted small wd-note">Only the word is needed. Empty boxes are filled in for you (highlighted in blue). Pronunciation works offline. Meaning, example and word family are looked up online at dictionaryapi.dev and datamuse.com; only the word is sent.
+    <p class="muted small wd-note">Only the word is needed. Empty boxes are filled in for you (highlighted in blue). Pronunciation works offline. Meaning, example and word family are looked up online at dictionaryapi.dev, wiktionary.org and datamuse.com; only the word is sent.
       <label class="inline"><input type="checkbox" id="onlineLookup"> Look up online</label></p>
     <div class="row">
       <button type="button" class="primary" id="btnAdd">Save word</button>
@@ -552,7 +552,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
     <h3>Adding and removing words</h3>
     <p>Open the <b>Vocabulary</b> tab and click a category. Use the subcategory buttons to narrow the list. <b>＋ Add a word</b> opens a window: type the word, choose the category, and click <b>Save word</b>. Only the word is required.</p>
     <ul>
-      <li><b>Empty boxes are filled in for you.</b> The American pronunciation (IPA), syllables and silent letters come from the built-in dictionary and work offline. The meaning, part of speech, an example sentence, the word family and similar words are looked up online, in a free dictionary (dictionaryapi.dev) and a word database (datamuse.com).</li>
+      <li><b>Empty boxes are filled in for you.</b> The American pronunciation (IPA), syllables and silent letters come from the built-in dictionary and work offline. The meaning, part of speech, an example sentence, the word family and similar words are looked up online, in free dictionaries (dictionaryapi.dev and Wiktionary) and a word database (datamuse.com).</li>
       <li>Filled-in details are <b>highlighted in blue</b> so you can check them. Anything you type yourself is never replaced.</li>
       <li>Only the word itself is sent for the look-up, never your list, answers or results. To stay fully offline, untick <b>Look up online</b> in the Add window.</li>
       <li>Imported words are filled in the same way, in the background. If you're offline, the list shows <b>✨ Fill them in</b> so you can try again later.</li>
@@ -570,7 +570,7 @@ details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       <tr><td><kbd>Tab</kbd></td><td>Move between buttons and settings</td></tr>
     </table>
     <h3>Where your data is saved</h3>
-    <p>Everything is stored on this device, in the app's own storage. No account is needed. Your vocabulary list, answers and results are never sent anywhere. The only outside connections: an <i>online</i> voice (the spoken word goes to Microsoft's or Google's speech service), and the look-up for words you add (the word goes to dictionaryapi.dev and datamuse.com; you can switch this off).</p>
+    <p>Everything is stored on this device, in the app's own storage. No account is needed. Your vocabulary list, answers and results are never sent anywhere. The only outside connections: an <i>online</i> voice (the spoken word goes to Microsoft's or Google's speech service), and the look-up for words you add (the word goes to dictionaryapi.dev, wiktionary.org and datamuse.com; you can switch this off).</p>
     <ul>
       <li><b>Windows file version, moving the app folder:</b> in Edge and Chrome, saved progress normally stays available, because the browser stores data for all local files together. Export a backup before moving anyway, just to be safe.</li>
       <li><b>New phone, PC or browser:</b> it starts empty. Use <b>Progress → Export</b> to save a backup file, then <b>Import</b> it on the new device.</li>
@@ -1893,7 +1893,7 @@ function openWordDialog(id) {
   $("addWord").value = x ? x.word : "";
   // Details the app filled in itself stay highlighted (and are refreshed if the word changes); typed ones are kept.
   if (x) for (const [f, el] of ADD_FIELDS) if (x[f]) { $(el).value = x[f]; if ((x.auto || []).includes(f)) $(el).classList.add("autofilled"); else dlgTyped.add(el); }
-  if (x && x.lookup) { dlgLookupWord = norm(x.word); dlgLookupDone = true; }
+  if (x && x.lookup === LOOKUP_V) { dlgLookupWord = norm(x.word); dlgLookupDone = true; }
   $("onlineLookup").checked = data.settings.onlineLookup !== false;
   $("addMsg").classList.add("hidden");
   updatePronPreview();
@@ -1972,7 +1972,7 @@ function itemFromDialog(base) {
     else if (!e && !item.ipa) item.pronTried = true;
   }
   if (!item.auto.length) delete item.auto;
-  if (dlgLookupDone && dlgLookupWord === norm(w)) item.lookup = "done";
+  if (dlgLookupDone && dlgLookupWord === norm(w)) item.lookup = LOOKUP_V;
   return item;
 }
 async function addWord() {
@@ -2024,6 +2024,16 @@ function containsWord(sentence, word) {
   const stem = stemOf(w);
   return stem.length >= 4 && new RegExp("\\b" + stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(s);
 }
+function stripTags(h) {
+  if (!h) return "";
+  const d = document.createElement("div"); d.innerHTML = String(h);
+  return d.textContent.replace(/\s+/g, " ").trim();
+}
+/* "(transitive) To feel resentment over." -> "to feel resentment over." */
+function cleanDef(t) {
+  t = String(t || "").replace(/^(\s*\([^)]*\)\s*)+/, "").trim();
+  return t.replace(/^[A-Z](?=[a-z])/, (c) => c.toLowerCase());
+}
 const capFirst = (t) => t.replace(/^./, (c) => c.toUpperCase());
 /* Returns {found, meaning, pos, sentence, family, syn} or {error}. */
 async function lookupOnline(word) {
@@ -2038,7 +2048,7 @@ async function lookupOnline(word) {
       const defs = meanings.flatMap((m) => m.definitions || []);
       out.pos = Array.from(new Set(meanings.map((m) => m.partOfSpeech).filter(Boolean))).slice(0, 3).join(" / ");
       const def = (defs.find((x) => x.definition) || {}).definition;
-      if (def) out.meaning = def.length > 220 ? def.slice(0, 217).replace(/\s+\S*$/, "") + "…" : def;
+      if (def) out.meaning = cleanDef(def).length > 220 ? cleanDef(def).slice(0, 217).replace(/\s+\S*$/, "") + "…" : cleanDef(def);
       const ex = defs.map((x) => x.example).find((x) => x && x.length < 200 && containsWord(x, w));
       if (ex) { const t = capFirst(ex.trim()); out.sentence = /[.!?]$/.test(t) ? t : t + "."; }
       const syn = Array.from(new Set(meanings.flatMap((m) => (m.synonyms || []).concat((m.definitions || []).flatMap((x) => x.synonyms || []))))).filter((x) => norm(x) !== norm(w));
@@ -2067,16 +2077,37 @@ async function lookupOnline(word) {
       }
     } catch (e) { failures++; }
   }
+  // Wiktionary has example sentences for many words the first dictionary lacks.
+  if (!out.sentence || !out.meaning) {
+    try {
+      const wk = await getJSON("https://en.wiktionary.org/api/rest_v1/page/definition/" + encodeURIComponent(lw));
+      const entries = (wk && wk.en) || [];
+      if (entries.length) out.found = true;
+      const defs = entries.flatMap((e) => (e.definitions || []).map((d) => Object.assign({ pos: (e.partOfSpeech || "").toLowerCase() }, d)));
+      if (!out.sentence) {
+        const ex = defs.flatMap((d) => (d.examples || []).concat((d.parsedExamples || []).map((x) => x.example))).map(stripTags)
+          .filter((x) => x && x.length >= 15 && x.length < 200 && containsWord(x, w)).sort((a, b) => a.length - b.length)[0];
+        if (ex) { const t = capFirst(ex.trim()); out.sentence = /[.!?]$/.test(t) ? t : t + "."; }
+      }
+      if (!out.meaning) {
+        const d = defs.map((x) => Object.assign({}, x, { text: cleanDef(stripTags(x.definition)) })).find((x) => x.text);
+        if (d) { out.meaning = d.text; if (!out.pos) out.pos = d.pos; }
+      }
+    } catch (e) { failures++; }
+  }
   if (!out.found && failures) return { error: "Couldn't reach the online dictionary (no internet?). The pronunciation was filled in; try ✨ again later." };
   return out;
 }
 
 /* ---------------- fill in missing details for saved words, in the background ---------------- */
 let fillRunning = false;
+/* Bumped when the look-up gets better, so words saved earlier with a gap are tried once more. */
+const LOOKUP_V = "v2";
+const wantsLookup = (x) => !String(x.id).startsWith("b-") && (!x.meaning || !x.sentence) && x.lookup !== LOOKUP_V;
 function needsFill(x) {
   if (!x || !x.word) return false;
   const noPron = !x.ipa && !x.pronTried;
-  const noInfo = !x.meaning && !x.lookup;
+  const noInfo = wantsLookup(x);
   return noPron || noInfo;
 }
 async function fillMissing(ids, userAsked) {
@@ -2093,12 +2124,12 @@ async function fillMissing(ids, userAsked) {
         const e = Pron.forWord(item.word);
         if (e) { Object.assign(item, { ipa: e.ipa, syl: e.syl, parts: e.parts }); item.auto = (item.auto || []).concat("ipa"); } else item.pronTried = true;
       }
-      if (!item.meaning && !item.lookup && (data.settings.onlineLookup !== false || userAsked)) {
+      if (wantsLookup(item) && (data.settings.onlineLookup !== false || userAsked)) {
         setStatus($("fillBar"), "", `✨ Filling in details: ${done + 1} of ${ids.length} (“${esc(item.word)}”)…`);
         const r = await lookupOnline(item.word);
         if (r.error) { failed = true; saveFilled(item); break; }
         for (const f of ["meaning", "pos", "sentence", "family", "syn"]) if (!item[f] && r[f]) { item[f] = r[f]; item.auto = (item.auto || []).concat(f); }
-        item.lookup = r.found ? "done" : "none";
+        item.lookup = LOOKUP_V;
         await sleep(200);
       }
       saveFilled(item); done++;
@@ -2119,7 +2150,8 @@ function saveFilled(item) {
   setVocab(vocab().map((x) => {
     if (x.id !== item.id || norm(x.word) !== norm(item.word)) return x;
     const y = Object.assign({}, x);
-    for (const f of ["meaning", "pos", "sentence", "family", "syn", "lookup", "pronTried"]) if (!y[f] && item[f]) y[f] = item[f];
+    for (const f of ["meaning", "pos", "sentence", "family", "syn", "pronTried"]) if (!y[f] && item[f]) y[f] = item[f];
+    if (item.lookup) y.lookup = item.lookup;
     if (!y.ipa && item.ipa) Object.assign(y, { ipa: item.ipa, syl: item.syl, parts: item.parts });
     const auto = (item.auto || []).filter((f) => y[f] === item[f]);
     if (auto.length) y.auto = Array.from(new Set((y.auto || []).concat(auto)));
