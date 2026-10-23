@@ -279,6 +279,16 @@ def known(letters, sound, flag):
     return norm in IPA_SEQ.get(low, [])
 
 
+def rules_for_app():
+    """The pronunciation rules as plain data, so the app can do the same for words people add."""
+    return {
+        "G": {k: [" ".join(seq) for seq in v] for k, v in G.items()}, "SILENT": SILENT, "FALLBACK": FALLBACK,
+        "ONSETS": [" ".join(o) for o in sorted(ONSETS)], "IPA": IPA, "VOWELS": sorted(VOWELS),
+        "OVERRIDES": OVERRIDES, "COMPOUNDS": COMPOUNDS, "UN": UN, "COMPOUND_WORDS": COMPOUND_WORDS,
+        "SYL_OVERRIDES": SYL_OVERRIDES, "LETTER_NAMES": LETTER_NAMES,
+    }
+
+
 def load_dict(path):
     d = {}
     for line in path.read_text(encoding="utf-8").splitlines():

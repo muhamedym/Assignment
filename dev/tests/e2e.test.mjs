@@ -24,7 +24,34 @@ async function test(name, fn) {
 }
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ielts-e2e-"));
 
+// Simulated online dictionaries (no internet in the test environment). Responses follow the
+// documented formats of api.dictionaryapi.dev and api.datamuse.com.
+const DICT = {
+  meticulous: [{ word: "meticulous", meanings: [{ partOfSpeech: "adjective", definitions: [
+    { definition: "Showing great attention to detail; very careful and precise.", example: "She was meticulous about keeping records.", synonyms: ["careful", "precise"] }], synonyms: ["thorough"] }] }],
+  saturday: [{ word: "Saturday", meanings: [{ partOfSpeech: "noun", definitions: [{ definition: "The day of the week following Friday." }] }] }],
+};
+const MUSE = {
+  "meticul*": [{ word: "meticulously", tags: ["adv", "f:2.1"] }, { word: "meticulousness", tags: ["n", "f:0.4"] }, { word: "meticulous", tags: ["adj", "f:5"] }],
+  "zorbl": [{ word: "zorbl", defs: ["n\ta made-up test word"] }],
+};
+async function mockLookup(ctx, mode = "mock") {
+  const log = [];
+  await ctx.route(/https:\/\/api\.(dictionaryapi\.dev|datamuse\.com)\//, async (route) => {
+    const u = new URL(route.request().url()); log.push(u.href);
+    if (mode === "offline") return route.abort("internetdisconnected");
+    const headers = { "access-control-allow-origin": "*", "content-type": "application/json" };
+    if (u.host === "api.dictionaryapi.dev") {
+      const w = decodeURIComponent(u.pathname.split("/").pop()), d = DICT[w];
+      return route.fulfill({ status: d ? 200 : 404, headers, body: JSON.stringify(d || { title: "No Definitions Found" }) });
+    }
+    return route.fulfill({ status: 200, headers, body: JSON.stringify(MUSE[u.searchParams.get("sp")] || []) });
+  });
+  return log;
+}
+
 async function openApp(ctx, cfg = {}, file = APP) {
+  if (!ctx.__lookupLog) ctx.__lookupLog = await mockLookup(ctx, cfg.lookup);
   const page = await ctx.newPage();
   await page.addInitScript(`window.__mockCfg = ${JSON.stringify(cfg)};\n${MOCK}`);
   page.on("pageerror", (e) => { throw new Error("Page error: " + e.message); });
@@ -412,18 +439,25 @@ await test("vocabulary screen: browse by category and subcategory, add, edit, de
   await page.click('#vocabSubs button:has-text("Dates")');
   const dates = await page.$$eval("#vocabTable tbody tr", (r) => r.map((x) => x.querySelector("b").textContent));
   assert.deepEqual(dates.sort(), ["February", "January", "Thursday", "Tuesday", "Wednesday"]);
-  // Add a word straight into Listening › Dates
+  // Add a word straight into Listening › Dates (the Add window opens there)
   await page.click("#btnAddOpen");
+  assert.ok(await page.isVisible("#wordDialog"));
+  assert.equal(await page.inputValue("#addCat"), "listening");
   assert.equal(await page.inputValue("#addSub"), "Dates");
   await page.fill("#addWord", "Saturday");
-  await page.click("#addMore summary");
-  await page.fill("#addMeaning", "the day after Friday");
-  await page.keyboard.press("Tab");
+  await page.fill("#addHint", "Sat-ur-day");
   await page.click("#btnAdd");
   assert.match(await page.textContent("#addMsg"), /Added “Saturday” to Listening vocabulary › Dates/);
   assert.ok((await page.innerText("#vocabTable")).includes("Saturday"));
   await page.fill("#addWord", "january"); await page.keyboard.press("Enter");
   assert.match(await page.textContent("#addMsg"), /already in Listening vocabulary/);
+  await page.click("#btnAddClose");
+  assert.ok(!(await page.isVisible("#wordDialog")));
+  // the empty boxes were filled in: pronunciation offline, meaning from the (simulated) dictionary
+  await page.waitForFunction(() => { const x = window.__ielts.data.vocab.find((y) => y.word === "Saturday"); return x && x.meaning && x.ipa; });
+  const sat = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "Saturday"));
+  assert.equal(sat.ipa, "/ˈsætɚdi/"); assert.equal(sat.meaning, "The day of the week following Friday."); assert.equal(sat.pos, "noun");
+  assert.equal(sat.hint, "Sat-ur-day", "what the person typed is kept");
   // Delete with undo
   await page.click('button[aria-label="Delete Saturday"]');
   assert.ok(!(await page.innerText("#vocabTable")).includes("Saturday"));
@@ -435,21 +469,29 @@ await test("vocabulary screen: browse by category and subcategory, add, edit, de
   await page.click('[data-node="writing"]');
   assert.match(await page.innerText("#vocabSubs"), /Academic Writing Task 1 \(20\)[\s\S]*Academic Writing Task 2 \(20\)/);
   await page.click("#btnAddOpen");
-  await page.selectOption("#addSub", "task2");
+  await page.selectOption("#addCat", "task2");
+  assert.ok(await page.isDisabled("#addSub"));
   await page.fill("#addWord", "globalization"); await page.click("#btnAdd");
+  await page.click("#btnAddX");
   // Reading topics
   await page.click('[data-node="reading"]');
   assert.match(await page.innerText("#vocabSubs"), /Science & Research \(13\)/);
   // My own words: new list with a new subcategory
   await page.click('[data-node="custom"]');
-  assert.ok(await page.isVisible("#addBox"), "add form should open for an empty list");
+  assert.ok(await page.isVisible("#wordDialog"), "add window should open for an empty list");
+  assert.equal(await page.inputValue("#addCat"), "custom");
   await page.fill("#addWord", "meteorology"); await page.fill("#addSub", "Weather words"); await page.click("#btnAdd");
+  await page.click("#btnAddClose");
   assert.match(await page.innerText("#vocabSubs"), /Weather words \(1\)/);
-  // Edit
+  // Edit (opens the same window with the word's details)
   await page.click('button[aria-label="Edit meteorology"]');
-  await page.fill("#edWord", "meteorologist");
-  await page.click("button[data-save]");
+  assert.match(await page.textContent("#addTitle"), /Edit “meteorology”/);
+  assert.equal(await page.inputValue("#addSub"), "Weather words");
+  await page.fill("#addWord", "meteorologist");
+  await page.click("#btnAdd");
+  await page.waitForSelector("#wordDialog", { state: "hidden" });
   assert.ok((await page.innerText("#vocabTable")).includes("meteorologist"));
+  await page.waitForFunction(() => window.__ielts.data.vocab.find((y) => y.word === "meteorologist").ipa === "/ˌmitiɚˈɑlədʒɪst/");
   // Import CSV and TXT (in the Import section)
   await page.click("text=Import, export or restore words");
   const csv = path.join(tmp, "words.csv");
@@ -709,6 +751,89 @@ await test("pronunciation: American IPA, syllables, letter-to-sound breakdown an
   await waitSpoken(page, n + 1);
   assert.equal((await spoken(page))[n].text, "receipt");
   assert.equal(await page.evaluate(() => document.activeElement.id), "answer");
+  await ctx.close();
+});
+
+await test("adding a word fills the gaps: pronunciation offline, meaning/example/family online (only the word is sent); typed text is kept", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.click("#tab-vocab"); await page.click('[data-node="personal"]'); await page.click("#btnAddOpen");
+  assert.match(await page.innerText("#wordDialog"), /dictionaryapi\.dev and datamuse\.com; only the word is sent/);
+  await page.fill("#addHint", "my own hint");
+  await page.fill("#addMeaning", "my own meaning");
+  await page.type("#addWord", "meticulous");
+  await page.waitForFunction(() => /Filled in/.test(document.querySelector("#wdStatus").textContent));
+  assert.equal(await page.inputValue("#addMeaning"), "my own meaning", "typed meaning was overwritten");
+  assert.equal(await page.inputValue("#addPos"), "adjective");
+  assert.equal(await page.inputValue("#addSentence"), "She was meticulous about keeping records.");
+  assert.equal(await page.inputValue("#addFamily"), "meticulously (adverb), meticulousness (noun)");
+  assert.equal(await page.inputValue("#addSyn"), "thorough, careful, precise");
+  assert.equal(await page.inputValue("#addIpa"), "/məˈtɪkjələs/");
+  assert.match(await page.innerText("#wdPron"), /me·ti·cu·lous/);
+  assert.ok(await page.evaluate(() => document.querySelector("#addPos").classList.contains("autofilled")));
+  assert.ok(!(await page.evaluate(() => document.querySelector("#addMeaning").classList.contains("autofilled"))));
+  // only the word itself goes out
+  for (const u of ctx.__lookupLog) assert.ok(!/hint|own/.test(u) && /meticul/.test(u), "unexpected request " + u);
+  await page.click("#btnAdd");
+  const m = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "meticulous"));
+  assert.equal(m.meaning, "my own meaning"); assert.equal(m.hint, "my own hint"); assert.equal(m.pos, "adjective");
+  assert.ok(m.parts && m.syl === "me·ti·cu·lous");
+  // look-up switched off: nothing is sent, pronunciation is still filled in
+  await page.uncheck("#onlineLookup");
+  const before = ctx.__lookupLog.length;
+  await page.fill("#addWord", "psychology"); await page.click("#btnAdd");
+  await page.waitForTimeout(1200);
+  assert.equal(ctx.__lookupLog.length, before, "requests were sent with look-up off");
+  const ps = await page.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "psychology"));
+  assert.equal(ps.ipa, "/saɪˈkɑlədʒi/"); assert.ok(!ps.meaning);
+  // ... and the list offers to fill the details later
+  await page.click("#btnAddClose");
+  await page.waitForFunction(() => /missing details/.test(document.querySelector("#fillBar").textContent));
+  // Say a sentence uses the meaning when there's no example
+  const say = await page.evaluate(() => window.__ielts.sentenceFor({ word: "zorbl", meaning: "a made-up test word" }));
+  assert.equal(say, "zorbl. zorbl means: a made-up test word.");
+  await page.reload();
+  assert.equal(await page.evaluate(() => window.__ielts.data.settings.onlineLookup), false, "setting not remembered");
+  await ctx.close();
+});
+
+await test("imported words get their missing details filled in the background; with no internet the pronunciation is still filled and a clear message shows", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.click("#tab-vocab"); await page.click('[data-node="custom"]'); await page.click("#btnAddX");
+  await page.click("text=Import, export or restore words");
+  const txt = path.join(tmp, "fill.txt"); fs.writeFileSync(txt, "meticulous\nzorbl\n");
+  await page.setInputFiles("#vocabFile", txt);
+  await page.waitForFunction(() => { const v = window.__ielts.data.vocab; const a = v.find((y) => y.word === "meticulous"), b = v.find((y) => y.word === "zorbl"); return a && a.meaning && b && b.meaning; });
+  const v = await page.evaluate(() => window.__ielts.data.vocab.filter((y) => y.cat === "custom"));
+  const met = v.find((y) => y.word === "meticulous"), zo = v.find((y) => y.word === "zorbl");
+  assert.equal(met.ipa, "/məˈtɪkjələs/"); assert.match(met.meaning, /great attention to detail/);
+  assert.equal(zo.meaning, "a made-up test word"); assert.equal(zo.pos, "noun"); assert.ok(!zo.ipa && zo.pronTried);
+  await ctx.close();
+
+  const ctx2 = await browser.newContext();
+  const p2 = await openApp(ctx2, { lookup: "offline" });
+  await p2.click("#tab-vocab"); await p2.click('[data-node="custom"]');
+  await p2.fill("#addWord", "doubtful"); await p2.click("#btnAutoFill");
+  await p2.waitForFunction(() => /Couldn't reach the online dictionary/.test(document.querySelector("#wdStatus").textContent));
+  assert.equal(await p2.inputValue("#addIpa"), "/ˈdaʊtfəl/");
+  await p2.click("#btnAdd"); await p2.click("#btnAddClose");
+  await p2.waitForFunction(() => /couldn't be looked up/.test(document.querySelector("#fillBar").textContent));
+  const d = await p2.evaluate(() => window.__ielts.data.vocab.find((y) => y.word === "doubtful"));
+  assert.equal(d.ipa, "/ˈdaʊtfəl/"); assert.ok(!d.meaning && !d.lookup, "should try again later");
+  await ctx2.close();
+});
+
+await test("Practice screen quick start: stats, Start and Review missed words", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  await page.waitForFunction(() => !document.querySelector("#btnHeroStart").disabled);
+  assert.match(await page.innerText("#heroStats"), /547 words/);
+  assert.match(await page.textContent("#heroMode"), /Mixed.*10 words/);
+  assert.ok(await page.isDisabled("#btnHeroMissed"));
+  await page.click("#btnHeroStart");
+  await waitSpoken(page, 1);
+  assert.ok(await page.isVisible("#answer"));
   await ctx.close();
 });
 

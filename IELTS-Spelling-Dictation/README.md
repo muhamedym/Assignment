@@ -11,6 +11,10 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 | `sample-vocabulary.csv` | Example file showing the format for importing your own words |
 | `README.md` | This file |
 
+## Practice screen
+
+The top of the Practice screen shows your word count, how many missed words are waiting and your last score, with two big buttons: **▶ Start** (using the choices below) and **🔁 Review my missed words**.
+
 ## Start it on Windows
 
 1. Unzip `IELTS-Spelling-Dictation.zip` to any folder, for example `Documents\IELTS-Spelling-Dictation`. Don't run it from inside the ZIP.
@@ -76,7 +80,7 @@ The **Sounds** tab is a reference page:
 
 Optional: tick **"Show the IPA pronunciation as a hint while I listen"** (Practice → Session) to see the IPA before you answer. It shows sounds, not spelling.
 
-Pronunciations are based on the CMU Pronouncing Dictionary (American English, © Carnegie Mellon University, BSD-style licence). Words you add yourself have no automatic pronunciation; you can type an IPA in the word's details.
+Pronunciations are based on the CMU Pronouncing Dictionary (American English, © Carnegie Mellon University, BSD-style licence). The full dictionary (about 126,000 words) is built into the app, so words you add get their pronunciation automatically, offline. For a word it doesn't know, you can type the IPA yourself.
 
 ## Keyboard shortcuts
 
@@ -117,14 +121,21 @@ Every built-in word has a meaning, part of speech, word family and example sente
 **Managing words (Vocabulary tab):**
 1. Click a category card (Listening, Reading, Academic Writing…). Its words appear. They stay hidden until then, so you don't see answers by accident.
 2. Use the subcategory buttons (e.g. *Dates*, *Health & Medicine*, *Task 2*) and the search box to narrow the list.
-3. **＋ Add a word** adds to the open category and subcategory. Only the word is required; meaning, sentence and so on are optional. You can also type a new subcategory name.
-4. **🗑 Delete** removes a word at once, with an **Undo** button. **✎ Edit** changes a word in place.
-5. **＋ My own words** lets anyone build their own list, with their own subcategories.
-6. **Import, export or restore words** (at the bottom) imports a CSV/TXT file, exports everything to CSV, or restores the built-in list.
+3. **＋ Add a word** opens a window. Type the word, choose the category and (optionally) a subcategory, then click **Save word**. Only the word is required.
+4. **Empty boxes are filled in for you:**
+   - **Offline:** American IPA, syllables, letter-to-sound breakdown and silent letters (from the built-in dictionary).
+   - **Online:** meaning, part of speech, example sentence, word family and similar words. These come from two free services, **dictionaryapi.dev** and **datamuse.com**. Only the word itself is sent; your list, answers and results never are. No account or key is needed.
+   - Filled-in boxes are **highlighted in blue**. Anything you type yourself is never replaced. Automatic details can be wrong or describe another meaning of the word, so check them.
+   - Untick **Look up online** in the Add window to stay fully offline. The setting is remembered.
+   - Imported words are filled in the same way, in the background. If you're offline, the list shows **✨ Fill them in** to try again later.
+   - When a word has no example sentence, **Say a sentence** reads its meaning instead.
+5. **🗑 Delete** removes a word at once, with an **Undo** button. **✎ Edit** opens the same window with the word's details.
+6. **＋ My own words** lets anyone build their own list, with their own subcategories.
+7. **Import, export or restore words** (at the bottom) imports a CSV/TXT file, exports everything to CSV, or restores the built-in list.
 
 **Import format**
 
-- **CSV:** `word,category,group,hint,example,context,pos,meaning,sentence,family` (only `word` is required). The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
+- **CSV:** `word,category,group,hint,example,context,pos,meaning,sentence,family,similar,ipa` (only `word` is required; empty columns are filled in automatically). The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
 - **TXT:** one word or phrase per line.
 - Duplicates are skipped. Use US spelling.
 
@@ -141,4 +152,6 @@ Session history, missed words, settings and vocabulary changes are saved in the 
 
 ## Privacy
 
-There's no account, no tracking and no network requests from the app itself. The only possible outside connection is when you pick an *online* voice: the browser then sends the word being spoken to Microsoft's (Edge) or Google's (Chrome) speech service.
+There's no account and no tracking. Your vocabulary list, answers and results are never sent anywhere. There are only two possible outside connections:
+- **An *online* voice:** the browser sends the word or sentence being spoken to Microsoft's (Edge) or Google's (Chrome) speech service.
+- **Look-up for words you add or import:** the word itself is sent to dictionaryapi.dev and datamuse.com to get its meaning, example and word family. Switch this off with **Look up online** in the Add window.
