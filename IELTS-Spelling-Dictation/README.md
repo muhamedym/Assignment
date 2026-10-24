@@ -72,12 +72,17 @@ After every answer, the word panel shows:
 - **Letters and sounds:** each letter group with the sound it makes (cc → /k/, ti → /ʃ/).
 - **Silent letters** crossed out in red (the **p** in *receipt*, the **n** in *autumn*, the **d** in *Wednesday*), and **double letters** that make one sound (the **cc** and **mm** in *accommodation*).
 
-The **Sounds** tab is a reference page:
-- what every American IPA symbol sounds like, with a key word
-- how each sound is spelled in your own words (/ʃ/ = sh, ti, ci, ss…)
-- every word with a silent letter
-- every word with a double letter
-- a look-up box for any word
+The **Sounds** tab has all 41 sounds of American English (17 vowels, 24 consonants) as big cards. Consonants come in pairs, air only ↔ with voice (p/b, s/z…). Click a card to see:
+- **Recordings:** ▶ the sound on its own, ▶ a key word, and 🐢 slowly. They are built into the app, so they also work offline.
+- **A picture of the mouth:** a side view (tongue, palate, lips, air through the mouth or the nose, voice on or off) and a front view of the lips. For sounds that move, like /aɪ/ in *my*, the picture moves while the sound plays.
+- **How to say it:** two or three simple steps and a tip.
+- **Examples:** the key word and three more that show different spellings of the sound (*see, sea, receive, machine*), with the letters that make the sound in color. Click to hear them.
+- **Don't confuse:** word pairs such as *ship / sheep* or *think / sink*, and **🎧 Test your ear**: hear one word and choose which it was.
+- **Spelled like this in your words:** how the sound is spelled in your own vocabulary (/ʃ/ = sh, ti, ci, s…).
+
+The other tabs list every word with a **silent letter** and every word with a **double letter**, and explain **how to read the IPA**. The look-up box shows any word's sounds; click a letter group to see its sound.
+
+The recordings were made with the Kokoro-82M voice model (American English voice "Heart", Apache License 2.0).
 
 Optional: tick **"Show the IPA pronunciation as a hint while I listen"** (Practice → Session) to see the IPA before you answer. It shows sounds, not spelling.
 

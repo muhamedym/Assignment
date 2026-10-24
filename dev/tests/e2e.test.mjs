@@ -19,6 +19,7 @@ const EARLIER = ["expen dature", "demonistrate", "comparision", "steadly", "simi
 
 let passed = 0, failed = 0;
 async function test(name, fn) {
+  if (process.env.ONLY && !name.includes(process.env.ONLY)) return;   // ONLY="Sounds" runs just the matching tests
   try { await fn(); passed++; console.log("  ✓ " + name); }
   catch (e) { failed++; console.log("  ✗ " + name + "\n      " + (e.stack || e).toString().split("\n").slice(0, 4).join("\n      ")); }
 }
@@ -950,25 +951,84 @@ await test("Practice screen quick start: stats, Start and Review missed words", 
   await ctx.close();
 });
 
-await test("Sounds page: IPA chart with spellings from your words, silent and double letters, look-up", async () => {
+await test("Sounds page: sound cards with recordings, mouth diagrams, steps, examples, test your ear; silent and double letters; look-up", async () => {
   const ctx = await browser.newContext();
   const page = await openApp(ctx);
   await page.waitForFunction(() => !document.querySelector("#btnStart").disabled); // voice ready
+  await page.evaluate(() => { window.__played = []; HTMLMediaElement.prototype.play = function () { window.__played.push(this.src.slice(0, 30) + "|" + this.playbackRate); return Promise.resolve(); }; });
   await page.click("#tab-sounds");
-  const vowels = await page.innerText("#soundsVowels"), cons = await page.innerText("#soundsConsonants");
-  for (const sym of ["/i/", "/ɪ/", "/eɪ/", "/ə/", "/ɚ/", "/ɔɪ/"]) assert.ok(vowels.includes(sym), "missing vowel " + sym);
-  for (const sym of ["/θ/", "/ð/", "/ʃ/", "/ʒ/", "/tʃ/", "/dʒ/", "/ŋ/"]) assert.ok(cons.includes(sym), "missing consonant " + sym);
-  assert.match(cons, /\/ʃ\/[\s\S]*ti[\s\S]*accommodation/, "sh-sound spelled ti should list e.g. accommodation");
+  await page.waitForSelector("#soundsVowels .stile");
+  assert.equal(await page.locator("#soundsVowels .stile").count(), 17);
+  assert.match(await page.innerText("#sndDetail"), /Click a sound/);
+  await page.click('[data-sview="consonants"]');
+  assert.equal(await page.locator("#soundsConsonants .stile").count(), 24);
+  assert.match(await page.innerText("#soundsConsonants"), /air[\s\S]*p[\s\S]*voice[\s\S]*b/);
+  // a sound: its recording plays, with a mouth diagram, simple steps and example words
+  await page.click('.stile[data-snd="sh"]');
+  const det = await page.innerText("#sndDetail");
+  assert.match(det, /\/ʃ\//); assert.match(det, /How to say it/); assert.match(det, /Voice off/); assert.match(det, /Don't confuse/);
+  assert.equal(await page.locator("#sndDetail svg.mouth-side").count(), 1);
+  assert.equal(await page.locator("#sndDetail svg.mouth-front").count(), 1);
+  assert.match(await page.textContent("#sndDetail .fig-front figcaption"), /Lips rounded/);
+  let played = await page.evaluate(() => window.__played);
+  assert.equal(played.length, 1); assert.ok(played[0].startsWith("data:audio/ogg;base64,"), played[0]);
+  assert.match(await page.innerHTML("#sndDetail .sd-ex"), /sta<b>ti<\/b>on/, "the letters that make the sound are highlighted");
+  await page.click('#sndDetail button:has-text("Slowly")');
+  played = await page.evaluate(() => window.__played); assert.match(played[played.length - 1], /\|0\.6$/);
+  // 🎧 Test your ear
+  await page.click("#btnEar");
+  await page.waitForSelector("#earTest .earopt");
+  assert.equal(await page.locator("#earTest .earopt").count(), 2);
+  await page.click("#earTest .earopt >> nth=0");
+  assert.match(await page.textContent("#earMsg"), /(Right|It was)[\s\S]*Score: \d of 1/);
+  // how the sound is spelled in your words
+  await page.click('#sndDetail .spchip:has-text("ti")');
+  assert.match(await page.innerText("#spellWords"), /accommodation/);
+  // a vowel that moves: its diagram changes while it plays
+  await page.click('[data-sview="vowels"]');
+  await page.click('.stile[data-snd="ay"]');
+  assert.match(await page.innerText("#sndDetail"), /moves during this sound/);
+  // silent and double letters
+  await page.click('[data-sview="silent"]');
+  assert.ok(!(await page.isVisible("#sndDetail")), "the sound panel is hidden for letter lists");
   const silent = await page.innerText("#soundsSilent");
   assert.ok(/receipt/.test(silent) && /autumn/.test(silent) && /knowledge/.test(silent));
   assert.equal((silent.match(/sometimes/g) || []).length, 1, "a word should be listed once per group");
+  await page.click('[data-sview="double"]');
   assert.match(await page.innerText("#soundsDouble"), /cc[\s\S]*accommodation/);
+  // look up a word; a letter group opens its sound
   await page.fill("#soundLookup", "wednesday");
   const out = await page.innerText("#soundLookupOut");
   assert.match(out, /Wednesday/); assert.match(out, /\/ˈwɛnzdi\//); assert.match(out, /Silent: d, e/);
+  await page.click("#soundLookupOut .chip >> nth=0");
+  assert.match(await page.innerText("#sndDetail"), /\/w\//);
+  // words in the lists are read by the voice
+  await page.click('[data-sview="silent"]');
   await page.click('#soundsSilent button.wordlink:has-text("receipt")');
   await waitSpoken(page, 1);
   assert.equal((await spoken(page))[0].text, "receipt");
+  await ctx.close();
+});
+
+await test("every recording on the Sounds page is valid audio of a sensible length, and no sound is missing one", async () => {
+  const ctx = await browser.newContext();
+  const page = await openApp(ctx);
+  const res = await page.evaluate(async () => {
+    const A = window.__ielts.soundData().audio, ac = new OfflineAudioContext(1, 24000, 24000), bad = [];
+    for (const [k, b64] of Object.entries(A)) {
+      const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      try { const buf = await ac.decodeAudioData(bytes.buffer); if (buf.duration < 0.15 || buf.duration > 2.5) bad.push(k + " " + buf.duration.toFixed(2) + "s"); }
+      catch (e) { bad.push(k + " " + e.message); }
+    }
+    return { total: Object.keys(A).length, bad };
+  });
+  assert.deepEqual(res.bad, []);
+  const missing = await page.evaluate(() => {
+    const S = window.__ielts.soundData(), out = [];
+    for (const x of S.sounds) for (const k of ["s:" + x.id, "w:" + x.key, ...x.ex.map((w) => "w:" + w), ...x.pairs.flat().map((w) => "w:" + w)]) if (!S.audio[k]) out.push(k);
+    return out;
+  });
+  assert.deepEqual(missing, []);
   await ctx.close();
 });
 

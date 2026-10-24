@@ -42,6 +42,17 @@ if 'id="wnData"' not in new:
     new = new.replace('<script type="text/plain" id="cmuData">', '<script type="text/plain" id="wnData"></script>\n<script type="text/plain" id="cmuData">', 1)
 new, n = re.subn(r'(<script type="text/plain" id="wnData">).*?(</script>)', lambda m: m.group(1) + wn_blob + m.group(2), new, flags=re.S)
 assert n == 1, "wnData marker not found"
+# Sounds page: texts (dev/sounds_content.py) and recordings (dev/sounds-audio.json, made by dev/build_sounds.py).
+import sounds_content  # noqa: E402
+VOWEL_GROUPS = {"short", "long", "glide", "r", "weak"}
+snd_audio = json.loads((root / "dev" / "sounds-audio.json").read_text(encoding="utf-8")) if (root / "dev" / "sounds-audio.json").exists() else {"audio": {}}
+snd = {"sounds": [dict({k: v for k, v in x.items() if k not in ("src", "take")}, kind="vowel" if x["group"] in VOWEL_GROUPS else "cons")
+                  for x in sounds_content.SOUNDS],
+       "groups": sounds_content.GROUPS, "voice": snd_audio.get("voice", ""), "audio": snd_audio.get("audio", {})}
+snd_blob = json.dumps(snd, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+new, n = re.subn(r'(<script type="application/json" id="soundsData">).*?(</script>)', lambda m: m.group(1) + snd_blob + m.group(2), new, flags=re.S)
+assert n == 1, "soundsData marker not found"
 html_path.write_text(new, encoding="utf-8")
+print(f"Sounds page: {len(snd['sounds'])} sounds, {len(snd['audio'])} recordings ({len(snd_blob) // 1024} KB)")
 print(f"Injected {len(vocab)} words, a {len(entries)}-word pronunciation dictionary ({pron_kb} KB) and a "
       f"{wn_text.count(b'\n')}-word offline dictionary ({len(wn_blob) // 1024} KB) into {html_path.name}")

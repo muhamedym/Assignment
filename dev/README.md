@@ -19,11 +19,17 @@
   for words people add. The WordNet files come from the npm package `wordnet-db`
   (`npm pack wordnet-db && tar xzf wordnet-db-*.tgz`, then `python -I dev/build_wordnet.py package/dict`).
   Licence: `wordnet-LICENSE.txt`.
+- `sounds_content.py` + `build_sounds.py`: the Sounds page. `sounds_content.py` has the 41 sounds (key word, examples,
+  steps, tips, word pairs). `build_sounds.py` records them with the Kokoro-82M voice model (Apache-2.0; from the npm
+  packages `kokoro-q8-shards` and `kokoro-js`) into `sounds-audio.json`: words are said in "Listen. <word>." and cut
+  out with the model's own timing; single sounds are cut from a syllable and lengthened (PSOLA for voiced sounds).
+  With `--verify`, every word is checked with Whisper (npm `sts-whisper-base`, run with transformers.js) against real
+  words that differ by one sound, and re-recorded if needed. See the top of `build_sounds.py`.
 - `build.py`: injects `vocab.json`, the pronunciation dictionary and the WordNet dictionary into
   `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
   `python -I dev/build.py`
-- `tests/e2e.test.mjs`: 25 end-to-end tests in headless Chromium (Playwright) against the real page. The online
+- `tests/e2e.test.mjs`: 26 end-to-end tests in headless Chromium (Playwright) against the real page. The online
   dictionaries (dictionaryapi.dev, Wiktionary, Wikipedia, datamuse) are simulated with responses in their documented formats.
   `tests/mock-speech.js` simulates the Web Speech API (late-loading voices, queueing, cancel) so the
   timing and overlap rules can be checked; the "no voices" test uses real Chromium with no speech engine.
-  `node dev/tests/e2e.test.mjs`
+  `node dev/tests/e2e.test.mjs` (or `ONLY="Sounds" node dev/tests/e2e.test.mjs` for some of them)
