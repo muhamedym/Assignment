@@ -10,8 +10,9 @@ How each recording is made:
   * Single sounds are cut from a short word or syllable (see dev/sounds_content.py): vowels and
     consonants you can hold are lengthened a little; stops get a short "uh" (puh, buh), as teachers say them.
   * With --verify, every word is checked with the Whisper speech recognizer: it must pick the right word
-    from a list of real words that differ by one sound (ship: sheep, shop, chip…). A word that fails is
-    re-recorded at another speed; words that never pass are reported.
+    from the words it is paired with on the page and other real words that differ by one sound
+    (ship: sheep, plus dip, hip, lip, sip…). A word that fails is re-recorded at another speed;
+    words that never pass are reported.
 
 Needs (developer machine only; nothing here ships with the app):
   npm pack kokoro-q8-shards kokoro-js     # the model (6 parts) and the voices
@@ -361,6 +362,11 @@ def neighbours(word, cmu, lemmas, n=9):
     return out[:n]
 
 
+def partners(word):
+    """The words the Sounds page pairs with `word` (Don't confuse, Test your ear): these must never be mixed up."""
+    return [b if a == word else a for it in SOUNDS for a, b in it["pairs"] if word in (a, b)]
+
+
 def whisper_check(jobs, whisper_dir):
     """jobs: [(name, audio, expect, choices)] -> {name: (best, free text)}"""
     from scipy.signal import resample_poly
@@ -384,7 +390,9 @@ def whisper_check(jobs, whisper_dir):
 
 def encode_opus(a):
     p = subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "pipe:0",
-                        "-c:a", "libopus", "-b:a", "24k", "-application", "audio", "-f", "ogg", "pipe:1"],
+                        "-c:a", "libopus", "-b:a", "24k", "-application", "audio",
+                        # bitexact: same input, same bytes (no random stream number), so reruns don't change the file
+                        "-fflags", "+bitexact", "-flags:a", "+bitexact", "-f", "ogg", "pipe:1"],
                        input=a.astype(np.float32).tobytes(), capture_output=True, check=True)
     return base64.b64encode(p.stdout).decode("ascii")
 
@@ -439,7 +447,8 @@ def main():
         jobs = []
         for w, (a, sp, whole) in batch.items():
             # check the whole phrase: with "Listen." before it, the recognizer can tune in to the voice
-            choices = ["listen. " + x for x in [w] + [x for x in neighbours(w, cmu, lemmas) if x != w]]
+            others = list(dict.fromkeys(partners(w) + neighbours(w, cmu, lemmas)))
+            choices = ["listen. " + x for x in [w] + [x for x in others if x != w]]
             jobs.append((f"{w}@{sp}", whole, "listen. " + w, choices))
         res = whisper_check(jobs, args.verify)
         for w, (a, sp, whole) in batch.items():

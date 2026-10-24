@@ -23,8 +23,9 @@
   steps, tips, word pairs). `build_sounds.py` records them with the Kokoro-82M voice model (Apache-2.0; from the npm
   packages `kokoro-q8-shards` and `kokoro-js`) into `sounds-audio.json`: words are said in "Listen. <word>." and cut
   out with the model's own timing; single sounds are cut from a syllable and lengthened (PSOLA for voiced sounds).
-  With `--verify`, every word is checked with Whisper (npm `sts-whisper-base`, run with transformers.js) against real
-  words that differ by one sound, and re-recorded if needed. See the top of `build_sounds.py`.
+  With `--verify`, every word is checked with Whisper (npm `sts-whisper-base`, run with transformers.js) against the
+  words it is paired with on the page and other real words that differ by one sound, and re-recorded if needed.
+  See the top of `build_sounds.py`.
 - `build.py`: injects `vocab.json`, the pronunciation dictionary, the WordNet dictionary and the Sounds page
   (`sounds_content.py` + `sounds-audio.json`) into
   `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
