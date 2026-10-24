@@ -260,6 +260,7 @@ def record_word(k, word_ph, speed):
 def take_sound(k, item, speed=0.8):
     """The sound on its own, cut from its source syllable or word."""
     src, take = item["src"], item["take"]
+    speed = item.get("speed", speed)
     if take == "glide":
         speed = 0.6   # slower, so the movement of a two-part vowel is easy to hear
     if take in ("buzz", "syllable_slow"):
@@ -465,6 +466,15 @@ def main():
             import soundfile as sf
             os.makedirs(args.wav_dir, exist_ok=True)
             sf.write(os.path.join(args.wav_dir, re.sub(r"[^\w-]", "_", name) + ".wav"), a, SR)
+    # keep only recordings the Sounds page uses
+    needed = set()
+    for it in SOUNDS:
+        needed |= {"s:" + it["id"], "w:" + it["key"]} | {"w:" + w for w in it["ex"]} | {"w:" + w for p in it["pairs"] for w in p}
+    for name in [n for n in audio if n not in needed]:
+        del audio[name]
+    missing = sorted(needed - set(audio))
+    if missing:
+        report.append("still to record: " + ", ".join(missing))
     json.dump({"voice": f"Kokoro-82M ({VOICE})", "format": "audio/ogg; codecs=opus", "audio": dict(sorted(audio.items()))},
               open(out_path, "w"), separators=(",", ":"))
     print("\n".join(report))

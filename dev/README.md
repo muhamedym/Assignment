@@ -25,7 +25,8 @@
   out with the model's own timing; single sounds are cut from a syllable and lengthened (PSOLA for voiced sounds).
   With `--verify`, every word is checked with Whisper (npm `sts-whisper-base`, run with transformers.js) against real
   words that differ by one sound, and re-recorded if needed. See the top of `build_sounds.py`.
-- `build.py`: injects `vocab.json`, the pronunciation dictionary and the WordNet dictionary into
+- `build.py`: injects `vocab.json`, the pronunciation dictionary, the WordNet dictionary and the Sounds page
+  (`sounds_content.py` + `sounds-audio.json`) into
   `IELTS-Spelling-Dictation/IELTS-Spelling-Dictation.html`.
   `python -I dev/build.py`
 - `tests/e2e.test.mjs`: 26 end-to-end tests in headless Chromium (Playwright) against the real page. The online
