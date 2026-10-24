@@ -82,7 +82,7 @@ The **Sounds** tab has all 41 sounds of American English (17 vowels, 24 consonan
 
 The other tabs list every word with a **silent letter** and every word with a **double letter**, and explain **how to read the IPA**. The look-up box shows any word's sounds; click a letter group to see its sound.
 
-The recordings were made with the Kokoro-82M voice model (American English voice "Heart", Apache License 2.0).
+The recordings were made with the Kokoro-82M voice model (American English voice "Heart", Apache License 2.0). Every word recording was checked with a speech recognizer (Whisper): it had to pick the right word from the words it is paired with on the page and other real words that differ by one sound (for example *ship* from *sheep* and *chip*). Words it mixed up (*hut*, *bought*, *shut* and *breeze*) were swapped for clearer examples, and every word on the page passed. The vowel recordings were also measured to check that each one is the right vowel. A computer voice made these recordings, so if one ever sounds wrong to you, compare it with a dictionary recording.
 
 Optional: tick **"Show the IPA pronunciation as a hint while I listen"** (Practice → Session) to see the IPA before you answer. It shows sounds, not spelling.
 
