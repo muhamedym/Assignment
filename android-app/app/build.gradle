@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.application'
+}
+
+// The signing key is kept outside the repository: keystore/ielts-dictation.jks and keystore/keystore.properties
+// (storePassword=..., keyAlias=..., keyPassword=...). Without them, only the debug version can be built.
+def keyProps = new Properties()
+def keyPropsFile = rootProject.file('keystore/keystore.properties')
+if (keyPropsFile.exists()) keyPropsFile.withInputStream { keyProps.load(it) }
+
+android {
+    namespace 'com.mohammed.ieltsdictation'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.mohammed.ieltsdictation'
+        minSdk 24          // Android 7.0 and newer
+        targetSdk 34
+        versionCode 1
+        versionName '1.9'
+    }
+
+    signingConfigs {
+        release {
+            if (keyPropsFile.exists()) {
+                storeFile rootProject.file('keystore/ielts-dictation.jks')
+                storePassword keyProps['storePassword']
+                keyAlias keyProps['keyAlias']
+                keyPassword keyProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (keyPropsFile.exists()) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // The app itself is the same single HTML file as the Windows version; it's copied in at build time.
+    sourceSets {
+        main {
+            assets.srcDirs += [new File(project.buildDir, 'generated/webassets')]
+        }
+    }
+}
+
+def copyWebApp = tasks.register('copyWebApp', Copy) {
+    from(rootProject.file('../ielts-spelling-dictation')) {
+        include 'IELTS-Spelling-Dictation.html'
+        rename { 'index.html' }
+    }
+    from(rootProject.file('../ielts-spelling-dictation')) {
+        include 'wordnet-LICENSE.txt'
+    }
+    into new File(project.buildDir, 'generated/webassets')
+}
+tasks.named('preBuild') { dependsOn copyWebApp }

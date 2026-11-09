@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/brand</item>
+        <item name="android:colorAccent">@color/brand</item>
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Android 7-8.0 can't show dark navigation-bar buttons, so the bar stays black there. -->
+        <item name="android:navigationBarColor">#000000</item>
+    </style>
+</resources>

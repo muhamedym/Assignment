@@ -12,6 +12,22 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 | `wordnet-LICENSE.txt` | Licence of WordNet (Princeton University), the built-in dictionary for words you add |
 | `README.md` | This file |
 
+## Android app
+
+There is also an Android app (`IELTS-Dictation-1.9.apk`, Android 7.0 or newer). It is the same app, made for phones: big touch-friendly buttons, a Start button always at the bottom of the screen, and word lists shown as cards. It works offline.
+
+**Install it**
+1. Copy the `.apk` file to the phone (for example from email, WhatsApp or Google Drive) and tap it.
+2. Android asks you to allow installing apps from that source (for example *Files* or *Chrome*). Tap **Settings**, switch on **Allow from this source**, then go back and tap **Install**.
+3. If Google Play Protect shows a warning, that's because the app isn't from the Play Store. Tap **More details → Install anyway** (or **Scan app**, then **Install**).
+4. Open **IELTS Dictation** from your apps.
+
+**Voices:** the app uses the phone's own voices. Choose **👩 Woman** or **👨 Man** in **Voice & speed**. If no voice is found or the voice is unclear, tap **⚙ Open speech settings** (in Voice & speed or Help), choose *Speech Services by Google* and install **English (United States)** voice data.
+
+**On the phone:** the **Back** button closes windows and pauses a session; leaving the app pauses it too. **Export progress** asks where to save the backup file (for example *Downloads* or *Google Drive*), and **Import** opens the phone's file picker. A wrong answer gives a short vibration.
+
+**Updates and your progress:** progress is saved inside the app. Installing a newer version over it keeps your progress. Uninstalling the app deletes it, so export a backup first. Progress isn't shared between the phone and the PC; use Export and Import to move it.
+
 ## Practice screen
 
 The top of the Practice screen shows your word count, how many missed words are waiting, your last score and your first-try accuracy, with two big buttons: **▶ Start** (using the choices below) and **🔁 Review my missed words**.
