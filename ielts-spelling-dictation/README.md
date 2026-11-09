@@ -25,17 +25,19 @@ The **🌓** button at the top right switches between automatic (follows Windows
 1. Unzip `IELTS-Spelling-Dictation.zip` to any folder, for example `Documents\IELTS-Spelling-Dictation`. Don't run it from inside the ZIP.
 2. Double-click **`IELTS-Spelling-Dictation.html`**. It opens in your browser. Edge or Chrome works best: if it opens elsewhere, right-click it → **Open with → Microsoft Edge** or **Google Chrome**.
    - `Start IELTS Dictation.bat` is optional. **Windows Smart App Control blocks it** because it came from the internet. That's expected: click **Okay** and open the .html file instead. Don't turn Smart App Control off for this.
-3. In the **Audio** box, check that it says *Voice ready*, click **🔊 Test voice**, and adjust rate and volume.
+3. In the **Voice & speed** box, choose **👩 Woman** or **👨 Man**, check that it says *Voice ready*, click **🔊 Test voice**, and adjust rate and volume.
 4. Click **▶ Start**. From then on you only need the keyboard.
 
 Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Windows.
 
 ## Audio setup
 
+**Woman or man:** at the top of **Voice & speed**, choose **👩 Woman** (the default) or **👨 Man**. You hear a short sample in the new voice. To pick an exact voice instead, use the list below it, which is grouped into women's and men's voices. Your choice is remembered.
+
 **For the clearest pronunciation, use Microsoft Edge.** It offers Microsoft's "Natural" voices (for example *Aria* and *Jenny*), which sound far more human than the older built-in Windows voices. The app picks the clearest available US voice automatically; these are marked **★** in the voice list.
 
 - The ★ Natural voices are **online**: they need internet, and the word or sentence being spoken is sent to Microsoft's speech service. Nothing else is sent: not your vocabulary list, answers or results.
-- **If the online voice doesn't respond** (for example with no internet), the app switches automatically to a local Windows voice (**Microsoft David**, **Zira** or **Mark**, marked *"local, works offline"*) and says so on screen. The next time you open the app, it tries the clearer voice again.
+- **If the online voice doesn't respond** (for example with no internet), the app switches automatically to a local Windows voice of the same kind (**Microsoft Zira** for a woman, **Microsoft David** or **Mark** for a man, marked *"local, works offline"*) and says so on screen. The next time you open the app, it tries the clearer voice again.
 - To stay fully offline, choose a *local* voice in the list. Your choice is remembered.
 - Some words are pronounced with a small fix so the voice reads them correctly. For example, *resume* (the job document) is read as "résumé".
 - **No US English voice listed?** Open **Settings → Time & language → Speech → Manage voices → Add voices**, add **English (United States)**, then close and reopen the browser and click **Look for voices again**.
