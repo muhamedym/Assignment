@@ -14,13 +14,14 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 
 ## Android app
 
-There is also an Android app (`IELTS-Dictation-1.9.apk`, Android 7.0 or newer). It is the same app, made for phones: big touch-friendly buttons, a Start button always at the bottom of the screen, and word lists shown as cards. It works offline.
+There is also an Android app, **Spelling Dictation** (Android 7.0 or newer). It is the same app, made for phones: big touch-friendly buttons, a Start button always at the bottom of the screen, and word lists shown as cards. It works offline.
 
-**Install it**
+**Install it** from Google Play (the easiest way; see `android-app/play-store/Play-Console-Guide.html` to publish it as an internal test), or install the `.apk` file directly:
 1. Copy the `.apk` file to the phone (for example from email, WhatsApp or Google Drive) and tap it.
 2. Android asks you to allow installing apps from that source (for example *Files* or *Chrome*). Tap **Settings**, switch on **Allow from this source**, then go back and tap **Install**.
 3. If Google Play Protect shows a warning, that's because the app isn't from the Play Store. Tap **More details → Install anyway** (or **Scan app**, then **Install**).
-4. Open **IELTS Dictation** from your apps.
+   - On Samsung phones, **Auto Blocker** blocks apps that aren't from Google Play or Galaxy Store. Turn it off in **Settings → Security and privacy → Auto Blocker**, install, then turn it back on. Or install from Google Play instead.
+4. Open **Spelling Dictation** from your apps.
 
 **Voices:** the app uses the phone's own voices. Choose **👩 Woman** or **👨 Man** in **Voice & speed**. If no voice is found or the voice is unclear, tap **⚙ Open speech settings** (in Voice & speed or Help), choose *Speech Services by Google* and install **English (United States)** voice data.
 

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Console Guide</title>
+<style>
+  :root { --bg: #f2f4f8; --panel: #fff; --text: #141b2c; --muted: #576176; --line: #e0e4ec; --accent: #2a58d0; --soft: #e9effc; --ok: #157a3f; --warn: #8a5300; --warn-soft: #fff4dd; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0d1117; --panel: #161b24; --text: #e8ecf3; --muted: #a0aabb; --line: #29303c; --accent: #82a6ff; --soft: #1c2742; --ok: #6fd896; --warn: #ffc56b; --warn-soft: #33270f; } }
+  :root[data-theme="dark"] { --bg: #0d1117; --panel: #161b24; --text: #e8ecf3; --muted: #a0aabb; --line: #29303c; --accent: #82a6ff; --soft: #1c2742; --ok: #6fd896; --warn: #ffc56b; --warn-soft: #33270f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -.01em; }
+  .lead { color: var(--muted); margin: 0 0 20px; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 0 0 14px; }
+  h2 { font-size: 19px; margin: 0 0 10px; display: flex; gap: 10px; align-items: center; }
+  .no { flex: none; width: 28px; height: 28px; border-radius: 999px; background: var(--soft); color: var(--accent); display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+  ol, ul { margin: 6px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+  b.ui { color: var(--accent); }
+  .copy { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0 10px; }
+  .copy pre { flex: 1; min-width: 0; margin: 0; white-space: pre-wrap; word-break: break-word; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font: 14.5px/1.5 Consolas, "Cascadia Mono", monospace; }
+  .copy button { flex: none; font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+  .copy button:hover { border-color: var(--accent); }
+  .lbl { font-weight: 600; margin-top: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 6px 0; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  td:last-child { font-weight: 600; }
+  .note { background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 8px; padding: 8px 12px; margin: 10px 0 0; }
+  .muted { color: var(--muted); }
+  code { font-family: Consolas, "Cascadia Mono", monospace; font-size: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 0 5px; }
+  a { color: var(--accent); }
+  @media (max-width: 600px) { .copy { flex-direction: column; } .copy button { align-self: flex-end; } section { padding: 16px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Publishing Spelling Dictation on Google Play</h1>
+  <p class="lead">Internal testing: only you (and people you add) can install it. About 15 minutes in Play Console. Keep this page open next to Play Console. Every answer is ready to copy.</p>
+
+  <section>
+    <h2><span class="no">0</span> What you need</h2>
+    <ul>
+      <li><b>Spelling-Dictation-1.9.aab</b>: the app file for Google Play.</li>
+      <li>The <b>privacy policy link</b>:</li>
+    </ul>
+    <div class="copy"><pre>https://github.com/muhamedym/Assignment/blob/claude/festive-dirac-w0xyzh/PRIVACY-POLICY.md</pre><button type="button">Copy</button></div>
+    <ul>
+      <li>The <b>store images</b> (icon, feature graphic, 5 phone screenshots) from the <i>Play-Store-Images</i> ZIP.</li>
+      <li>The <b>signing key ZIP</b> you saved earlier. It's already inside the .aab as your <i>upload key</i>; keep it safe for future updates.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">1</span> Create the app</h2>
+    <ol>
+      <li>Open <a href="https://play.google.com/console" target="_blank" rel="noopener">play.google.com/console</a> on your computer → <b class="ui">Create app</b>.</li>
+      <li><b>App name:</b></li>
+    </ol>
+    <div class="copy"><pre>Spelling Dictation</pre><button type="button">Copy</button></div>
+    <ol start="3">
+      <li><b>Default language:</b> English (United States) · <b>App or game:</b> App · <b>Free or paid:</b> Free.</li>
+      <li>Tick the two declarations → <b class="ui">Create app</b>.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="no">2</span> Add yourself as a tester</h2>
+    <ol>
+      <li><b class="ui">Test and release → Testing → Internal testing</b> → tab <b class="ui">Testers</b> → <b class="ui">Create email list</b>.</li>
+      <li>List name: <code>Me</code>. Add the Gmail address your phone's Play Store uses → <b class="ui">Save changes</b>. Make sure the list is ticked.</li>
+      <li>Under <b>How testers join your test</b>, copy the <b>Join on the web</b> link. You'll need it in step 6.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="no">3</span> Upload the app</h2>
+    <ol>
+      <li>Still in <b class="ui">Internal testing</b> → <b class="ui">Create new release</b>.</li>
+      <li>If asked about app signing: choose <b>Use Google-generated key</b> (recommended).</li>
+      <li>Drag <b>Spelling-Dictation-1.9.aab</b> into <b>App bundles</b> and wait until it finishes processing.</li>
+      <li><b>Release name:</b> <code>1.9</code>. <b>Release notes:</b></li>
+    </ol>
+    <div class="copy"><pre>&lt;en-US&gt;
+First version: spelling dictation, verb forms practice, sounds of American English, woman or man voice.
+&lt;/en-US&gt;</pre><button type="button">Copy</button></div>
+    <ol start="5">
+      <li><b class="ui">Next</b> → <b class="ui">Save</b>. If Play shows warnings only (yellow), you can continue. Leave this page open; you'll press <b class="ui">Start rollout</b> after step 5.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="no">4</span> Fill in the App content forms</h2>
+    <p class="muted">Left menu: <b class="ui">Policy and programs → App content</b> (in some layouts: <b class="ui">Monitor and improve → Policy → App content</b>). Open each item and answer:</p>
+    <table>
+      <tr><th>Form</th><th>Answer</th></tr>
+      <tr><td>Privacy policy</td><td>Paste the link from step 0</td></tr>
+      <tr><td>Ads</td><td>No, my app does not contain ads</td></tr>
+      <tr><td>App access</td><td>All functionality in my app is available without any access restrictions</td></tr>
+      <tr><td>Content rating</td><td>See the box below</td></tr>
+      <tr><td>Target audience and content</td><td>18 and over · "Could your store listing unintentionally appeal to children?" No</td></tr>
+      <tr><td>News app</td><td>No</td></tr>
+      <tr><td>Data safety</td><td>See the box below</td></tr>
+      <tr><td>Government apps</td><td>No</td></tr>
+      <tr><td>Financial features</td><td>My app doesn't provide any financial features</td></tr>
+      <tr><td>Health apps</td><td>My app does not have any health features</td></tr>
+      <tr><td>Advertising ID (if asked)</td><td>No</td></tr>
+    </table>
+
+    <p class="lbl">Content rating questionnaire</p>
+    <ul>
+      <li>Email address: yours. <b>Category:</b> <b>Reference, News, or Educational</b>.</li>
+      <li>Answer <b>No</b> to every question: violence, fear, sexuality, language, controlled substances, crude humor, gambling, user interaction or sharing content, sharing location, buying digital goods, web browser or search engine.</li>
+      <li><b class="ui">Save</b> → <b class="ui">Submit</b>. Expected rating: <b>Everyone / PEGI 3</b>.</li>
+    </ul>
+
+    <p class="lbl">Data safety</p>
+    <p class="muted" style="margin:4px 0">Why "Yes": when you add a word and <i>Look up online</i> is on, the app sends that word (only the word) to free dictionary sites. Everything else stays on the phone.</p>
+    <table>
+      <tr><th>Question</th><th>Answer</th></tr>
+      <tr><td>Does your app collect or share any of the required user data types?</td><td>Yes</td></tr>
+      <tr><td>Is all of the user data collected by your app encrypted in transit?</td><td>Yes</td></tr>
+      <tr><td>Account creation methods</td><td>My app does not allow users to create an account</td></tr>
+      <tr><td>Do you provide a way for users to request that their data is deleted? (if asked)</td><td>No</td></tr>
+      <tr><td>Data types: tick only</td><td>App activity → In-app search history</td></tr>
+      <tr><td>In-app search history: Collected / Shared</td><td>Collected ✓ · Shared ✗</td></tr>
+      <tr><td>Is this data processed ephemerally?</td><td>No</td></tr>
+      <tr><td>Is this data required, or can users choose?</td><td>Users can choose whether this data is collected</td></tr>
+      <tr><td>Why is this data collected?</td><td>App functionality</td></tr>
+    </table>
+    <p class="muted" style="margin:4px 0">Then <b class="ui">Next</b> → check the preview → <b class="ui">Submit</b>.</p>
+  </section>
+
+  <section>
+    <h2><span class="no">5</span> Store listing</h2>
+    <p class="muted">Left menu: <b class="ui">Grow users → Store presence → Main store listing</b>. Play may ask for this before the first release.</p>
+    <p class="lbl">App name</p>
+    <div class="copy"><pre>Spelling Dictation</pre><button type="button">Copy</button></div>
+    <p class="lbl">Short description (77 of 80 characters)</p>
+    <div class="copy"><pre>Hear a word, type it, and learn its spelling, meaning, sounds and verb forms.</pre><button type="button">Copy</button></div>
+    <p class="lbl">Full description</p>
+    <div class="copy"><pre>Spelling Dictation helps you spell English words correctly, the way you need to in exams such as IELTS. You hear a word, type it and submit. The word is never shown before you answer.
+
+After every answer you see:
+• the correct spelling, with your mistakes marked letter by letter
+• the meaning, part of speech, word family and an example sentence
+• American pronunciation (IPA), syllables, and silent and double letters
+• for verbs: base form, past tense, past participle, -ing form and he/she/it, with the spelling rule (stopped, occurred, studied)
+
+WHAT YOU CAN PRACTICE
+• 547 built-in words: listening topics (bookings, dates, numbers, travel), 378 high-frequency listening words, and academic reading and writing vocabulary
+• Verb forms: about 160 irregular verbs (go → went → gone) and verbs with spelling changes
+• Your own words: type a word, and its meaning, example and pronunciation are filled in for you
+• Previously missed words, until you get them right twice
+
+LISTEN AND LEARN
+• Choose a woman's or a man's voice
+• Repeat the word, hear it slowly, or hear it in a sentence
+• Sounds: all 41 sounds of American English, with recordings, pictures of the mouth and "test your ear" games
+
+PRIVATE
+• No account, no ads, no tracking
+• Works offline. Your progress stays on your phone, and you can export a backup file at any time
+
+Not affiliated with, approved or endorsed by IELTS, the British Council, IDP: IELTS Australia or Cambridge University Press &amp; Assessment. IELTS is a registered trademark of its owners.</pre><button type="button">Copy</button></div>
+    <p class="lbl">Graphics</p>
+    <ul>
+      <li><b>App icon:</b> <code>icon-512.png</code> · <b>Feature graphic:</b> <code>feature-graphic-1024x500.png</code></li>
+      <li><b>Phone screenshots:</b> the five <code>screenshot-…png</code> files, in order.</li>
+    </ul>
+    <p class="lbl">Store settings</p>
+    <p class="muted" style="margin:4px 0"><b class="ui">Store presence → Store settings</b>: App category <b>Education</b>; contact email: your email.</p>
+  </section>
+
+  <section>
+    <h2><span class="no">6</span> Start the test and install</h2>
+    <ol>
+      <li>Go back to <b class="ui">Internal testing</b> → your release → <b class="ui">Review release</b> → <b class="ui">Start rollout to Internal testing</b>.</li>
+      <li>On your phone, open the <b>Join on the web</b> link from step 2, signed in with the same Gmail → <b class="ui">Accept invite</b> → <b class="ui">Download it on Google Play</b> → <b class="ui">Install</b>.</li>
+      <li>It's usually available within minutes, sometimes up to a few hours. Auto Blocker won't stop it, because it comes from Google Play.</li>
+    </ol>
+    <p class="note">Making it public (Production) needs more: for newer personal accounts, a closed test with at least 12 testers for 14 days, then a review. Internal testing has no waiting period.</p>
+  </section>
+
+  <section>
+    <h2><span class="no">?</span> If something goes wrong</h2>
+    <ul>
+      <li><b>"Version code 2 has already been used"</b>: each new upload needs a higher version code. Ask for a new build.</li>
+      <li><b>"Your app must target API level 36"</b>: this .aab already targets Android 16 (API 36).</li>
+      <li><b>"Package name already exists"</b>: ask for a build with a different package name (it's <code>com.muhamedym.spellingdictation</code>).</li>
+      <li>Remove the older app first if you installed a test APK on the same phone. It has a different package name, so both could appear.</li>
+    </ul>
+  </section>
+</main>
+<script>
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".copy button"); if (!b) return;
+  const t = b.parentElement.querySelector("pre").textContent;
+  const done = () => { b.textContent = "Copied ✓"; setTimeout(() => { b.textContent = "Copy"; }, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, () => {});
+  else { const r = document.createRange(); r.selectNodeContents(b.parentElement.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand("copy"); done(); }
+});
+</script>
+</body>
+</html>

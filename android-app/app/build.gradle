@@ -9,14 +9,14 @@ def keyPropsFile = rootProject.file('keystore/keystore.properties')
 if (keyPropsFile.exists()) keyPropsFile.withInputStream { keyProps.load(it) }
 
 android {
-    namespace 'com.mohammed.ieltsdictation'
-    compileSdk 35
+    namespace 'com.muhamedym.spellingdictation'
+    compileSdk 36
 
     defaultConfig {
-        applicationId 'com.mohammed.ieltsdictation'
+        applicationId 'com.muhamedym.spellingdictation'
         minSdk 24          // Android 7.0 and newer
-        targetSdk 34
-        versionCode 1
+        targetSdk 36       // Android 16, as Google Play requires
+        versionCode 2
         versionName '1.9'
     }
 

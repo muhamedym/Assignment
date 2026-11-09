@@ -1,4 +1,4 @@
-package com.mohammed.ieltsdictation;
+package com.muhamedym.spellingdictation;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -16,9 +16,14 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.WindowInsetsController;
+import android.widget.FrameLayout;
+import android.window.OnBackInvokedDispatcher;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -37,7 +42,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * IELTS Spelling Dictation for Android.
+ * Spelling Dictation for IELTS Practice, for Android.
  *
  * The app itself is the same single HTML file as the Windows version (assets/index.html). This screen shows it
  * full-screen and adds what a phone app needs: the phone's own text-to-speech (so a woman's or a man's voice can be
@@ -50,6 +55,7 @@ public class MainActivity extends Activity {
     private static final int REQ_SAVE_FILE = 2;
 
     private final Handler main = new Handler(Looper.getMainLooper());
+    private FrameLayout root;
     private WebView web;
     private TextToSpeech tts;
     private volatile boolean ttsReady = false;
@@ -63,7 +69,15 @@ public class MainActivity extends Activity {
 
         web = new WebView(this);
         web.setBackgroundColor(isNight() ? 0xFF0D1117 : 0xFFF2F4F8);
-        setContentView(web);
+        root = new FrameLayout(this);
+        root.setBackgroundColor(isNight() ? 0xFF161B24 : 0xFFFFFFFF); // shows behind the status and navigation bars
+        root.addView(web, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(root);
+        fitAroundSystemBars();
+        if (Build.VERSION.SDK_INT >= 33) {
+            // Android 13+: the Back button and the back gesture come here (predictive back).
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBack);
+        }
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
@@ -124,6 +138,28 @@ public class MainActivity extends Activity {
         web.loadUrl(START_URL);
     }
 
+    /**
+     * Android 15 and 16 always draw apps behind the status bar, the navigation bar and the keyboard. The page is
+     * kept clear of them with padding (and made shorter while the keyboard is open, so the answer box stays visible).
+     */
+    @SuppressWarnings("deprecation")
+    private void fitAroundSystemBars() {
+        if (Build.VERSION.SDK_INT < 30) return; // older Android: the theme and adjustResize do this
+        Window w = getWindow();
+        w.setDecorFitsSystemWindows(false);
+        if (Build.VERSION.SDK_INT < 35) {
+            w.setStatusBarColor(0x00000000);
+            w.setNavigationBarColor(0x00000000);
+        }
+        root.setOnApplyWindowInsetsListener((v, insets) -> {
+            android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+            android.graphics.Insets ime = insets.getInsets(WindowInsets.Type.ime());
+            v.setPadding(bars.left, bars.top, bars.right, Math.max(bars.bottom, ime.bottom));
+            return WindowInsets.CONSUMED;
+        });
+        root.requestApplyInsets();
+    }
+
     private boolean isNight() {
         return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
@@ -147,8 +183,11 @@ public class MainActivity extends Activity {
     private void applySystemBars(boolean dark) {
         Window w = getWindow();
         int bar = dark ? 0xFF161B24 : 0xFFFFFFFF;
-        w.setStatusBarColor(bar);
-        if (Build.VERSION.SDK_INT >= 27) w.setNavigationBarColor(bar);
+        root.setBackgroundColor(bar);
+        if (Build.VERSION.SDK_INT < 30) {
+            w.setStatusBarColor(bar);
+            if (Build.VERSION.SDK_INT >= 27) w.setNavigationBarColor(bar);
+        }
         web.setBackgroundColor(dark ? 0xFF0D1117 : 0xFFF2F4F8);
         if (Build.VERSION.SDK_INT >= 30) {
             WindowInsetsController c = w.getInsetsController();
@@ -200,9 +239,18 @@ public class MainActivity extends Activity {
     }
 
     /** Back: close the open window, leave a screen, or pause the session first; otherwise the app goes to the background. */
+    /** Android 7-12: the Back button arrives as a key (Android 13+ uses the callback registered in onCreate). */
     @Override
-    @SuppressWarnings("deprecation")
-    public void onBackPressed() {
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (Build.VERSION.SDK_INT < 33 && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) handleBack();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void handleBack() {
+        if (web == null) return;
         web.evaluateJavascript("(window.__androidBack && window.__androidBack()) ? 'yes' : 'no'", value -> {
             if (value == null || !value.contains("yes")) moveTaskToBack(true);
         });
