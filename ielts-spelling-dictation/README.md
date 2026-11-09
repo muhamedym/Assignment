@@ -14,7 +14,11 @@ You hear a word, type it, and press **Enter**, all in one window. There's nothin
 
 ## Practice screen
 
-The top of the Practice screen shows your word count, how many missed words are waiting and your last score, with two big buttons: **▶ Start** (using the choices below) and **🔁 Review my missed words**.
+The top of the Practice screen shows your word count, how many missed words are waiting, your last score and your first-try accuracy, with two big buttons: **▶ Start** (using the choices below) and **🔁 Review my missed words**.
+
+Below it, step **1** shows what you can practice as cards (each with its number of words), and step **2** has the session settings. During a session, a bar shows how far you are, with your right ✓ and wrong ✗ answers so far.
+
+The **🌓** button at the top right switches between automatic (follows Windows), light and dark themes. Your choice is remembered.
 
 ## Start it on Windows
 
@@ -47,6 +51,7 @@ Use **Microsoft Edge** or **Google Chrome**. Both use the voices built into Wind
    - 378 High Frequency Words in IELTS Listening: all, or one topic (School, Daily Life, Business…)
    - Reading: all, or one topic (Science & Research, Environment & Nature, History & Archaeology, Health & Medicine, Technology & Innovation, Psychology & Behavior, Business & Economics, Society & Culture)
    - Academic Writing: Task 1 + Task 2 together, or just one task
+   - **Verb forms** (new): past tense and past participle. All, or one part (Irregular verbs, Spelling changes, Regular verbs). See *Verb forms* below.
    - Previously missed words
 
    When a category has parts, a **Part** menu appears under the list.
@@ -63,6 +68,34 @@ The **Mixed** session fills about 60% of the words from your previously missed w
 A missed word leaves the "Previously missed words" list after you spell it right on the first try in **two** later sessions.
 
 Sound-alike words get a short spoken meaning after the two readings, for example *principle* ("as in, a basic rule or belief", so you don't write *principal*), *stationery* ("as in, paper and pens") and *dessert*. You can switch this off in Audio settings.
+
+## Verb forms (past tense and past participle)
+
+**After every answer**, if the word is a verb (including phrasal verbs such as *take over*), the word panel shows its five forms:
+
+| Base form | Past tense | Past participle | -ing form | he / she / it |
+|---|---|---|---|---|
+| begin | began | begun | beginning | begins |
+| occur | occurred | occurred | occurring | occurs |
+| take over | took over | taken over | taking over | takes over |
+
+- Click any form to hear it. The letters that change from the base form are underlined.
+- The panel says whether the verb is **⚡ irregular** or regular, and for regular verbs gives the **spelling rule**: double the last letter when the last syllable is stressed (*occur → occurred*, but *visit → visited*, *travel → traveled*), consonant + y → *ied* (*study → studied*), *-ic → -icked* (*panic → panicked*), or add only *-d* after *e*.
+- It also shows how the **-ed** ending sounds: /t/ (*worked*), /d/ (*played*) or /ɪd/ (*wanted*).
+- The app uses American spelling. When British spelling differs, it's shown as a note (🇬🇧 *travelled*, *learnt*).
+- Some verbs have a short note, for example *lie → lay, lain* (lie down) vs. *lie → lied* (say something untrue), and *get → gotten* (American) vs. *got* (British).
+- For a word that is itself a verb form (*emitted*, *illustrates*), the matching boxes are highlighted.
+
+**Verb forms practice:** choose **Verb forms** on the Practice screen. The voice says a verb and the form to write, for example *"Begin. … Past tense."*, and you type **began**. The screen shows only which form is asked, never the verb's spelling.
+
+- **Irregular verbs:** about 160 common irregular verbs plus the irregular verbs in your vocabulary. Each one is asked as past tense and as past participle.
+- **Spelling changes:** verbs where the past tense changes spelling (*stopped, occurred, studied, panicked*) or where people often add a letter by mistake (*visited, traveled, offered*).
+- **Regular verbs:** the other verbs in your vocabulary (*converted, fluctuated*).
+- When two forms are both correct (*dove / dived*, *was / were*), either is accepted, and the other is shown as "Also correct".
+- **💬 Say a sentence** gives the verb's meaning instead of a sentence, so it never says the answer.
+- Missed verb forms go into **Previously missed words** and the **Mixed** session like other words.
+
+**Words you add:** when the part of speech is a verb, the Add/Edit window shows a **Verb forms** box (past tense, past participle), filled in automatically. If a form is wrong, type the correct one, for example `dwelled, dwelled`; your version is used everywhere. The Vocabulary list shows the forms under each verb (⚡ marks irregular verbs), and CSV import/export has a `forms` column.
 
 ## Pronunciation help (IPA, syllables, silent letters)
 
@@ -143,7 +176,7 @@ Every built-in word has a meaning, part of speech, word family and example sente
 
 **Import format**
 
-- **CSV:** `word,category,group,hint,example,context,pos,meaning,sentence,family,similar,ipa` (only `word` is required; empty columns are filled in automatically). The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
+- **CSV:** `word,category,group,hint,example,context,pos,meaning,sentence,family,similar,ipa,forms` (only `word` is required; empty columns are filled in automatically). `forms` is a verb's past tense and past participle, for example `"began, begun"`. The header row is optional. Category can be `personal`, `listening`, `hf` (high-frequency listening), `task1`, `task2` or `custom`; anything else goes into the category chosen next to the import button. See `sample-vocabulary.csv`.
 - **TXT:** one word or phrase per line.
 - Duplicates are skipped. Use US spelling.
 
